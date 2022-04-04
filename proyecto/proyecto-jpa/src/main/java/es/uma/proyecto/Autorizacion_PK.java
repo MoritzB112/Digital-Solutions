@@ -7,7 +7,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Autorizacion_PK implements Serializable {
 	private Long paID;
-	private Long ciID;
+	private Long emID;
 	
 	public Autorizacion_PK() {
 		// TODO Auto-generated constructor stub
@@ -21,17 +21,17 @@ public class Autorizacion_PK implements Serializable {
 		this.paID = paID;
 	}
 
-	public Long getCiID() {
-		return ciID;
+	public Long getEmID() {
+		return emID;
 	}
 
-	public void setCiID(Long ciID) {
-		this.ciID = ciID;
+	public void setEmID(Long emID) {
+		this.emID = emID;
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ciID, paID);
+		return Objects.hash(emID, paID);
 	}
 
 	@Override
@@ -43,12 +43,12 @@ public class Autorizacion_PK implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Autorizacion_PK other = (Autorizacion_PK) obj;
-		return Objects.equals(ciID, other.ciID) && Objects.equals(paID, other.paID);
+		return Objects.equals(emID, other.emID) && Objects.equals(paID, other.paID);
 	}
 
 	@Override
 	public String toString() {
-		return "Autorizacion_PK [paID=" + paID + ", ciID=" + ciID + "]";
+		return "Autorizacion_PK [paID=" + paID + ", emID=" + emID + "]";
 	}
 	
 	
