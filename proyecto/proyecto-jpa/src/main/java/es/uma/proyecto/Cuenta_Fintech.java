@@ -76,7 +76,7 @@ public class Cuenta_Fintech extends Cuenta {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(clasificacion, estado, fecha_apertura, fecha_cierre);
+		return super.hashCode();
 	}
 
 	@Override
@@ -88,9 +88,7 @@ public class Cuenta_Fintech extends Cuenta {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuenta_Fintech other = (Cuenta_Fintech) obj;
-		return Objects.equals(clasificacion, other.clasificacion) && Objects.equals(estado, other.estado)
-				&& Objects.equals(fecha_apertura, other.fecha_apertura)
-				&& Objects.equals(fecha_cierre, other.fecha_cierre);
+		return Objects.equals(super.getIBAN(), other.getIBAN());
 	}
 
 	@Override

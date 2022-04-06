@@ -39,10 +39,7 @@ public class Empresa extends Cliente {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(razon_social);
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
@@ -54,7 +51,7 @@ public class Empresa extends Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Empresa other = (Empresa) obj;
-		return Objects.equals(razon_social, other.razon_social);
+		return Objects.equals(super.getId(), other.getId());
 	}
 
 	@Override

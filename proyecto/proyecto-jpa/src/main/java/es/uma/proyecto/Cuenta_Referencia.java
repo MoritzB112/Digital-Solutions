@@ -99,10 +99,7 @@ public class Cuenta_Referencia extends Cuenta {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(estado, fecha_apertura, nombreBanco, pais, saldo, sucursal);
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
@@ -114,9 +111,7 @@ public class Cuenta_Referencia extends Cuenta {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuenta_Referencia other = (Cuenta_Referencia) obj;
-		return Objects.equals(estado, other.estado) && Objects.equals(fecha_apertura, other.fecha_apertura)
-				&& Objects.equals(nombreBanco, other.nombreBanco) && Objects.equals(pais, other.pais)
-				&& Objects.equals(saldo, other.saldo) && Objects.equals(sucursal, other.sucursal);
+		return Objects.equals(super.getIBAN(), other.getIBAN());
 	}
 
 	@Override

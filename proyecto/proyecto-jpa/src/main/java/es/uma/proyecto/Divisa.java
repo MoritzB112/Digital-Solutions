@@ -92,7 +92,7 @@ public class Divisa {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(CambioEuro, abreviatura, nombre, simbolo);
+		return Objects.hash(abreviatura);
 	}
 
 	@Override
@@ -104,8 +104,7 @@ public class Divisa {
 		if (getClass() != obj.getClass())
 			return false;
 		Divisa other = (Divisa) obj;
-		return Objects.equals(CambioEuro, other.CambioEuro) && Objects.equals(abreviatura, other.abreviatura)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(simbolo, other.simbolo);
+		return Objects.equals(abreviatura, other.abreviatura);
 	}
 
 	@Override

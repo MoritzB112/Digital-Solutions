@@ -22,36 +22,34 @@ import javax.persistence.TemporalType;
 public class Cliente {
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
 	private Long id;
 
-	@Column(name = "identificacion", unique = true, nullable = false)
+	@Column(unique = true, nullable = false)
 	private String identificacion;
 
-	@Column(name = "tipo_cliente", nullable = false)
+	@Column(nullable = false)
 	private String tipo_cliente;
 
-	@Column(name = "estado", nullable = false)
+	@Column(nullable = false)
 	private String estado;
 
-	@Column(name = "fecha_alta", nullable = false)
+	@Column(nullable = false)
 	@Temporal(TemporalType.DATE)
 	private Date fecha_alta;
 
-	@Column(name = "fecha_baja")
 	@Temporal(TemporalType.DATE)
 	private Date fecha_baja;
 
-	@Column(name = "direccion", nullable = false)
+	@Column(nullable = false)
 	private String direccion;
 
-	@Column(name = "ciudad", nullable = false)
+	@Column(nullable = false)
 	private String ciudad;
 
-	@Column(name = "codigoPostal", nullable = false)
+	@Column(nullable = false)
 	private Integer codigoPostal;
 
-	@Column(name = "pais", nullable = false)
+	@Column(nullable = false)
 	private String pais;
 	
 	private String password;
@@ -171,8 +169,7 @@ public class Cliente {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ciudad, codigoPostal, direccion, estado, fecha_alta, fecha_baja, id, identificacion, pais,
-				password, salt, tipo_cliente);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -184,12 +181,7 @@ public class Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Cliente other = (Cliente) obj;
-		return Objects.equals(ciudad, other.ciudad) && Objects.equals(codigoPostal, other.codigoPostal)
-				&& Objects.equals(direccion, other.direccion) && Objects.equals(estado, other.estado)
-				&& Objects.equals(fecha_alta, other.fecha_alta) && Objects.equals(fecha_baja, other.fecha_baja)
-				&& Objects.equals(id, other.id) && Objects.equals(identificacion, other.identificacion)
-				&& Objects.equals(pais, other.pais) && Objects.equals(password, other.password)
-				&& Objects.equals(salt, other.salt) && Objects.equals(tipo_cliente, other.tipo_cliente);
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

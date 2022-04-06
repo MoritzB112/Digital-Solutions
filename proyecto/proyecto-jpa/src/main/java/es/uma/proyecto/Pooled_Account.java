@@ -1,6 +1,7 @@
 package es.uma.proyecto;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -31,11 +32,12 @@ public class Pooled_Account extends Cuenta_Fintech {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (obj == null)
+		if (!super.equals(obj))
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		return super.equals(obj);
+		Pooled_Account other = (Pooled_Account) obj;
+		return Objects.equals(super.getIBAN(), other.getIBAN());
 	}
 
 	@Override

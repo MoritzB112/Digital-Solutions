@@ -31,10 +31,7 @@ public class Segregada extends Cuenta_Fintech {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(comision);
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
@@ -46,7 +43,7 @@ public class Segregada extends Cuenta_Fintech {
 		if (getClass() != obj.getClass())
 			return false;
 		Segregada other = (Segregada) obj;
-		return Objects.equals(comision, other.comision);
+		return Objects.equals(super.getIBAN(), other.getIBAN());
 	}
 
 	@Override

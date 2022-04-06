@@ -140,7 +140,7 @@ public class Transaccion {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(ID_unico, Tipo, cantidad, comision, fechaEjecucion, fechaInstruccion, internacional);
+		return Objects.hash(ID_unico);
 	}
 
 	@Override
@@ -152,11 +152,7 @@ public class Transaccion {
 		if (getClass() != obj.getClass())
 			return false;
 		Transaccion other = (Transaccion) obj;
-		return Objects.equals(ID_unico, other.ID_unico) && Objects.equals(Tipo, other.Tipo)
-				&& Objects.equals(cantidad, other.cantidad) && Objects.equals(comision, other.comision)
-				&& Objects.equals(fechaEjecucion, other.fechaEjecucion)
-				&& Objects.equals(fechaInstruccion, other.fechaInstruccion)
-				&& Objects.equals(internacional, other.internacional);
+		return Objects.equals(ID_unico, other.ID_unico);
 	}
 
 	@Override

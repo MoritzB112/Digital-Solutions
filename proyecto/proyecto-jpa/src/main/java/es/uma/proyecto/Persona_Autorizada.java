@@ -151,8 +151,7 @@ public class Persona_Autorizada {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(FechaFin, FechaInicio, ID, Identificacion, apellidos, direccion, estado, fecha_nacimeinteo,
-				nombre, password, salt);
+		return Objects.hash(ID);
 	}
 
 	@Override
@@ -164,12 +163,7 @@ public class Persona_Autorizada {
 		if (getClass() != obj.getClass())
 			return false;
 		Persona_Autorizada other = (Persona_Autorizada) obj;
-		return Objects.equals(FechaFin, other.FechaFin) && Objects.equals(FechaInicio, other.FechaInicio)
-				&& Objects.equals(ID, other.ID) && Objects.equals(Identificacion, other.Identificacion)
-				&& Objects.equals(apellidos, other.apellidos) && Objects.equals(direccion, other.direccion)
-				&& Objects.equals(estado, other.estado) && Objects.equals(fecha_nacimeinteo, other.fecha_nacimeinteo)
-				&& Objects.equals(nombre, other.nombre) && Objects.equals(password, other.password)
-				&& Objects.equals(salt, other.salt);
+		return Objects.equals(ID, other.ID);
 	}
 
 	@Override

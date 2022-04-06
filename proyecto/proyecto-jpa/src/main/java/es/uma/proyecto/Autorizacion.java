@@ -54,7 +54,7 @@ public class Autorizacion {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, tipo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class Autorizacion {
 		if (getClass() != obj.getClass())
 			return false;
 		Autorizacion other = (Autorizacion) obj;
-		return Objects.equals(id, other.id) && Objects.equals(tipo, other.tipo);
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

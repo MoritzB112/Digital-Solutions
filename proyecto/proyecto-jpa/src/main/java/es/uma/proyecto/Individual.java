@@ -50,10 +50,7 @@ public class Individual extends Cliente {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + Objects.hash(apellido, fecha_nacimiento, nombre);
-		return result;
+		return super.hashCode();
 	}
 
 	@Override
@@ -65,8 +62,7 @@ public class Individual extends Cliente {
 		if (getClass() != obj.getClass())
 			return false;
 		Individual other = (Individual) obj;
-		return Objects.equals(apellido, other.apellido) && Objects.equals(fecha_nacimiento, other.fecha_nacimiento)
-				&& Objects.equals(nombre, other.nombre);
+		return Objects.equals(super.getId(), other.getId());
 	}
 
 	@Override

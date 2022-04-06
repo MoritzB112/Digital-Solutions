@@ -62,7 +62,7 @@ public class Depositado_en {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(id, saldo);
+		return Objects.hash(id);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class Depositado_en {
 		if (getClass() != obj.getClass())
 			return false;
 		Depositado_en other = (Depositado_en) obj;
-		return Objects.equals(id, other.id) && Objects.equals(saldo, other.saldo);
+		return Objects.equals(id, other.id);
 	}
 
 	@Override

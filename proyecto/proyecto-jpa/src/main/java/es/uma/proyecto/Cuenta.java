@@ -62,7 +62,7 @@ public class Cuenta {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(IBAN, SWIFT);
+		return Objects.hash(IBAN);
 	}
 
 	@Override
@@ -74,7 +74,7 @@ public class Cuenta {
 		if (getClass() != obj.getClass())
 			return false;
 		Cuenta other = (Cuenta) obj;
-		return Objects.equals(IBAN, other.IBAN) && Objects.equals(SWIFT, other.SWIFT);
+		return Objects.equals(IBAN, other.IBAN);
 	}
 
 	@Override
