@@ -11,13 +11,13 @@ import javax.persistence.TemporalType;
 @Entity
 public class Individual extends Cliente {
 	
-	@Column(name = "nombre", nullable = false)
+	@Column(nullable = false)
 	private String nombre;
 	
-	@Column(name = "apellido", nullable = false)
+	@Column(nullable = false)
 	private String apellido;
 	
-	@Column(name = "fecha_nacimiento") @Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.DATE)
 	private Date fecha_nacimiento;
 	
 	public Individual() {

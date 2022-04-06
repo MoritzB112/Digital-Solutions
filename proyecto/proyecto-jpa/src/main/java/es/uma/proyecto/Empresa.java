@@ -11,7 +11,7 @@ import javax.persistence.OneToMany;
 @Entity
 public class Empresa extends Cliente {
 	
-	@Column(name = "razon_social", nullable = false)
+	@Column(nullable = false)
 	private String razon_social;
 	
 	@OneToMany(mappedBy = "em", fetch = FetchType.LAZY)
