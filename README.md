@@ -1,4 +1,4 @@
-# Welcome to Digital Solutions :computer: 
+# Bienvenido a Digital Solutions :computer: 
 En este repositorio podrás encontrar el proyecto final de la asignatura Sistemas de la Información para Internet de la Universidad de Málaga. Dicho proyecto consiste en la elaboración de una aplicación Web empresarial basada en Java EE.
 
 ## 📌 Nuestro equipo
