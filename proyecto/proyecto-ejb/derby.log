@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Wed Apr 20 10:52:29 CEST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-462c-4859-00000a7ad718 
+on database directory /tmp/gfembed13298328984745425895tmp/lib/databases/ejbtimer with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 
+Loaded from file:/home/moritz/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/5.1.0/glassfish-embedded-all-5.1.0.jar
+java.vendor=Ubuntu
+java.runtime.version=11.0.14.1+1-Ubuntu-0ubuntu1.20.04
+user.dir=/mnt/c/Users/Moritz/OneDrive - Universidad de Málaga/Tercero/Segundo Cuatrimestre/Sistemas de Informacion para Internet/Digital Solutions/proyecto/proyecto-ejb
+os.name=Linux
+os.arch=amd64
+os.version=5.10.60.1-microsoft-standard-WSL2
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
