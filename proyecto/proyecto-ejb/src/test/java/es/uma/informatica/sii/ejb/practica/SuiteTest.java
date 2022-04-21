@@ -25,7 +25,14 @@ public class SuiteTest {
 	
 	@BeforeClass
 	public static void setUpClass() {
+<<<<<<< HEAD
 		
+=======
+//		Properties properties = new Properties();
+//		properties.setProperty(GLASSFISH_CONFIGI_FILE_PROPERTY, CONFIG_FILE);
+//		ejbContainer = EJBContainer.createEJBContainer(properties);
+//		ctx = ejbContainer.getContext();
+>>>>>>> 3f18f9cde43b230dc7d17b2850e26a9a9cf74ddf
 	}
 	
 	@AfterClass
