@@ -22,13 +22,13 @@ public class Trazabilidad {
 	
 	@Before
 	public void setup() throws NamingException  {
-		gestionDivisas = (GestionDivisas) SuiteTest.ctx.lookup(LOTES_EJB);
-		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+		
+//		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 
 	@Test
 	public void testTest() {
-		gestionDivisas.actualizarDivisas();		
+			
 		
 	}
 

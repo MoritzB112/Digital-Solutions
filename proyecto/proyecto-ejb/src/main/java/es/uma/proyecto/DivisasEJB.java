@@ -45,15 +45,7 @@ public class DivisasEJB implements GestionDivisas {
 	public void actualizarDivisas() {
 		//acceder a api y acturalizar todas las divisas que hay
 		List<Divisa> divs=em.createQuery("SELECT d FROM Divisa d", Divisa.class).getResultList();
-		File file = new File ("test.txt");
-	    try {
-			PrintWriter printWriter = new PrintWriter ("file.txt");
-			printWriter.println(divs);
-			printWriter.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 	    
 	}
 }
