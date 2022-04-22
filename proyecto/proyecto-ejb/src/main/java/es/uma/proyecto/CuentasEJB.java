@@ -116,7 +116,7 @@ public class CuentasEJB implements GestionCuentas {
 		}else {
 			throw new RuntimeException();
 		}
-		return null;
+		
 	}
 
 }

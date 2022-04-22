@@ -16,6 +16,7 @@
 		<class>es.uma.proyecto.Transaccion</class>
 		<class>es.uma.proyecto.Autorizacion_PK</class>
 		<class>es.uma.proyecto.Depositado_en_PK</class>
+		<class>es.uma.proyecto.Usuario</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:h2:mem:test"/>
 			<property name="javax.persistence.jdbc.user" value=""/>

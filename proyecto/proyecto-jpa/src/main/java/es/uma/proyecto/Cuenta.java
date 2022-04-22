@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -23,7 +24,7 @@ public class Cuenta {
 	
 	@OneToMany(mappedBy="origen", fetch = FetchType.LAZY)
 	private List<Transaccion> pagos;
-	
+
 	public Cuenta() {
 		// TODO Auto-generated constructor stub
 	}

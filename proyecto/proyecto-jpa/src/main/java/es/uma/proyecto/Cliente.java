@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,9 +24,6 @@ public class Cliente {
 	@Id
 	@GeneratedValue
 	private Long id;
-
-	@Column(unique = true, nullable = false)
-	private String identificacion;
 
 	@Column(nullable = false)
 	private String tipo_cliente;
@@ -52,9 +50,8 @@ public class Cliente {
 	@Column(nullable = false)
 	private String pais;
 	
-	private String password;
-	
-	private String salt;
+	@OneToOne(optional = false)
+	private Usuario us;
 	
 	@OneToMany(mappedBy = "cl", fetch = FetchType.LAZY)
 	private List<Cuenta_Fintech> cf;
@@ -69,14 +66,6 @@ public class Cliente {
 
 	public void setId(Long id) {
 		this.id = id;
-	}
-
-	public String getIdentificacion() {
-		return identificacion;
-	}
-
-	public void setIdentificacion(String identificacion) {
-		this.identificacion = identificacion;
 	}
 
 	public String getTipo_cliente() {
@@ -143,28 +132,20 @@ public class Cliente {
 		this.pais = pais;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
 	public List<Cuenta_Fintech> getCf() {
 		return cf;
 	}
 
 	public void setCf(List<Cuenta_Fintech> cf) {
 		this.cf = cf;
+	}
+
+	public Usuario getUs() {
+		return us;
+	}
+
+	public void setUs(Usuario us) {
+		this.us = us;
 	}
 
 	@Override
@@ -186,10 +167,9 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", identificacion=" + identificacion + ", tipo_cliente=" + tipo_cliente
-				+ ", estado=" + estado + ", fecha_alta=" + fecha_alta + ", fecha_baja=" + fecha_baja + ", direccion="
-				+ direccion + ", ciudad=" + ciudad + ", codigoPostal=" + codigoPostal + ", pais=" + pais + ", password="
-				+ password + ", salt=" + salt + "]";
+		return "Cliente [id=" + id + ", tipo_cliente=" + tipo_cliente + ", estado=" + estado + ", fecha_alta="
+				+ fecha_alta + ", fecha_baja=" + fecha_baja + ", direccion=" + direccion + ", ciudad=" + ciudad
+				+ ", codigoPostal=" + codigoPostal + ", pais=" + pais + "]";
 	}
 
 	

@@ -10,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -18,9 +19,6 @@ public class Persona_Autorizada {
 	@Id
 	@GeneratedValue
 	private Long ID;
-
-	@Column(nullable = false, unique = true)
-	private String Identificacion;
 
 	@Column(nullable = false)
 	private String nombre;
@@ -42,12 +40,11 @@ public class Persona_Autorizada {
 	@Temporal(TemporalType.DATE)
 	private Date FechaFin;
 	
-	private String password;
-	
-	private String salt;
-	
 	@OneToMany(mappedBy = "pa", fetch = FetchType.LAZY)
 	private List<Autorizacion> autorizaciones;
+	
+	@OneToOne(optional = false)
+	private Usuario us;
 
 	public Persona_Autorizada() {
 		// TODO Auto-generated constructor stub
@@ -59,14 +56,6 @@ public class Persona_Autorizada {
 
 	public void setID(Long iD) {
 		ID = iD;
-	}
-
-	public String getIdentificacion() {
-		return Identificacion;
-	}
-
-	public void setIdentificacion(String identificacion) {
-		Identificacion = identificacion;
 	}
 
 	public String getNombre() {
@@ -125,28 +114,20 @@ public class Persona_Autorizada {
 		FechaFin = fechaFin;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getSalt() {
-		return salt;
-	}
-
-	public void setSalt(String salt) {
-		this.salt = salt;
-	}
-
 	public List<Autorizacion> getAutorizaciones() {
 		return autorizaciones;
 	}
 
 	public void setAutorizaciones(List<Autorizacion> autorizaciones) {
 		this.autorizaciones = autorizaciones;
+	}
+
+	public Usuario getUs() {
+		return us;
+	}
+
+	public void setUs(Usuario us) {
+		this.us = us;
 	}
 
 	@Override
@@ -168,11 +149,9 @@ public class Persona_Autorizada {
 
 	@Override
 	public String toString() {
-		return "Persona_Autorizada [ID=" + ID + ", Identificacion=" + Identificacion + ", nombre=" + nombre
-				+ ", apellidos=" + apellidos + ", direccion=" + direccion + ", fecha_nacimeinteo=" + fecha_nacimeinteo
-				+ ", estado=" + estado + ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin + ", password="
-				+ password + ", salt=" + salt + "]";
+		return "Persona_Autorizada [ID=" + ID + ", nombre=" + nombre + ", apellidos=" + apellidos + ", direccion="
+				+ direccion + ", fecha_nacimeinteo=" + fecha_nacimeinteo + ", estado=" + estado + ", FechaInicio="
+				+ FechaInicio + ", FechaFin=" + FechaFin + "]";
 	}
-
 	
 }
