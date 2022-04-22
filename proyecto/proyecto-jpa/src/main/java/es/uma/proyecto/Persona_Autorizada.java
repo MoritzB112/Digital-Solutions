@@ -30,7 +30,7 @@ public class Persona_Autorizada {
 	private String direccion;
 	
 	@Temporal(TemporalType.DATE)
-	private Date fecha_nacimeinteo;
+	private Date fecha_nacimiento;
 	
 	private String estado;
 	
@@ -83,11 +83,11 @@ public class Persona_Autorizada {
 	}
 
 	public Date getFecha_nacimeinteo() {
-		return fecha_nacimeinteo;
+		return fecha_nacimiento;
 	}
 
 	public void setFecha_nacimeinteo(Date fecha_nacimeinteo) {
-		this.fecha_nacimeinteo = fecha_nacimeinteo;
+		this.fecha_nacimiento = fecha_nacimeinteo;
 	}
 
 	public String getEstado() {
@@ -150,7 +150,7 @@ public class Persona_Autorizada {
 	@Override
 	public String toString() {
 		return "Persona_Autorizada [ID=" + ID + ", nombre=" + nombre + ", apellidos=" + apellidos + ", direccion="
-				+ direccion + ", fecha_nacimeinteo=" + fecha_nacimeinteo + ", estado=" + estado + ", FechaInicio="
+				+ direccion + ", fecha_nacimeinteo=" + fecha_nacimiento + ", estado=" + estado + ", FechaInicio="
 				+ FechaInicio + ", FechaFin=" + FechaFin + "]";
 	}
 	
