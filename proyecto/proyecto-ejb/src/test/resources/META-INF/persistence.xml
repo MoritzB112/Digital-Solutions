@@ -20,6 +20,7 @@
 		<class>es.uma.proyecto.Transaccion</class>
 		<class>es.uma.proyecto.Autorizacion_PK</class>
 		<class>es.uma.proyecto.Depositado_en_PK</class>
+		<class>es.uma.proyecto.Usuario</class>
 		<shared-cache-mode>NONE</shared-cache-mode>
 		<properties>
 			<property

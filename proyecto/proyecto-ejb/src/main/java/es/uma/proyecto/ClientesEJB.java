@@ -16,7 +16,7 @@ public class ClientesEJB implements GestionClientes {
 	
 	@PersistenceContext(name="proyecto-ejb")
 	private EntityManager em;
-
+/*
 	public boolean esAdministrativo(Cliente cl) {
 		Cliente c=em.find(Cliente.class, cl.getId());
 		if(c==null) {
@@ -142,5 +142,6 @@ public class ClientesEJB implements GestionClientes {
 		
 		c.setEstado("Baja");
 	}
-
+*/
+	
 }
