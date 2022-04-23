@@ -16,7 +16,16 @@ public class ClientesEJB implements GestionClientes {
 	
 	@PersistenceContext(name="proyecto-ejb")
 	private EntityManager em;
-
+	
+/*
+	public boolean esAdministrativo(Cliente cl) {
+		Cliente c=em.find(Cliente.class, cl.getId());
+		if(c==null) {
+			throw new RuntimeException();
+		}
+		
+		return c.getTipo_cliente().equalsIgnoreCase("Administrativo");
+	}
 
 	@Override
 	public Cliente clienteRegistrado(String usuario, String contraseña) {
@@ -134,5 +143,6 @@ public class ClientesEJB implements GestionClientes {
 		
 		c.setEstado("Baja");
 	}
-
+*/
+	
 }

@@ -28,6 +28,7 @@ public class Trazabilidad {
 
 	@Test
 	public void testTest() {
+		gestionDivisas.actualizarDivisas();
 	}
 
 }
