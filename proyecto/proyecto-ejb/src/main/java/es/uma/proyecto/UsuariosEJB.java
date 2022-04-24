@@ -14,12 +14,12 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class UsuariosEJB implements GestionUsuarios {
 
-public boolean esAdministrativo(Usuario user) {
-		Usuario u=em.find(Usuario.class, cl.getId());
-		if(c==null) {
-			throw new RuntimeException();
-		}
-		
-		return c.getTipo_cliente().equalsIgnoreCase("Administrativo");
-	}
+//public boolean esAdministrativo(Usuario user) {
+//		Usuario u=em.find(Usuario.class, cl.getId());
+//		if(c==null) {
+//			throw new RuntimeException();
+//		}
+//		
+//		return c.getTipo_cliente().equalsIgnoreCase("Administrativo");
+//	}
 }
