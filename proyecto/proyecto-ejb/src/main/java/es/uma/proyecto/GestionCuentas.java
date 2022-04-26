@@ -17,13 +17,19 @@ public interface GestionCuentas {
 	public void addCuenta(Cuenta_Fintech cf, Cuenta_Referencia cr, Cliente cl) throws CuentaYaExisteException,
 			CuentaNoSuporteadaException, ClienteNoExisteException, CuentaReferenciaNoExisteException;
 
+	public void abrirCuentaReferencia(Cuenta_Referencia cr) throws CuentaYaExisteException;
+	
 	public void cerrarCuenta(Cuenta_Fintech cu)
 			throws CuentaNoExisteException, SaldoNoVacioException, CuentaNoSuporteadaException;
 
 	public Cuenta sacarCuenta(Cuenta cu) throws CuentaNoExisteException, CuentaNoSuporteadaException;
 	
-	public List<Pooled_Account> sacarPooledAccounts();
+	public List<Cuenta_Referencia> sacarCuentaReferencia();
 	
-	public List<Pooled_Account> sacarSegregada();
+	public List<Segregada> sacarSegregadas();
+
+	void addCuenta(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException;
+
+	List<Transaccion> sacarTransacciones(Cuenta_Fintech cf);
 
 }

@@ -16,6 +16,8 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
+import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
+
 public class GenerarReportesEJB implements GestionGenerarReportes {
 
 	@PersistenceContext(name = "proyecto-ejb")
@@ -29,17 +31,19 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 		CuentasEJB cEJB = new CuentasEJB();
 		BufferedWriter writer = Files.newBufferedWriter(Paths.get(dateS));
 
-		CSVPrinter csvPrinter = new CSVPrinter(writer,
-				CSVFormat.DEFAULT.withHeader("IBAN"));
+		CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("IBAN", "Last_Name", "First_Name",
+				"Street", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth"));
 		for (Segregada c : cEJB.sacarSegregadas()) {
-			csvPrinter.printRecord(c.getIBAN());
+			csvPrinter.printRecord(c.getIBAN(), "noexistente", "noexistente", "noexistente", "noexistente",
+					"noexistente", "noexistente", "noexistente", "noexistente");
 		}
-		csvPrinter.flush(); 
-
-		for (Pooled_Account c : cEJB.sacarPooledAccounts()) {
-			csvPrinter.printRecord(c.getIBAN());
+		csvPrinter.flush();
+		
+		for (Cuenta_Referencia c : cEJB.sacarCuentaReferencia()) {
+			csvPrinter.printRecord(c.getIBAN(), "noexistente", "Fnitech", "noexistente", "noexistente", "noexistente",
+					"noexistente", "noexistente", "noexistente");
 		}
-		csvPrinter.flush(); 
+		csvPrinter.flush();
 	}
 
 	@Override
@@ -52,18 +56,35 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 		CuentasEJB cEJB = new CuentasEJB();
 		BufferedWriter writer = Files.newBufferedWriter(Paths.get(dateS));
 
-		CSVPrinter csvPrinter = new CSVPrinter(writer,
-				CSVFormat.DEFAULT.withHeader("IBAN","Last_Name","First_Name","Street","City","Post_Code","Country","identification_Number","Date_Of_Birth"));
+		CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("IBAN", "Last_Name", "First_Name",
+				"Street", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth"));
 		for (Segregada c : cEJB.sacarSegregadas()) {
-			Cliente cl=c.getCl();
-			csvPrinter.printRecord(c.getIBAN()+c.getCl());
-		}
-		csvPrinter.flush(); 
+			Cliente cl = c.getCl();
+			if (cl.getEstado().equalsIgnoreCase("ALTA")) {
+				if (cl instanceof Empresa) {
+					Empresa emp = (Empresa) cl;
+					for (Autorizacion a : emp.getAu()) {
+						Persona_Autorizada pa = a.getPa();
+						if (pa.getEstado().equalsIgnoreCase("ALTA")) {
+							csvPrinter.printRecord(c.getIBAN(), pa.getApellidos(), pa.getNombre(), pa.getDireccion(),
+									pa.getCiudad(), pa.getCodigoPostal(), pa.getPais(), pa.getID(),
+									pa.getFecha_nacimiento());
+						}
+					}
+				} else if (cl instanceof Individual) {
+					Individual id = (Individual) cl;
+					csvPrinter.printRecord(c.getIBAN(), id.getApellido(), id.getNombre(), id.getDireccion(),
+							id.getCiudad(), id.getCodigoPostal(), id.getPais(), id.getId(), id.getFecha_nacimiento());
+				}
+			}
 
-		for (Pooled_Account c : cEJB.sacarPooledAccounts()) {
-			Cliente cl=c.getCl();
-			csvPrinter.printRecord(c.getIBAN());
 		}
-		csvPrinter.flush(); 
+		csvPrinter.flush();
+
+		for (Cuenta_Referencia c : cEJB.sacarCuentaReferencia()) {
+			csvPrinter.printRecord(c.getIBAN(), "noexistente", "Fnitech", "noexistente", "noexistente", "noexistente",
+					"noexistente", "noexistente", "noexistente");
+		}
+		csvPrinter.flush();
 	}
 }
