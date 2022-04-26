@@ -8,6 +8,7 @@ import es.uma.proyecto.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.Excepciones.Persona_AutorizadaNoEncontrada;
 import es.uma.proyecto.Excepciones.Persona_AutorizadaYaExisteException;
+import es.uma.proyecto.Excepciones.UsuarioNoEncontradoException;
 
 
 @Stateless
@@ -18,13 +19,13 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 
 	
 	@Override
-	public void insertarPersonaAutorizada(Usuario u,Persona_Autorizada pa) throws Persona_AutorizadaYaExisteException {
+	public void insertarPersonaAutorizada(Usuario u,Persona_Autorizada pa) throws Persona_AutorizadaYaExisteException, UsuarioNoEncontradoException {
 		if(em.find(Persona_Autorizada.class, pa.getID())!=null) {
 			throw new Persona_AutorizadaYaExisteException();
 		}
 		Usuario ureal=em.find(Usuario.class, u.getUsuario());
 		if(ureal==null) {
-			//trow
+			throw new UsuarioNoEncontradoException();
 		}
 		pa.setUs(u);
 		em.persist(pa);
