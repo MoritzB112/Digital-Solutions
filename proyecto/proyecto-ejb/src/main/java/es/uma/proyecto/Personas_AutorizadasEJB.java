@@ -26,10 +26,8 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		if(ureal==null) {
 			//trow
 		}
-		
-		em.persist(pa);
-		
 		pa.setUs(u);
+		em.persist(pa);
 		u.setPa(pa);
 	}
 	
@@ -49,6 +47,8 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		
 		Autorizacion_PK auPK=new Autorizacion_PK();
 		au.setId(auPK);
+		au.setEm(empreal);
+		au.setPa(pareal);
 		
 		em.persist(auPK);
 		em.persist(au);
@@ -56,8 +56,7 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		auPK.setEmID(empreal.getId());
 		auPK.setPaID(pareal.getID());
 		
-		au.setEm(empreal);
-		au.setPa(pareal);
+		
 	}
 
 	@Override

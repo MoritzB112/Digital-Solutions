@@ -85,4 +85,9 @@ public class DivisasEJB implements GestionDivisas {
 		}
 	    
 	}
+
+	@Override
+	public List<Divisa> getDivisas() {
+		return em.createQuery("SELECT dv FROM Divisa dv", Divisa.class).getResultList();
+	}
 }
