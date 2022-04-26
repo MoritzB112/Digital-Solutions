@@ -147,4 +147,10 @@ public class CuentasEJB implements GestionCuentas {
 	public List<Segregada> sacarSegregadas() {
 		return em.createQuery("SELECT pa FROM Segregada pa", Segregada.class).getResultList();
 	}
+
+	@Override
+	public List<Pooled_Account> sacarSegregada() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

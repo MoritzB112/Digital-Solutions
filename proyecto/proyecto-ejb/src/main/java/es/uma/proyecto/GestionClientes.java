@@ -2,18 +2,23 @@ package es.uma.proyecto;
 
 import javax.ejb.Local;
 
+import es.uma.proyecto.Excepciones.ClienteExistenteException;
+import es.uma.proyecto.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.Excepciones.ClienteNoSuporteadoException;
+import es.uma.proyecto.Excepciones.UsuarioNoEncontradoException;
+
 @Local
 public interface GestionClientes {
 
-	/*
-	public boolean esAdministrativo(Cliente cl);
 	
-	public Cliente clienteRegistrado(String usuario, String contraseña);
+	public void darDeAltaEmpresa(Usuario u, Empresa e) throws ClienteExistenteException;
 	
-	public void darDeAlta(Cliente cl);
+	public void darDeAltaIndividual(Usuario u, Individual e) throws ClienteExistenteException;
 	
-	public void modificarCliente(Cliente cl);
+	public void modificarCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
 	
-	public void darDeBaja(Cliente cl);
-*/
+	public void darDeBajaIndividual(Individual i) throws ClienteExistenteException, TieneCuentaAsociadoException;
+	
+	public void darDeBajaEmpresa(Empresa e) throws ClienteExistenteException, TieneCuentaAsociadoException;
+
 }

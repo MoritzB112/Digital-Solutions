@@ -2,6 +2,7 @@ package es.uma.proyecto;
 
 import java.util.Objects;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -18,6 +19,9 @@ public class Usuario {
 	private String salt;
 	
 	private String correo;
+	
+	@Column(nullable=false)
+	private Boolean esAdministrativo;
 	
 	@OneToOne(mappedBy="us", fetch = FetchType.LAZY)
 	private Cliente cl;
@@ -61,6 +65,14 @@ public class Usuario {
 		this.correo = correo;
 	}
 
+	public Boolean getEsAdministrativo() {
+		return esAdministrativo;
+	}
+
+	public void setEsAdministrativo(Boolean esAdministrativo) {
+		this.esAdministrativo = esAdministrativo;
+	}
+
 	public Cliente getCl() {
 		return cl;
 	}
@@ -96,7 +108,9 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo + "]";
+		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
+				+ ", esAdministrativo=" + esAdministrativo + "]";
 	}
+	
 
 }
