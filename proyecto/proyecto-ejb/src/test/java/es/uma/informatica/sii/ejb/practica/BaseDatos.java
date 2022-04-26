@@ -1,9 +1,12 @@
 package es.uma.informatica.sii.ejb.practica;
 
+import java.util.ArrayList;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import es.uma.proyecto.Cuenta_Referencia;
 import es.uma.proyecto.Divisa;
 
 public class BaseDatos {
@@ -24,6 +27,12 @@ public class BaseDatos {
 		d2.setCambioEuro(1.6);
 		d2.setNombre("US-DOLLAR");
 		em.persist(d2);
+		
+		Cuenta_Referencia cr=new Cuenta_Referencia();
+		cr.setIBAN("IBANTEST");
+		cr.setDeps(new ArrayList<>());
+		cr.setDiv(d1);
+		cr.set
 		
 		em.getTransaction().commit();
 		

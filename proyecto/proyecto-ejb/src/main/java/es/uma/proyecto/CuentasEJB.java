@@ -31,31 +31,35 @@ public class CuentasEJB implements GestionCuentas {
 			}
 
 			Depositado_en de = new Depositado_en();
+			Depositado_en_PK dePK = new Depositado_en_PK();
+			de.setId(dePK);
+			
+			em.persist(pa);
+			em.persist(dePK);
+			em.persist(de);
+			
+			
 			de.setSaldo(0.0);
 			de.setCr(crreal);
 			de.setPa(pa);
-			Depositado_en_PK dePK = new Depositado_en_PK();
+			
 			dePK.setCrID(crreal.getIBAN());
 			dePK.setPaID(pa.getIBAN());
-			de.setId(dePK);
+			
+			
 			List<Depositado_en> l = new ArrayList<>();
 			l.add(de);
 			
 			pa.setCl(clreal);
 			pa.setDeps(l);
 			
-			List<Depositado_en> l2 = crreal.getDeps();
-			l2.add(de);
-			crreal.setDeps(l2);
-
-			em.persist(pa);
-			em.persist(dePK);
-			em.persist(de);
+			crreal.getDeps().add(de);
+			
 
 		} else if (cf instanceof Segregada) {
 			Segregada se = (Segregada) cf;
 			if (em.find(Segregada.class, cr.getIBAN()) != null) {
-				throw new RuntimeException();
+				throw new CuentaYaExisteException();
 			}
 			Cliente clreal = em.find(Cliente.class, cl.getId());
 			if (clreal == null) {
@@ -65,15 +69,55 @@ public class CuentasEJB implements GestionCuentas {
 			if (crreal == null) {
 				throw new CuentaReferenciaNoExisteException();
 			}
-
+			
+			em.persist(se);
+			
 			se.setCr(crreal);
 			se.setCl(clreal);
-
-			em.persist(se);
+			
+			clreal.getCf().add(se);
+			cr.setSe(se);
 
 		} else {
 			throw new CuentaNoSuporteadaException();
 		}
+	}
+	
+	@Override
+	public void addCuenta(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException {
+		Pooled_Account pareal=em.find(Pooled_Account.class, pa.getIBAN());
+		if(pareal==null) {
+			throw new CuentaNoExisteException("POOLED_ACCOUNT");
+		}
+		Cuenta_Referencia crreal=em.find(Cuenta_Referencia.class, cr.getIBAN());
+		if(crreal==null) {
+			throw new CuentaNoExisteException("CUENTA_REFERENCIA");
+		}
+		
+		Depositado_en de=new Depositado_en();
+		Depositado_en_PK dePK=new Depositado_en_PK();
+		
+		de.setId(dePK);
+		dePK.setCrID(crreal.getIBAN());
+		dePK.setPaID(pareal.getIBAN());
+		
+		em.persist(dePK);
+		em.persist(de);
+		
+		de.setSaldo(0.0);
+		de.setCr(crreal);
+		de.setPa(pareal);
+		
+		crreal.getDeps().add(de);
+		pareal.getDeps().add(de);
+	}
+	
+	@Override
+	public void abrirCuentaReferencia(Cuenta_Referencia cr) throws CuentaYaExisteException {
+		if(em.find(Cuenta_Referencia.class, cr.getIBAN())!=null) {
+			throw new CuentaYaExisteException();
+		}
+		em.persist(cr);
 	}
 
 	@Override
@@ -140,12 +184,19 @@ public class CuentasEJB implements GestionCuentas {
 		}
 	}
 	
-	public List<Pooled_Account> sacarPooledAccounts() {
-		return em.createQuery("SELECT pa FROM Pooled_Account pa", Pooled_Account.class).getResultList();
+	@Override
+	public List<Transaccion> sacarTransacciones(Cuenta_Fintech cf){
+		//TODO
 	}
 	
+	@Override
+	public List<Cuenta_Referencia> sacarCuentaReferencia() {
+		return em.createQuery("SELECT cr FROM Cuenta_Referencia cr", Cuenta_Referencia.class).getResultList();
+	}
+	
+	@Override
 	public List<Segregada> sacarSegregadas() {
-		return em.createQuery("SELECT pa FROM Segregada pa", Segregada.class).getResultList();
+		return em.createQuery("SELECT se FROM Segregada se", Segregada.class).getResultList();
 	}
 
 	@Override

@@ -28,6 +28,15 @@ public class Persona_Autorizada {
 	
 	@Column(nullable = false)
 	private String direccion;
+
+	@Column(nullable = false)
+	private String ciudad;
+
+	@Column(nullable = false)
+	private Integer codigoPostal;
+
+	@Column(nullable = false)
+	private String pais;
 	
 	@Temporal(TemporalType.DATE)
 	private Date fecha_nacimiento;
@@ -80,6 +89,39 @@ public class Persona_Autorizada {
 
 	public void setDireccion(String direccion) {
 		this.direccion = direccion;
+	}
+	
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public Integer getCodigoPostal() {
+		return codigoPostal;
+	}
+
+	public void setCodigoPostal(Integer codigoPostal) {
+		this.codigoPostal = codigoPostal;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public Date getFecha_nacimiento() {
+		return fecha_nacimiento;
+	}
+
+	public void setFecha_nacimiento(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
 	public Date getFecha_nacimeinteo() {
@@ -150,8 +192,9 @@ public class Persona_Autorizada {
 	@Override
 	public String toString() {
 		return "Persona_Autorizada [ID=" + ID + ", nombre=" + nombre + ", apellidos=" + apellidos + ", direccion="
-				+ direccion + ", fecha_nacimeinteo=" + fecha_nacimiento + ", estado=" + estado + ", FechaInicio="
-				+ FechaInicio + ", FechaFin=" + FechaFin + "]";
+				+ direccion + ", ciudad=" + ciudad + ", codigoPostal=" + codigoPostal + ", pais=" + pais
+				+ ", fecha_nacimiento=" + fecha_nacimiento + ", estado=" + estado + ", FechaInicio=" + FechaInicio
+				+ ", FechaFin=" + FechaFin + "]";
 	}
 	
 }
