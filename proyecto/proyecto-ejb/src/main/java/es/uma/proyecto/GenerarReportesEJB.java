@@ -38,12 +38,6 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 					"noexistente", "noexistente", "noexistente", "noexistente");
 		}
 		csvPrinter.flush();
-		
-		for (Cuenta_Referencia c : cEJB.sacarCuentaReferencia()) {
-			csvPrinter.printRecord(c.getIBAN(), "noexistente", "Fnitech", "noexistente", "noexistente", "noexistente",
-					"noexistente", "noexistente", "noexistente");
-		}
-		csvPrinter.flush();
 	}
 
 	@Override
@@ -78,12 +72,6 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 				}
 			}
 
-		}
-		csvPrinter.flush();
-
-		for (Cuenta_Referencia c : cEJB.sacarCuentaReferencia()) {
-			csvPrinter.printRecord(c.getIBAN(), "noexistente", "Fnitech", "noexistente", "noexistente", "noexistente",
-					"noexistente", "noexistente", "noexistente");
 		}
 		csvPrinter.flush();
 	}

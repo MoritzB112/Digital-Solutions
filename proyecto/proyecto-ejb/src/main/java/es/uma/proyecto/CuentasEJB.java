@@ -190,7 +190,7 @@ public class CuentasEJB implements GestionCuentas {
 	}
 	
 	@Override
-	public List<Transaccion> sacarTransacciones(Cuenta c){
+	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException{
 		if(c instanceof Segregada) {
 			Segregada se=em.find(Segregada.class, c.getIBAN());
 			if(se==null) {

@@ -34,6 +34,6 @@ public interface GestionCuentas {
 
 	public List<Pooled_Account> sacarPooledAccount();
 	
-	public List<Transaccion> sacarTransacciones(Cuenta c);
+	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException;
 
 }
