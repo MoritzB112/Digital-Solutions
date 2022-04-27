@@ -1,5 +1,7 @@
 package es.uma.proyecto;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import es.uma.proyecto.Excepciones.AutorizacionYaExisteException;
@@ -21,4 +23,8 @@ public interface GestionPersonas_Autorizadas {
 	public void eliminarAutorizadoCuenta(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontrada;
 	
 	public void bloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontrada;
+	
+	public List<Persona_Autorizada> sacarPA();
+	
+	public List<Autorizacion> sacarAutorizaciones();
 }

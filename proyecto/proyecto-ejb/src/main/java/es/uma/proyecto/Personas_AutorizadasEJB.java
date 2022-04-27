@@ -1,5 +1,7 @@
 package es.uma.proyecto;
 
+import java.util.List;
+
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -88,6 +90,14 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		}
 		pareal.setEstado("Bloqueado");
 		
+	}
+	
+	public List<Persona_Autorizada> sacarPA(){
+		return em.createQuery("SELECT paut FROM Persona_Autorizada paut", Persona_Autorizada.class).getResultList();
+	}
+	
+	public List<Autorizacion> sacarAutorizaciones(){
+		return em.createQuery("SELECT aut FROM Autorizacion aut", Autorizacion.class).getResultList();
 	}
 	
 }
