@@ -1,13 +1,28 @@
 package es.uma.informatica.sii.ejb.practica;
 
+import java.io.ByteArrayOutputStream;
+import java.security.MessageDigest;
 import java.util.ArrayList;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import es.uma.proyecto.Autorizacion;
+import es.uma.proyecto.Autorizacion_PK;
 import es.uma.proyecto.Cuenta_Referencia;
+import es.uma.proyecto.Depositado_en;
+import es.uma.proyecto.Depositado_en_PK;
 import es.uma.proyecto.Divisa;
+import es.uma.proyecto.Empresa;
+import es.uma.proyecto.Individual;
+import es.uma.proyecto.Persona_Autorizada;
+import es.uma.proyecto.Pooled_Account;
+import es.uma.proyecto.Segregada;
+import es.uma.proyecto.Transaccion;
+import es.uma.proyecto.Usuario;
+import es.uma.proyecto.Excepciones.PasswordException;
 
 public class BaseDatos {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
@@ -16,27 +31,254 @@ public class BaseDatos {
 		
 		em.getTransaction().begin();
 		
+		//Divisas de ejemplo
 		Divisa d1=new Divisa();
 		d1.setAbreviatura("EUR");
 		d1.setCambioEuro(1.0);
 		d1.setNombre("EURO");
 		em.persist(d1);
-		
 		Divisa d2=new Divisa();
 		d2.setAbreviatura("USD");
 		d2.setCambioEuro(1.6);
 		d2.setNombre("US-DOLLAR");
 		em.persist(d2);
 		
+		//CR de ejemplo
 		Cuenta_Referencia cr=new Cuenta_Referencia();
-		cr.setIBAN("IBANTEST");
+		cr.setIBAN("IBANTESTCR1");
 		cr.setDeps(new ArrayList<>());
+		cr.setCobros(new ArrayList<>());
+		cr.setPagos(new ArrayList<>());
+		cr.setEstado("ALTA");
+		cr.setSaldo(1.0);
 		cr.setDiv(d1);
-		cr.set
+		cr.setNombreBanco("BANCOTEST");
+		em.persist(cr);
+		Cuenta_Referencia cr2=new Cuenta_Referencia();
+		cr2.setIBAN("IBANTESTCR2");
+		cr2.setDeps(new ArrayList<>());
+		cr2.setCobros(new ArrayList<>());
+		cr2.setPagos(new ArrayList<>());
+		cr2.setEstado("ALTA");
+		cr2.setSaldo(0.0);
+		cr2.setNombreBanco("BANCOTEST");
+		cr2.setDiv(d2);
+		em.persist(cr2);
+		
+		//Usuario de ejemplo
+		Usuario u=new Usuario();
+		u.setEsAdministrativo(false);
+		u.setUsuario("testPA1");
+		u.setPassword(hashPassword("testPA1","SAL"));
+		u.setSalt("SAL");
+		em.persist(u);
+		Usuario u2=new Usuario();
+		u2.setEsAdministrativo(false);
+		u2.setUsuario("testPA2");
+		u2.setPassword(hashPassword("testPA2","SAL"));
+		u2.setSalt("SAL");
+		em.persist(u2);
+		Usuario u3=new Usuario();
+		u3.setEsAdministrativo(false);
+		u3.setUsuario("testID3");
+		u3.setPassword(hashPassword("testID3","SAL"));
+		u3.setSalt("SAL");
+		em.persist(u3);
+		Usuario u4=new Usuario();
+		u4.setEsAdministrativo(false);
+		u4.setUsuario("testID4");
+		u4.setPassword(hashPassword("testID4","SAL"));
+		u4.setSalt("SAL");
+		em.persist(u4);
+		Usuario u5=new Usuario();
+		u5.setEsAdministrativo(true);
+		u5.setUsuario("testAD5");
+		u5.setPassword(hashPassword("testAD5","SAL"));
+		u5.setSalt("SAL");
+		em.persist(u5);
+		
+		//Emprese de ejmplo
+		Empresa emp=new Empresa();
+		emp.setId(1L);
+		emp.setTipo_cliente("JUDIRICA");
+		emp.setRazon_social("X");
+		emp.setEstado("ALTA");
+		emp.setFecha_alta(new Date());
+		emp.setDireccion("X");
+		emp.setPais("X");
+		emp.setCodigoPostal(1);
+		emp.setCiudad("X");
+		emp.setAu(new ArrayList<>());
+		emp.setCf(new ArrayList<>());
+		em.persist(emp);
+		Empresa emp2=new Empresa();
+		emp2.setId(2L);
+		emp2.setTipo_cliente("JUDIRICA");
+		emp2.setRazon_social("X");
+		emp2.setEstado("ALTA");
+		emp2.setFecha_alta(new Date());
+		emp2.setDireccion("X");
+		emp2.setPais("X");
+		emp2.setCodigoPostal(1);
+		emp2.setCiudad("X");
+		emp2.setAu(new ArrayList<>());
+		emp2.setCf(new ArrayList<>());
+		em.persist(emp2);
+		
+		//PA de ejemplo
+		Persona_Autorizada pa=new Persona_Autorizada();
+		pa.setID(1L);
+		pa.setNombre("X");
+		pa.setApellidos("X");
+		pa.setCiudad("X");
+		pa.setDireccion("X");
+		pa.setEstado("ALTA");
+		pa.setPais("X");
+		pa.setCodigoPostal(1);
+		pa.setUs(u);
+		pa.setAutorizaciones(new ArrayList<>());
+		em.persist(pa);
+		Persona_Autorizada pa2=new Persona_Autorizada();
+		pa2.setID(2L);
+		pa2.setNombre("X");
+		pa2.setApellidos("X");
+		pa2.setCiudad("X");
+		pa2.setDireccion("X");
+		pa2.setEstado("ALTA");
+		pa2.setPais("X");
+		pa2.setCodigoPostal(1);
+		pa2.setUs(u2);
+		pa2.setAutorizaciones(new ArrayList<>());
+		em.persist(pa2);
+		
+		//AU de ejemplo
+		Autorizacion au=new Autorizacion();
+		Autorizacion_PK auPK=new Autorizacion_PK();
+		auPK.setEmID(emp2.getId());
+		auPK.setPaID(pa2.getID());
+		au.setId(auPK);
+		au.setEm(emp2);
+		au.setPa(pa2);
+		em.persist(au);
+		emp2.getAu().add(au);
+		pa2.getAutorizaciones().add(au);
+		
+		//Individual de ejemplo
+		Individual id=new Individual();
+		id.setId(3L);
+		id.setTipo_cliente("FISICA");
+		id.setUs(u3);
+		id.setEstado("ALTA");
+		id.setFecha_alta(new Date());
+		id.setDireccion("X");
+		id.setPais("X");
+		id.setCodigoPostal(1);
+		id.setCiudad("X");
+		id.setNombre("X");
+		id.setApellido("X");
+		id.setCf(new ArrayList<>());
+		em.persist(id);
+		Individual id2=new Individual();
+		id2.setId(4L);
+		id2.setTipo_cliente("FISICA");
+		id2.setUs(u4);
+		id2.setEstado("ALTA");
+		id2.setFecha_alta(new Date());
+		id2.setDireccion("X");
+		id2.setPais("X");
+		id2.setCodigoPostal(1);
+		id2.setCiudad("X");
+		id2.setNombre("X");
+		id2.setApellido("X");
+		id2.setCf(new ArrayList<>());
+		em.persist(id2);
+		
+		//Segregada de ejemplo
+		Segregada se=new Segregada();
+		se.setIBAN("IBANTESTSE1");
+		se.setCobros(new ArrayList<>());
+		se.setPagos(new ArrayList<>());
+		se.setCr(cr);
+		se.setCl(id);
+		se.setEstado("ALTA");
+		se.setFecha_apertura(new Date());
+		em.persist(se);
+		cr.setSe(se);
+		id.getCf().add(se);
+		Segregada se2=new Segregada();
+		se2.setIBAN("IBANTESTSE2");
+		se2.setCobros(new ArrayList<>());
+		se2.setPagos(new ArrayList<>());
+		se2.setCr(cr2);
+		se2.setCl(id);
+		se2.setEstado("ALTA");
+		se2.setFecha_apertura(new Date());
+		em.persist(se2);
+		cr2.setSe(se2);
+		id.getCf().add(se2);
+		
+		//PoAc de ejemplo
+		Pooled_Account pac=new Pooled_Account();
+		pac.setCl(emp);
+		pac.setCobros(new ArrayList<>());
+		pac.setPagos(new ArrayList<>());
+		pac.setIBAN("IBANTESTPA1");
+		pac.setDeps(new ArrayList<>());
+		pac.setEstado("ALTA");
+		pac.setFecha_apertura(new Date());
+		em.persist(pac);
+		emp.getCf().add(pac);
+		
+		//Transaccion ejemplo
+		Transaccion tr=new Transaccion();
+		tr.setCantidad(10.0);
+		tr.setDestino(pac);
+		tr.setOrigen(pac);
+		tr.setComision(0.0);
+		tr.setDivEm(d1);
+		tr.setDivRec(d2);
+		tr.setID_unico(1L);
+		tr.setFechaEjecucion(new Date());
+		
+		//Depositado en ejemplo
+		Depositado_en de=new Depositado_en();
+		Depositado_en_PK dePK=new Depositado_en_PK();
+		dePK.setCrID(cr.getIBAN());
+		dePK.setPaID(pac.getIBAN());
+		de.setCr(cr);
+		de.setId(dePK);
+		de.setPa(pac);
+		de.setSaldo(100.0);
+		em.persist(de);
+		
+		Depositado_en de2=new Depositado_en();
+		Depositado_en_PK de2PK=new Depositado_en_PK();
+		de2PK.setCrID(cr2.getIBAN());
+		de2PK.setPaID(pac.getIBAN());
+		de2.setCr(cr2);
+		de2.setId(dePK);
+		de2.setPa(pac);
+		de2.setSaldo(0.0);
+		em.persist(de2);
 		
 		em.getTransaction().commit();
 		
 		em.close();
 		emf.close();
+	}
+
+	private static String hashPassword(String pw, String s) {
+		ByteArrayOutputStream contra=new ByteArrayOutputStream();
+		try {
+			contra.write(pw.getBytes());
+			contra.write(s.getBytes());
+			MessageDigest mg=MessageDigest.getInstance("SHA-256");
+		
+			return new String (mg.digest(contra.toByteArray()));
+		
+		}catch (Exception e){
+			
+		}
+		return null;
 	}
 }

@@ -3,11 +3,19 @@ package es.uma.proyecto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import es.uma.proyecto.Excepciones.*;
+import es.uma.proyecto.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
+import es.uma.proyecto.Excepciones.CuentaReferenciaNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaYaExisteException;
+import es.uma.proyecto.Excepciones.DivisaNoExisteException;
+import es.uma.proyecto.Excepciones.SaldoNoVacioException;
 
+@Stateless
 public class CuentasEJB implements GestionCuentas {
 
 	@PersistenceContext(name = "proyecto-ejb")
@@ -38,7 +46,6 @@ public class CuentasEJB implements GestionCuentas {
 			de.setId(dePK);
 			de.setSaldo(0.0);
 			
-			em.persist(dePK);
 			em.persist(de);
 			em.persist(pa);
 			
@@ -99,7 +106,6 @@ public class CuentasEJB implements GestionCuentas {
 		dePK.setCrID(crreal.getIBAN());
 		dePK.setPaID(pareal.getIBAN());
 		
-		em.persist(dePK);
 		em.persist(de);
 		
 		de.setSaldo(0.0);

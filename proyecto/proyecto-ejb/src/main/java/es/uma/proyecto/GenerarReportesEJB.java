@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.ejb.Schedule;
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -18,6 +19,7 @@ import org.apache.commons.csv.CSVPrinter;
 
 import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
 
+@Stateless
 public class GenerarReportesEJB implements GestionGenerarReportes {
 
 	@PersistenceContext(name = "proyecto-ejb")

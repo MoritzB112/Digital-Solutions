@@ -50,7 +50,7 @@ public class Cliente {
 	@Column(nullable = false)
 	private String pais;
 	
-	@OneToOne(optional = false)
+	@OneToOne
 	private Usuario us;
 	
 	@OneToMany(mappedBy = "cl", fetch = FetchType.LAZY)

@@ -51,7 +51,6 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		au.setEm(empreal);
 		au.setPa(pareal);
 		
-		em.persist(auPK);
 		em.persist(au);
 		
 		auPK.setEmID(empreal.getId());
