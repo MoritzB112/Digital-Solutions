@@ -1,9 +1,7 @@
 package es.uma.proyecto;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
-import java.io.PrintStream;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
@@ -16,8 +14,6 @@ import javax.persistence.PersistenceContext;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
-
-import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
 
 @Stateless
 public class GenerarReportesEJB implements GestionGenerarReportes {
@@ -40,6 +36,7 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 					"noexistente", "noexistente", "noexistente", "noexistente");
 		}
 		csvPrinter.flush();
+		csvPrinter.close();
 	}
 
 	@Override
@@ -62,19 +59,36 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 					for (Autorizacion a : emp.getAu()) {
 						Persona_Autorizada pa = a.getPa();
 						if (pa.getEstado().equalsIgnoreCase("ALTA")) {
-							csvPrinter.printRecord(c.getIBAN(), pa.getApellidos(), pa.getNombre(), pa.getDireccion(),
-									pa.getCiudad(), pa.getCodigoPostal(), pa.getPais(), pa.getID(),
-									pa.getFecha_nacimiento());
+							String apellido = pa.getApellidos() == null ? "noexistente" : pa.getApellidos();
+							String nombre = pa.getNombre() == null ? "noexistente" : pa.getNombre();
+							String direccion = pa.getDireccion() == null ? "noexistente" : pa.getDireccion();
+							String ciudad = pa.getCiudad() == null ? "noexistente" : pa.getCiudad();
+							String cp = pa.getCodigoPostal() == null ? "noexistente" : pa.getCodigoPostal().toString();
+							String pais = pa.getPais() == null ? "noexistente" : pa.getPais();
+							String id = pa.getID() == null ? "noexistente" : pa.getID().toString();
+							String fecha_naciminto = pa.getFecha_nacimiento() == null ? "noexistente"
+									: cumple.format(pa.getFecha_nacimiento());
+							csvPrinter.printRecord(c.getIBAN(), apellido, nombre, direccion, ciudad, cp, pais, id,
+									fecha_naciminto);
 						}
 					}
 				} else if (cl instanceof Individual) {
 					Individual id = (Individual) cl;
-					csvPrinter.printRecord(c.getIBAN(), id.getApellido(), id.getNombre(), id.getDireccion(),
-							id.getCiudad(), id.getCodigoPostal(), id.getPais(), id.getId(), id.getFecha_nacimiento());
-				}
+					String apellido = id.getApellido() == null ? "noexistente" : id.getApellido();
+					String nombre = id.getNombre() == null ? "noexistente" : id.getNombre();
+					String direccion = id.getDireccion() == null ? "noexistente" : id.getDireccion();
+					String ciudad = id.getCiudad() == null ? "noexistente" : id.getCiudad();
+					String cp = id.getCodigoPostal() == null ? "noexistente" : id.getCodigoPostal().toString();
+					String pais = id.getPais() == null ? "noexistente" : id.getPais();
+					String ID = id.getId() == null ? "noexistente" : id.getId().toString();
+					String fecha_naciminto = id.getFecha_nacimiento() == null ? "noexistente"
+							: cumple.format(id.getFecha_nacimiento());
+					csvPrinter.printRecord(c.getIBAN(), apellido, nombre, direccion, ciudad, cp, pais, ID,
+							fecha_naciminto);				}
 			}
 
 		}
 		csvPrinter.flush();
+		csvPrinter.close();
 	}
 }

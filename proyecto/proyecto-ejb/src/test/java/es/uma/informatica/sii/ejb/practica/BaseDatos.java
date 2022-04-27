@@ -22,29 +22,28 @@ import es.uma.proyecto.Pooled_Account;
 import es.uma.proyecto.Segregada;
 import es.uma.proyecto.Transaccion;
 import es.uma.proyecto.Usuario;
-import es.uma.proyecto.Excepciones.PasswordException;
 
 public class BaseDatos {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory(nombreUnidadPersistencia);
 		EntityManager em = emf.createEntityManager();
-		
+
 		em.getTransaction().begin();
-		
-		//Divisas de ejemplo
-		Divisa d1=new Divisa();
+
+		// Divisas de ejemplo
+		Divisa d1 = new Divisa();
 		d1.setAbreviatura("EUR");
 		d1.setCambioEuro(1.0);
 		d1.setNombre("EURO");
 		em.persist(d1);
-		Divisa d2=new Divisa();
+		Divisa d2 = new Divisa();
 		d2.setAbreviatura("USD");
 		d2.setCambioEuro(1.6);
 		d2.setNombre("US-DOLLAR");
 		em.persist(d2);
-		
-		//CR de ejemplo
-		Cuenta_Referencia cr=new Cuenta_Referencia();
+
+		// CR de ejemplo
+		Cuenta_Referencia cr = new Cuenta_Referencia();
 		cr.setIBAN("IBANTESTCR1");
 		cr.setDeps(new ArrayList<>());
 		cr.setCobros(new ArrayList<>());
@@ -54,7 +53,7 @@ public class BaseDatos {
 		cr.setDiv(d1);
 		cr.setNombreBanco("BANCOTEST");
 		em.persist(cr);
-		Cuenta_Referencia cr2=new Cuenta_Referencia();
+		Cuenta_Referencia cr2 = new Cuenta_Referencia();
 		cr2.setIBAN("IBANTESTCR2");
 		cr2.setDeps(new ArrayList<>());
 		cr2.setCobros(new ArrayList<>());
@@ -64,41 +63,41 @@ public class BaseDatos {
 		cr2.setNombreBanco("BANCOTEST");
 		cr2.setDiv(d2);
 		em.persist(cr2);
-		
-		//Usuario de ejemplo
-		Usuario u=new Usuario();
+
+		// Usuario de ejemplo
+		Usuario u = new Usuario();
 		u.setEsAdministrativo(false);
 		u.setUsuario("testPA1");
-		u.setPassword(hashPassword("testPA1","SAL"));
+		u.setPassword(hashPassword("testPA1", "SAL"));
 		u.setSalt("SAL");
 		em.persist(u);
-		Usuario u2=new Usuario();
+		Usuario u2 = new Usuario();
 		u2.setEsAdministrativo(false);
 		u2.setUsuario("testPA2");
-		u2.setPassword(hashPassword("testPA2","SAL"));
+		u2.setPassword(hashPassword("testPA2", "SAL"));
 		u2.setSalt("SAL");
 		em.persist(u2);
-		Usuario u3=new Usuario();
+		Usuario u3 = new Usuario();
 		u3.setEsAdministrativo(false);
 		u3.setUsuario("testID3");
-		u3.setPassword(hashPassword("testID3","SAL"));
+		u3.setPassword(hashPassword("testID3", "SAL"));
 		u3.setSalt("SAL");
 		em.persist(u3);
-		Usuario u4=new Usuario();
+		Usuario u4 = new Usuario();
 		u4.setEsAdministrativo(false);
 		u4.setUsuario("testID4");
-		u4.setPassword(hashPassword("testID4","SAL"));
+		u4.setPassword(hashPassword("testID4", "SAL"));
 		u4.setSalt("SAL");
 		em.persist(u4);
-		Usuario u5=new Usuario();
+		Usuario u5 = new Usuario();
 		u5.setEsAdministrativo(true);
 		u5.setUsuario("testAD5");
-		u5.setPassword(hashPassword("testAD5","SAL"));
+		u5.setPassword(hashPassword("testAD5", "SAL"));
 		u5.setSalt("SAL");
 		em.persist(u5);
-		
-		//Emprese de ejmplo
-		Empresa emp=new Empresa();
+
+		// Emprese de ejmplo
+		Empresa emp = new Empresa();
 		emp.setId(1L);
 		emp.setTipo_cliente("JUDIRICA");
 		emp.setRazon_social("X");
@@ -111,7 +110,7 @@ public class BaseDatos {
 		emp.setAu(new ArrayList<>());
 		emp.setCf(new ArrayList<>());
 		em.persist(emp);
-		Empresa emp2=new Empresa();
+		Empresa emp2 = new Empresa();
 		emp2.setId(2L);
 		emp2.setTipo_cliente("JUDIRICA");
 		emp2.setRazon_social("X");
@@ -124,9 +123,9 @@ public class BaseDatos {
 		emp2.setAu(new ArrayList<>());
 		emp2.setCf(new ArrayList<>());
 		em.persist(emp2);
-		
-		//PA de ejemplo
-		Persona_Autorizada pa=new Persona_Autorizada();
+
+		// PA de ejemplo
+		Persona_Autorizada pa = new Persona_Autorizada();
 		pa.setID(1L);
 		pa.setNombre("X");
 		pa.setApellidos("X");
@@ -138,7 +137,7 @@ public class BaseDatos {
 		pa.setUs(u);
 		pa.setAutorizaciones(new ArrayList<>());
 		em.persist(pa);
-		Persona_Autorizada pa2=new Persona_Autorizada();
+		Persona_Autorizada pa2 = new Persona_Autorizada();
 		pa2.setID(2L);
 		pa2.setNombre("X");
 		pa2.setApellidos("X");
@@ -150,10 +149,10 @@ public class BaseDatos {
 		pa2.setUs(u2);
 		pa2.setAutorizaciones(new ArrayList<>());
 		em.persist(pa2);
-		
-		//AU de ejemplo
-		Autorizacion au=new Autorizacion();
-		Autorizacion_PK auPK=new Autorizacion_PK();
+
+		// AU de ejemplo
+		Autorizacion au = new Autorizacion();
+		Autorizacion_PK auPK = new Autorizacion_PK();
 		auPK.setEmID(emp2.getId());
 		auPK.setPaID(pa2.getID());
 		au.setId(auPK);
@@ -162,9 +161,9 @@ public class BaseDatos {
 		em.persist(au);
 		emp2.getAu().add(au);
 		pa2.getAutorizaciones().add(au);
-		
-		//Individual de ejemplo
-		Individual id=new Individual();
+
+		// Individual de ejemplo
+		Individual id = new Individual();
 		id.setId(3L);
 		id.setTipo_cliente("FISICA");
 		id.setUs(u3);
@@ -178,7 +177,7 @@ public class BaseDatos {
 		id.setApellido("X");
 		id.setCf(new ArrayList<>());
 		em.persist(id);
-		Individual id2=new Individual();
+		Individual id2 = new Individual();
 		id2.setId(4L);
 		id2.setTipo_cliente("FISICA");
 		id2.setUs(u4);
@@ -192,9 +191,9 @@ public class BaseDatos {
 		id2.setApellido("X");
 		id2.setCf(new ArrayList<>());
 		em.persist(id2);
-		
-		//Segregada de ejemplo
-		Segregada se=new Segregada();
+
+		// Segregada de ejemplo
+		Segregada se = new Segregada();
 		se.setIBAN("IBANTESTSE1");
 		se.setCobros(new ArrayList<>());
 		se.setPagos(new ArrayList<>());
@@ -205,7 +204,7 @@ public class BaseDatos {
 		em.persist(se);
 		cr.setSe(se);
 		id.getCf().add(se);
-		Segregada se2=new Segregada();
+		Segregada se2 = new Segregada();
 		se2.setIBAN("IBANTESTSE2");
 		se2.setCobros(new ArrayList<>());
 		se2.setPagos(new ArrayList<>());
@@ -216,9 +215,9 @@ public class BaseDatos {
 		em.persist(se2);
 		cr2.setSe(se2);
 		id.getCf().add(se2);
-		
-		//PoAc de ejemplo
-		Pooled_Account pac=new Pooled_Account();
+
+		// PoAc de ejemplo
+		Pooled_Account pac = new Pooled_Account();
 		pac.setCl(emp);
 		pac.setCobros(new ArrayList<>());
 		pac.setPagos(new ArrayList<>());
@@ -228,9 +227,9 @@ public class BaseDatos {
 		pac.setFecha_apertura(new Date());
 		em.persist(pac);
 		emp.getCf().add(pac);
-		
-		//Transaccion ejemplo
-		Transaccion tr=new Transaccion();
+
+		// Transaccion ejemplo
+		Transaccion tr = new Transaccion();
 		tr.setCantidad(10.0);
 		tr.setDestino(pac);
 		tr.setOrigen(pac);
@@ -238,11 +237,13 @@ public class BaseDatos {
 		tr.setDivEm(d1);
 		tr.setDivRec(d2);
 		tr.setID_unico(1L);
-		tr.setFechaEjecucion(new Date());
-		
-		//Depositado en ejemplo
-		Depositado_en de=new Depositado_en();
-		Depositado_en_PK dePK=new Depositado_en_PK();
+		tr.setFechaInstruccion(new Date());
+		tr.setTipo("NORMAL");
+		em.persist(tr);
+
+		// Depositado en ejemplo
+		Depositado_en de = new Depositado_en();
+		Depositado_en_PK dePK = new Depositado_en_PK();
 		dePK.setCrID(cr.getIBAN());
 		dePK.setPaID(pac.getIBAN());
 		de.setCr(cr);
@@ -250,9 +251,9 @@ public class BaseDatos {
 		de.setPa(pac);
 		de.setSaldo(100.0);
 		em.persist(de);
-		
-		Depositado_en de2=new Depositado_en();
-		Depositado_en_PK de2PK=new Depositado_en_PK();
+
+		Depositado_en de2 = new Depositado_en();
+		Depositado_en_PK de2PK = new Depositado_en_PK();
 		de2PK.setCrID(cr2.getIBAN());
 		de2PK.setPaID(pac.getIBAN());
 		de2.setCr(cr2);
@@ -260,24 +261,24 @@ public class BaseDatos {
 		de2.setPa(pac);
 		de2.setSaldo(0.0);
 		em.persist(de2);
-		
+
 		em.getTransaction().commit();
-		
+
 		em.close();
 		emf.close();
 	}
 
 	private static String hashPassword(String pw, String s) {
-		ByteArrayOutputStream contra=new ByteArrayOutputStream();
+		ByteArrayOutputStream contra = new ByteArrayOutputStream();
 		try {
 			contra.write(pw.getBytes());
 			contra.write(s.getBytes());
-			MessageDigest mg=MessageDigest.getInstance("SHA-256");
-		
-			return new String (mg.digest(contra.toByteArray()));
-		
-		}catch (Exception e){
-			
+			MessageDigest mg = MessageDigest.getInstance("SHA-256");
+
+			return new String(mg.digest(contra.toByteArray()));
+
+		} catch (Exception e) {
+
 		}
 		return null;
 	}

@@ -1,5 +1,6 @@
 package es.uma.informatica.sii.ejb.practica;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -86,5 +87,10 @@ public class PruebaTransacciones {
 		}catch(Exception e){
 			fail("No se deberia de haber lanzado una excepcion");
 		}
+	}
+	
+	@Test
+	public void sacarTransaccionesTest() {
+		assertEquals(1,gestionTransacciones.sacarTransacciones().size());
 	}
 }
