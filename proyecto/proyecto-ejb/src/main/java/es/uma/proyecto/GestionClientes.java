@@ -1,5 +1,7 @@
 package es.uma.proyecto;
 
+import java.util.List;
+
 import javax.ejb.Local;
 
 import es.uma.proyecto.Excepciones.ClienteExistenteException;
@@ -18,8 +20,12 @@ public interface GestionClientes {
 	
 	public void modificarCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
 	
-	public void darDeBajaIndividual(Individual i) throws ClienteExistenteException, TieneCuentaAsociadoException;
+	public void darDeBajaIndividual(Individual i) throws ClienteNoExisteException, TieneCuentaAsociadoException;
 	
-	public void darDeBajaEmpresa(Empresa e) throws ClienteExistenteException, TieneCuentaAsociadoException;
-
+	public void darDeBajaEmpresa(Empresa e) throws ClienteNoExisteException, TieneCuentaAsociadoException;
+	
+	public List<Empresa> sacarEmpresas ();
+	
+	public List<Individual> sacarIndividual();
+	
 }

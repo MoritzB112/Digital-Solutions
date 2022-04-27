@@ -1,5 +1,6 @@
 package es.uma.informatica.sii.ejb.practica;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Date;
@@ -29,9 +30,9 @@ public class PruebaTransacciones {
 		gestionTransacciones = (GestionTransacciones) SuiteTest.ctx.lookup(TRANSACCIONES_EJB);
 		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
-
+	
+//	@Requisitos({"RF17", "RF18"}) 
 	@Test
-//	@Requisitos({"RF17", "RF18"})
 	public void cambioDivisaTest() {
 		Transaccion t=new Transaccion();
 		t.setID_unico(10L);
@@ -52,14 +53,14 @@ public class PruebaTransacciones {
 		de2.setId(de2PK);
 		try {
 			gestionTransacciones.crearTransaccion(t, de1, de2);
-			
+			assertTrue(gestionTransacciones.sacarTransacciones().contains(t));
 		}catch (Exception e) {
 			fail("No se deberia de haber lanzado una excepcion");
 		}
 	}
 	
+  //@Requisitos({"RF17", "RF18"}) 
 	@Test
-//	@Requisitos({"RF17", "RF18"})
 	public void cambioDivisaNoOrigenTest() {
 		Transaccion t=new Transaccion();
 		t.setID_unico(10L);

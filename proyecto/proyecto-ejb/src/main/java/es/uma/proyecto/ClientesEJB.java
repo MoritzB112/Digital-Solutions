@@ -70,10 +70,10 @@ public class ClientesEJB implements GestionClientes {
 		}
 	}
 	
-	public void darDeBajaIndividual(Individual i) throws ClienteExistenteException, TieneCuentaAsociadoException {
+	public void darDeBajaIndividual(Individual i) throws ClienteNoExisteException, TieneCuentaAsociadoException {
 		Individual ind=em.find(Individual.class, i.getId());
 		if(ind==null) {
-			throw new ClienteExistenteException();
+			throw new ClienteNoExisteException();
 		}
 		
 		for(Cuenta_Fintech c:ind.getCf()) {
@@ -85,10 +85,10 @@ public class ClientesEJB implements GestionClientes {
 		ind.setEstado("Baja");
 	}
 	
-	public void darDeBajaEmpresa(Empresa e) throws ClienteExistenteException, TieneCuentaAsociadoException {
+	public void darDeBajaEmpresa(Empresa e) throws ClienteNoExisteException, TieneCuentaAsociadoException {
 		Empresa ent=em.find(Empresa.class, e.getId());
 		if(ent==null) {
-			throw new ClienteExistenteException();
+			throw new ClienteNoExisteException();
 		}
 		
 		for(Cuenta_Fintech c:ent.getCf()) {

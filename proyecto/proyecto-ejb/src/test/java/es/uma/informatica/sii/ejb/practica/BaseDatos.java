@@ -97,7 +97,7 @@ public class BaseDatos {
 		u5.setSalt("SAL");
 		em.persist(u5);
 		
-		//Emprese de ejmplo
+		//Emprese de ejemplo
 		Empresa emp=new Empresa();
 		emp.setId(1L);
 		emp.setTipo_cliente("JUDIRICA");
