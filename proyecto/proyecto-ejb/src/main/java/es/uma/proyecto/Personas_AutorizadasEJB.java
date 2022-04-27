@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import es.uma.proyecto.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.Excepciones.CuentaNoExisteException;
-import es.uma.proyecto.Excepciones.Persona_AutorizadaNoEncontrada;
+import es.uma.proyecto.Excepciones.Persona_AutorizadaNoEncontradaException;
 import es.uma.proyecto.Excepciones.Persona_AutorizadaYaExisteException;
 import es.uma.proyecto.Excepciones.UsuarioNoEncontradoException;
 
@@ -37,6 +37,12 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 
 	public void darAutorizacion(Empresa emp, Autorizacion au, Persona_Autorizada pa)
 			throws AutorizacionYaExisteException, CuentaNoExisteException, Persona_AutorizadaYaExisteException {
+		
+		Autorizacion_PK auPK = new Autorizacion_PK();
+		auPK.setEmID(emp.getId());
+		auPK.setPaID(pa.getID());
+		au.setId(auPK);
+		
 		if (em.find(Autorizacion.class, au.getId()) != null) {
 			throw new AutorizacionYaExisteException();
 		}
@@ -49,10 +55,7 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 			throw new Persona_AutorizadaYaExisteException();
 		}
 
-		Autorizacion_PK auPK = new Autorizacion_PK();
-		auPK.setEmID(empreal.getId());
-		auPK.setPaID(pareal.getID());
-		au.setId(auPK);
+		
 		au.setEm(empreal);
 		au.setPa(pareal);
 
@@ -61,19 +64,19 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 	}
 
 	@Override
-	public void modificarDatosAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontrada {
+	public void modificarDatosAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException {
 		if (em.find(Persona_Autorizada.class, pa.getID()) == null) {
-			throw new Persona_AutorizadaNoEncontrada("ERROR: No existe la persona autorizada a modificar.");
+			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a modificar.");
 		}
 		em.merge(pa);
 
 	}
 
 	@Override
-	public void eliminarAutorizadoCuenta(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontrada {
+	public void eliminarAutorizadoCuenta(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException {
 		Persona_Autorizada pareal = em.find(Persona_Autorizada.class, pa.getID());
 		if (pareal == null) {
-			throw new Persona_AutorizadaNoEncontrada("ERROR: No existe la persona autorizada a eliminar");
+			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a eliminar");
 		}
 		pareal.setEstado("Eliminado");
 		// Se debe mantener en la BD el objeto
@@ -81,10 +84,10 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 	}
 
 	@Override
-	public void bloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontrada {
+	public void bloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException {
 		Persona_Autorizada pareal = em.find(Persona_Autorizada.class, pa.getID());
 		if (pareal == null) {
-			throw new Persona_AutorizadaNoEncontrada("ERROR: No existe la persona autorizada a bloquear");
+			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a bloquear");
 		}
 		pareal.setEstado("Bloqueado");
 
