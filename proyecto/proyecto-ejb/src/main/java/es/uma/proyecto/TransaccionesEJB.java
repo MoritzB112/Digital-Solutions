@@ -2,51 +2,58 @@ package es.uma.proyecto;
 
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import es.uma.proyecto.Excepciones.CuentaNoExisteException;
-import es.uma.proyecto.Excepciones.DivisaNoExisteException;
+import es.uma.proyecto.Excepciones.CuentasNoIgualesException;
+import es.uma.proyecto.Excepciones.DepositoNoExisteException;
+import es.uma.proyecto.Excepciones.SladoInsuficianteException;
 import es.uma.proyecto.Excepciones.TransaccionYaExisteException;
 
+@Stateless
 public class TransaccionesEJB implements GestionTransacciones {
 
 	@PersistenceContext(name = "proyecto-ejb")
 	private EntityManager em;
-	
+
 	@Override
-	public void crearTransaccion(Transaccion t, Pooled_Account paOR, Pooled_Account paDEST, Divisa divOR,
-			Divisa divDEST) throws CuentaNoExisteException, DivisaNoExisteException, TransaccionYaExisteException {
-		if(em.find(Transaccion.class, t.getID_unico())!=null) {
+	public void crearTransaccion(Transaccion t, Depositado_en dep1, Depositado_en dep2)
+			throws TransaccionYaExisteException, DepositoNoExisteException, CuentasNoIgualesException,
+			SladoInsuficianteException {
+		if (em.find(Transaccion.class, t.getID_unico()) != null) {
 			throw new TransaccionYaExisteException();
 		}
-		Pooled_Account paORreal=em.find(Pooled_Account.class, paOR.getIBAN());
-		if(paORreal==null) {
-			throw new CuentaNoExisteException("paOR");
+		Depositado_en dep1real = em.find(Depositado_en.class, dep1.getId());
+		if (dep1real == null) {
+			throw new DepositoNoExisteException("dep1");
 		}
-		Pooled_Account paDESTreal=em.find(Pooled_Account.class, paDEST.getIBAN());
-		if(paDESTreal==null) {
-			throw new CuentaNoExisteException("paDEST");
+		Depositado_en dep2real = em.find(Depositado_en.class, dep2.getId());
+		;
+		if (dep2real == null) {
+			throw new DepositoNoExisteException("dep2");
 		}
-		Divisa divORreal=em.find(Divisa.class, divOR.getAbreviatura());
-		if(divORreal==null) {
-			throw new DivisaNoExisteException();
+		if (!dep1real.getPa().equals(dep2real.getPa())) {
+			throw new CuentasNoIgualesException();
 		}
-		Divisa divDESTreal=em.find(Divisa.class, divDEST.getAbreviatura());
-		if(divDESTreal==null) {
-			throw new DivisaNoExisteException();
+		if (t.getCantidad() + t.getComision() > dep1real.getSaldo()) {
+			throw new SladoInsuficianteException();
 		}
-		t.setDestino(paDESTreal);
-		t.setDivEm(divORreal);
-		t.setDivRec(divDESTreal);
-		t.setOrigen(paORreal);
-		
+
+		t.setDivEm(dep1real.getCr().getDiv());
+		t.setDivRec(dep2real.getCr().getDiv());
+
+		t.setOrigen(dep1real.getPa());
+		t.setDestino(dep2real.getPa());
+
+		t.setTipo("CAMBIO_DIVISA");
 		em.persist(t);
-		
-		paDESTreal.getPagos().add(t);
-		paORreal.getCobros().add(t);
-		divDESTreal.getDivPago().add(t);
-		divORreal.getDivCobro().add(t);
+
+		dep1real.setSaldo(dep1real.getSaldo() - t.getCantidad() - t.getComision());
+		Double dineroDestino = (t.getCantidad() * dep1real.getCr().getDiv().getCambioEuro())
+				/ dep2real.getCr().getDiv().getCambioEuro();
+		dep2real.setSaldo(dep2real.getSaldo() + dineroDestino);
+
 	}
 
 	@Override

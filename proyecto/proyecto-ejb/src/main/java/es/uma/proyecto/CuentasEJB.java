@@ -3,11 +3,19 @@ package es.uma.proyecto;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
-import es.uma.proyecto.Excepciones.*;
+import es.uma.proyecto.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
+import es.uma.proyecto.Excepciones.CuentaReferenciaNoExisteException;
+import es.uma.proyecto.Excepciones.CuentaYaExisteException;
+import es.uma.proyecto.Excepciones.DivisaNoExisteException;
+import es.uma.proyecto.Excepciones.SaldoNoVacioException;
 
+@Stateless
 public class CuentasEJB implements GestionCuentas {
 
 	@PersistenceContext(name = "proyecto-ejb")
@@ -30,29 +38,9 @@ public class CuentasEJB implements GestionCuentas {
 				throw new CuentaReferenciaNoExisteException();
 			}
 
-			Depositado_en de = new Depositado_en();
-			Depositado_en_PK dePK = new Depositado_en_PK();
-			
-			dePK.setCrID(crreal.getIBAN());
-			dePK.setPaID(pa.getIBAN());
-			de.setId(dePK);
-			de.setSaldo(0.0);
-			
-			em.persist(dePK);
-			em.persist(de);
-			em.persist(pa);
-			
-			de.setPa(pa);
-			de.setCr(crreal);
+			pa.setDeps(new ArrayList<>());
 
-			List<Depositado_en> l = new ArrayList<>();
-			l.add(de);
-			
-			pa.setCl(clreal);
-			pa.setDeps(l);
-			
-			crreal.getDeps().add(de);
-			
+			em.persist(pa);
 
 		} else if (cf instanceof Segregada) {
 			Segregada se = (Segregada) cf;
@@ -67,62 +55,59 @@ public class CuentasEJB implements GestionCuentas {
 			if (crreal == null) {
 				throw new CuentaReferenciaNoExisteException();
 			}
-			
+
 			se.setCr(crreal);
 			se.setCl(clreal);
-			
-			em.persist(se);
 
-			clreal.getCf().add(se);
-			cr.setSe(se);
+			em.persist(se);
 
 		} else {
 			throw new CuentaNoSuporteadaException();
 		}
 	}
-	
+
 	@Override
 	public void addCuenta(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException {
-		Pooled_Account pareal=em.find(Pooled_Account.class, pa.getIBAN());
-		if(pareal==null) {
+		Pooled_Account pareal = em.find(Pooled_Account.class, pa.getIBAN());
+		if (pareal == null) {
 			throw new CuentaNoExisteException("POOLED_ACCOUNT");
 		}
-		Cuenta_Referencia crreal=em.find(Cuenta_Referencia.class, cr.getIBAN());
-		if(crreal==null) {
+		Cuenta_Referencia crreal = em.find(Cuenta_Referencia.class, cr.getIBAN());
+		if (crreal == null) {
 			throw new CuentaNoExisteException("CUENTA_REFERENCIA");
 		}
-		
-		Depositado_en de=new Depositado_en();
-		Depositado_en_PK dePK=new Depositado_en_PK();
-		
-		de.setId(dePK);
+
+		Depositado_en de = new Depositado_en();
+		Depositado_en_PK dePK = new Depositado_en_PK();
+
 		dePK.setCrID(crreal.getIBAN());
 		dePK.setPaID(pareal.getIBAN());
-		
-		em.persist(dePK);
-		em.persist(de);
-		
+
+		de.setId(dePK);
 		de.setSaldo(0.0);
 		de.setCr(crreal);
 		de.setPa(pareal);
-		
-		crreal.getDeps().add(de);
-		pareal.getDeps().add(de);
+
+		em.persist(de);
+
 	}
-	
+
 	@Override
 	public void abrirCuentaReferencia(Cuenta_Referencia cr, Divisa dv)
 			throws CuentaYaExisteException, DivisaNoExisteException {
-		Divisa dvreal=em.find(Divisa.class, dv.getAbreviatura());
-		if(dvreal==null) {
-			throw new DivisaNoExisteException();
-		}
-		if(em.find(Cuenta_Referencia.class, cr.getIBAN())!=null) {
+		if (em.find(Cuenta_Referencia.class, cr.getIBAN()) != null) {
 			throw new CuentaYaExisteException();
 		}
+		Divisa dvreal = em.find(Divisa.class, dv.getAbreviatura());
+		if (dvreal == null) {
+			throw new DivisaNoExisteException();
+		}
+
 		cr.setDiv(dvreal);
+		cr.setSaldo(0.0);
+
 		em.persist(cr);
-		dvreal.getCr().add(cr);
+
 	}
 
 	@Override
@@ -188,54 +173,54 @@ public class CuentasEJB implements GestionCuentas {
 			throw new CuentaNoSuporteadaException();
 		}
 	}
-	
+
 	@Override
-	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException{
-		if(c instanceof Segregada) {
-			Segregada se=em.find(Segregada.class, c.getIBAN());
-			if(se==null) {
+	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException {
+		if (c instanceof Segregada) {
+			Segregada se = em.find(Segregada.class, c.getIBAN());
+			if (se == null) {
 				throw new CuentaNoExisteException("SEGREGADA");
 			}
-			List<Transaccion> l=se.getCobros();
+			List<Transaccion> l = se.getCobros();
 			l.addAll(se.getPagos());
 			return l;
-		}else if(c instanceof Pooled_Account) {
-			Pooled_Account se=em.find(Pooled_Account.class, c.getIBAN());
-			if(se==null) {
+		} else if (c instanceof Pooled_Account) {
+			Pooled_Account se = em.find(Pooled_Account.class, c.getIBAN());
+			if (se == null) {
 				throw new CuentaNoExisteException("POOLED_ACCOUNT");
 			}
-			List<Transaccion> l=se.getCobros();
+			List<Transaccion> l = se.getCobros();
 			l.addAll(se.getPagos());
 			return l;
-		}else if(c instanceof Cuenta_Referencia) {
-			Cuenta_Referencia se=em.find(Cuenta_Referencia.class, c.getIBAN());
-			if(se==null) {
+		} else if (c instanceof Cuenta_Referencia) {
+			Cuenta_Referencia se = em.find(Cuenta_Referencia.class, c.getIBAN());
+			if (se == null) {
 				throw new CuentaNoExisteException("CUENTA_REFERENCIA");
 			}
-			List<Transaccion> l=se.getCobros();
+			List<Transaccion> l = se.getCobros();
 			l.addAll(se.getPagos());
 			return l;
-		}else {
-			Cuenta se=em.find(Cuenta.class, c.getIBAN());
-			if(se==null) {
+		} else {
+			Cuenta se = em.find(Cuenta.class, c.getIBAN());
+			if (se == null) {
 				throw new CuentaNoExisteException("CUENTA_REFERENCIA");
 			}
-			List<Transaccion> l=se.getCobros();
+			List<Transaccion> l = se.getCobros();
 			l.addAll(se.getPagos());
 			return l;
 		}
 	}
-	
+
 	@Override
 	public List<Cuenta_Referencia> sacarCuentaReferencia() {
 		return em.createQuery("SELECT cr FROM Cuenta_Referencia cr", Cuenta_Referencia.class).getResultList();
 	}
-	
+
 	@Override
 	public List<Segregada> sacarSegregadas() {
 		return em.createQuery("SELECT se FROM Segregada se", Segregada.class).getResultList();
 	}
-	
+
 	@Override
 	public List<Pooled_Account> sacarPooledAccount() {
 		return em.createQuery("SELECT pa FROM Pooled_Account pa", Pooled_Account.class).getResultList();
