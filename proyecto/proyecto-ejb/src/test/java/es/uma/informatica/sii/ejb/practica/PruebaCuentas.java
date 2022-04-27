@@ -7,8 +7,6 @@ import org.junit.Test;
 public class PruebaCuentas {
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
-
+	
+	
 }
