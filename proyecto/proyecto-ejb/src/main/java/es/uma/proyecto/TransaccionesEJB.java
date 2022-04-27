@@ -28,7 +28,8 @@ public class TransaccionesEJB implements GestionTransacciones {
 		if (dep1real == null) {
 			throw new DepositoNoExisteException("dep1");
 		}
-		Depositado_en dep2real = em.find(Depositado_en.class, dep2.getId());;
+		Depositado_en dep2real = em.find(Depositado_en.class, dep2.getId());
+		;
 		if (dep2real == null) {
 			throw new DepositoNoExisteException("dep2");
 		}
@@ -51,7 +52,7 @@ public class TransaccionesEJB implements GestionTransacciones {
 		dep1real.setSaldo(dep1real.getSaldo() - t.getCantidad() - t.getComision());
 		Double dineroDestino = (t.getCantidad() * dep1real.getCr().getDiv().getCambioEuro())
 				/ dep2real.getCr().getDiv().getCambioEuro();
-		dep2real.setSaldo(dep2real.getSaldo()+dineroDestino);
+		dep2real.setSaldo(dep2real.getSaldo() + dineroDestino);
 
 	}
 
