@@ -18,6 +18,6 @@ public interface GestionUsuarios {
 	
 	public Usuario usuarioRegistrado(String usuario, String contraseña) throws PasswordException, UsuarioNoEncontradoException, ContraseñaIncorrectaException;
 	
-	public List<Usuario> sacarUsuario();
+	public List<Usuario> sacarUsuarios();
 	
 }

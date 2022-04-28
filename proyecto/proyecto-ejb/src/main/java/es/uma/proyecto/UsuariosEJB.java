@@ -96,7 +96,7 @@ public class UsuariosEJB implements GestionUsuarios {
 		}
 	}
 
-	public List<Usuario> sacarUsuario(){
+	public List<Usuario> sacarUsuarios(){
 		return em.createQuery("SELECT usu FROM Usuario usu", Usuario.class).getResultList();
 	}
 }

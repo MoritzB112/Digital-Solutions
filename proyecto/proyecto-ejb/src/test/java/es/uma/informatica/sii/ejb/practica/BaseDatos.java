@@ -63,7 +63,17 @@ public class BaseDatos {
 		cr2.setNombreBanco("BANCOTEST");
 		cr2.setDiv(d2);
 		em.persist(cr2);
-
+		Cuenta_Referencia cr3 = new Cuenta_Referencia();
+		cr3.setIBAN("IBANTESTCR3");
+		cr3.setDeps(new ArrayList<>());
+		cr3.setCobros(new ArrayList<>());
+		cr3.setPagos(new ArrayList<>());
+		cr3.setEstado("ALTA");
+		cr3.setSaldo(0.0);
+		cr3.setNombreBanco("BANCOTEST");
+		cr3.setDiv(d1);
+		em.persist(cr3);
+		
 		// Usuario de ejemplo
 		Usuario u = new Usuario();
 		u.setEsAdministrativo(false);
