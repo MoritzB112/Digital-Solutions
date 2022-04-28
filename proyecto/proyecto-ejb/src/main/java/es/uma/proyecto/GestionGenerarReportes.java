@@ -7,8 +7,8 @@ import javax.ejb.Local;
 @Local
 public interface GestionGenerarReportes {
 	
-	public void generarReporteTodas() throws IOException;
+	public String generarReportePrimero() throws IOException;
 	
-	public void generarReporteActivos() throws IOException;
+	public String generarReporteSegundo() throws IOException;
 	
 }

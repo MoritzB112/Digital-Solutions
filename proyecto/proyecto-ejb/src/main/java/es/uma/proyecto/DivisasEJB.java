@@ -18,7 +18,7 @@ public class DivisasEJB implements GestionDivisas {
 	@Override
 	public void insertarDivisa(Divisa div) throws DivisaYaExisteException {
 		Divisa realDiv=em.find(Divisa.class, div.getAbreviatura());
-		if(realDiv==null) {
+		if(realDiv!=null) {
 			throw new DivisaYaExisteException();
 		}
 		
