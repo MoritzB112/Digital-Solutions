@@ -29,6 +29,7 @@ public class PruebaUsuarios {
 
 	
 	@Test
+	@Requisitos({"RF1", "RF7"})
 	public void crearUsuarioTest() {
 		Usuario u = new Usuario();
 		u.setUsuario("prueba1");

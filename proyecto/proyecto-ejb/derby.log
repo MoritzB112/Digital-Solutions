@@ -1,13 +1,13 @@
 ----------------------------------------------------------------
-Thu Apr 28 02:16:25 CEST 2022:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-6d86-af22-000007763d30 
-on database directory /tmp/gfembed16583535766501366519tmp/lib/databases/ejbtimer with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 
-Loaded from file:/home/franvr/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/5.1.0/glassfish-embedded-all-5.1.0.jar
-java.vendor=Private Build
-java.runtime.version=11.0.15+10-Ubuntu-0ubuntu0.20.04.1
-user.dir=/mnt/c/Users/franVR/Downloads/Digital-Solutions/proyecto/proyecto-ejb
+Thu Apr 28 13:57:44 CEST 2022:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.14.2.0 - (1828579): instance a816c00e-0180-7008-c49e-00000aa29a90 
+on database directory /tmp/gfembed11871130457501193992tmp/lib/databases/ejbtimer with class loader jdk.internal.loader.ClassLoaders$AppClassLoader@55054057 
+Loaded from file:/home/moritz/.m2/repository/org/glassfish/main/extras/glassfish-embedded-all/5.1.0/glassfish-embedded-all-5.1.0.jar
+java.vendor=Ubuntu
+java.runtime.version=11.0.14.1+1-Ubuntu-0ubuntu1.20.04
+user.dir=/mnt/c/Users/Moritz/OneDrive - Universidad de Málaga/Tercero/Segundo Cuatrimestre/Sistemas de Informacion para Internet/Digital Solutions/proyecto/proyecto-ejb
 os.name=Linux
 os.arch=amd64
-os.version=5.10.16.3-microsoft-standard-WSL2
+os.version=5.10.60.1-microsoft-standard-WSL2
 derby.system.home=null
 Database Class Loader started - derby.database.classpath=''
