@@ -7,6 +7,7 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.ejb.EJB;
 import javax.ejb.Schedule;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -15,45 +16,48 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVPrinter;
 
+
 @Stateless
 public class GenerarReportesEJB implements GestionGenerarReportes {
 
 	@PersistenceContext(name = "proyecto-ejb")
 	private EntityManager em;
+	
+	@EJB
+	GestionCuentas cEJB;
 
 	@Override
-	public void generarReporteActivos() throws IOException {
+	public String generarReportePrimero() throws IOException {
 		SimpleDateFormat formatter = new SimpleDateFormat("ddMMYYYYHHmmss");
 		Date date = new Date(System.currentTimeMillis());
 		String dateS = formatter.format(date);
-		CuentasEJB cEJB = new CuentasEJB();
-		BufferedWriter writer = Files.newBufferedWriter(Paths.get(dateS));
+		BufferedWriter writer = Files.newBufferedWriter(Paths.get("Ebury_IBAN_"+dateS+".csv"));
 
 		CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("IBAN", "Last_Name", "First_Name",
 				"Street", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth"));
 		for (Segregada c : cEJB.sacarSegregadas()) {
 			csvPrinter.printRecord(c.getIBAN(), "noexistente", "noexistente", "noexistente", "noexistente",
 					"noexistente", "noexistente", "noexistente", "noexistente");
+			csvPrinter.flush();
 		}
-		csvPrinter.flush();
-		csvPrinter.close();
+		return "Ebury_IBAN_"+dateS+".csv";
 	}
 
 	@Override
-	@Schedule(dayOfWeek = "Mon")
-	public void generarReporteTodas() throws IOException {
+//	@Schedule(dayOfWeek = "Mon")
+	public String generarReporteSegundo() throws IOException {
 		SimpleDateFormat formatter = new SimpleDateFormat("ddMMYYYYHHmmss");
 		SimpleDateFormat cumple = new SimpleDateFormat("YYYY-MM-dd");
 		Date date = new Date(System.currentTimeMillis());
 		String dateS = formatter.format(date);
-		CuentasEJB cEJB = new CuentasEJB();
-		BufferedWriter writer = Files.newBufferedWriter(Paths.get(dateS));
+		BufferedWriter writer = Files.newBufferedWriter(Paths.get("Ebury_IBAN_"+dateS+".csv"));
 
 		CSVPrinter csvPrinter = new CSVPrinter(writer, CSVFormat.DEFAULT.withHeader("IBAN", "Last_Name", "First_Name",
 				"Street", "City", "Post_Code", "Country", "identification_Number", "Date_Of_Birth"));
+		
 		for (Segregada c : cEJB.sacarSegregadas()) {
 			Cliente cl = c.getCl();
-			if (cl.getEstado().equalsIgnoreCase("ALTA")) {
+			if (c.getEstado().equalsIgnoreCase("ALTA")) {
 				if (cl instanceof Empresa) {
 					Empresa emp = (Empresa) cl;
 					for (Autorizacion a : emp.getAu()) {
@@ -70,6 +74,7 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 									: cumple.format(pa.getFecha_nacimiento());
 							csvPrinter.printRecord(c.getIBAN(), apellido, nombre, direccion, ciudad, cp, pais, id,
 									fecha_naciminto);
+							csvPrinter.flush();
 						}
 					}
 				} else if (cl instanceof Individual) {
@@ -81,14 +86,14 @@ public class GenerarReportesEJB implements GestionGenerarReportes {
 					String cp = id.getCodigoPostal() == null ? "noexistente" : id.getCodigoPostal().toString();
 					String pais = id.getPais() == null ? "noexistente" : id.getPais();
 					String ID = id.getId() == null ? "noexistente" : id.getId().toString();
-					String fecha_naciminto = id.getFecha_nacimiento() == null ? "noexistente"
+					String fecha_nacimiento = id.getFecha_nacimiento() == null ? "noexistente"
 							: cumple.format(id.getFecha_nacimiento());
 					csvPrinter.printRecord(c.getIBAN(), apellido, nombre, direccion, ciudad, cp, pais, ID,
-							fecha_naciminto);				}
+							fecha_nacimiento);				
+					csvPrinter.flush();
+				}
 			}
-
 		}
-		csvPrinter.flush();
-		csvPrinter.close();
+		return "Ebury_IBAN_"+dateS+".csv";
 	}
 }

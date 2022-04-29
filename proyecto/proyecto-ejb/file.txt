@@ -1,1 +1,0 @@
-https://free.currconv.com/api/v7/convert?q=USD_EUR,EUR_EUR&compact=ultra&apiKey=582210348b40c517c856
