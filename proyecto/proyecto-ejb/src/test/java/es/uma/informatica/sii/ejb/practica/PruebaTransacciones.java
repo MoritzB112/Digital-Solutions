@@ -12,6 +12,7 @@ import javax.naming.NamingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.proyecto.Depositado_en;
 import es.uma.proyecto.Depositado_en_PK;
 import es.uma.proyecto.GestionTransacciones;

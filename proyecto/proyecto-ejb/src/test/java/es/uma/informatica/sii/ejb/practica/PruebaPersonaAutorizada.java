@@ -14,6 +14,7 @@ import javax.naming.NamingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.proyecto.Autorizacion;
 import es.uma.proyecto.Autorizacion_PK;
 import es.uma.proyecto.Empresa;

@@ -9,6 +9,7 @@ import javax.naming.NamingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.proyecto.GestionUsuarios;
 import es.uma.proyecto.Usuario;
 import es.uma.proyecto.Excepciones.ContraseñaIncorrectaException;

@@ -11,6 +11,7 @@ import javax.naming.NamingException;
 import org.junit.Before;
 import org.junit.Test;
 
+import es.uma.informatica.sii.anotaciones.Requisitos;
 import es.uma.proyecto.Empresa;
 import es.uma.proyecto.GestionClientes;
 import es.uma.proyecto.Individual;
