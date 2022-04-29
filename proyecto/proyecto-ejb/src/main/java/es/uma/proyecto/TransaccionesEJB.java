@@ -8,7 +8,7 @@ import javax.persistence.PersistenceContext;
 
 import es.uma.proyecto.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.Excepciones.DepositoNoExisteException;
-import es.uma.proyecto.Excepciones.SladoInsuficianteException;
+import es.uma.proyecto.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.Excepciones.TransaccionYaExisteException;
 
 @Stateless
@@ -18,9 +18,9 @@ public class TransaccionesEJB implements GestionTransacciones {
 	private EntityManager em;
 
 	@Override
-	public void crearTransaccion(Transaccion t, Depositado_en dep1, Depositado_en dep2)
+	public void cambioDivisa(Transaccion t, Depositado_en dep1, Depositado_en dep2)
 			throws TransaccionYaExisteException, DepositoNoExisteException, CuentasNoIgualesException,
-			SladoInsuficianteException {
+			SaldoInsuficianteException {
 		if (em.find(Transaccion.class, t.getID_unico()) != null) {
 			throw new TransaccionYaExisteException();
 		}
@@ -29,7 +29,6 @@ public class TransaccionesEJB implements GestionTransacciones {
 			throw new DepositoNoExisteException("dep1");
 		}
 		Depositado_en dep2real = em.find(Depositado_en.class, dep2.getId());
-		;
 		if (dep2real == null) {
 			throw new DepositoNoExisteException("dep2");
 		}
@@ -37,7 +36,7 @@ public class TransaccionesEJB implements GestionTransacciones {
 			throw new CuentasNoIgualesException();
 		}
 		if (t.getCantidad() + t.getComision() > dep1real.getSaldo()) {
-			throw new SladoInsuficianteException();
+			throw new SaldoInsuficianteException();
 		}
 
 		t.setDivEm(dep1real.getCr().getDiv());

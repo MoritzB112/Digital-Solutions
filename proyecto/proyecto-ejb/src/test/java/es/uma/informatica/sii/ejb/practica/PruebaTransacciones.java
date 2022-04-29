@@ -33,8 +33,8 @@ public class PruebaTransacciones {
 		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 	
-//	@Requisitos({"RF17", "RF18"}) 
 	@Test
+	@Requisitos({"RF17", "RF18"}) //Cambia la divisa de dos Depositados_En en la misma Pooled Account
 	public void cambioDivisaTest() {
 		Transaccion t=new Transaccion();
 		t.setID_unico(10L);
@@ -54,15 +54,15 @@ public class PruebaTransacciones {
 		de2PK.setPaID("IBANTESTPA1");
 		de2.setId(de2PK);
 		try {
-			gestionTransacciones.crearTransaccion(t, de1, de2);
+			gestionTransacciones.cambioDivisa(t, de1, de2);
 			assertTrue(gestionTransacciones.sacarTransacciones().contains(t));
 		}catch (Exception e) {
 			fail("No se deberia de haber lanzado una excepcion");
 		}
 	}
 	
-  //@Requisitos({"RF17", "RF18"}) 
 	@Test
+	@Requisitos({"RF17", "RF18"}) //Cambia la divisa de dos Depositados_En pero uno no existe y falla
 	public void cambioDivisaNoOrigenTest() {
 		Transaccion t=new Transaccion();
 		t.setID_unico(10L);
@@ -82,7 +82,7 @@ public class PruebaTransacciones {
 		de2PK.setPaID("IBANTESTPA1");
 		de2.setId(de2PK);
 		try {
-			gestionTransacciones.crearTransaccion(t, de1, de2);
+			gestionTransacciones.cambioDivisa(t, de1, de2);
 			fail("Se deberia haber lanzado excepcion");
 		}catch (DepositoNoExisteException e) {
 			

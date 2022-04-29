@@ -29,7 +29,7 @@ public class PruebaUsuarios {
 
 	
 	@Test
-	@Requisitos({"RF1", "RF7"})
+	@Requisitos({"RF2"}) // Hay que crear un usuario antes que puedes dar de alta a un cliente
 	public void crearUsuarioTest() {
 		Usuario u = new Usuario();
 		u.setUsuario("prueba1");
@@ -44,7 +44,8 @@ public class PruebaUsuarios {
 		}
 	}
 	
-	@Test	
+	@Test
+	@Requisitos({"RF2"}) //El usuario ya existe y falla
 	public void CrearExistente() {
 		Usuario u = new Usuario();
 		u.setUsuario("testPA1");
@@ -62,6 +63,7 @@ public class PruebaUsuarios {
 	}
 	
 	@Test
+	@Requisitos({"RF1"}) //Comprueba si un Usuario es administrativo o no
 	public void comprobarAdministrativoExistente() {
 		Usuario u = new Usuario();
 		Usuario u2 = new Usuario();
@@ -86,6 +88,7 @@ public class PruebaUsuarios {
 	
 	
 	@Test
+	@Requisitos({"RF1"}) //Comprueba si un Usuario es administrativo o no, no existe y da error
 	public void comprobarAdministrativoNoExistente() {
 		Usuario u = new Usuario();
 		u.setUsuario("Inventado");
@@ -103,6 +106,7 @@ public class PruebaUsuarios {
 	}
 	
 	@Test
+	@Requisitos({"RF10"}) //Comrueba los datos de usuario de los clientes para poder hacer el login
 	public void usuarioRegExistBien() {
 			Usuario u = new Usuario();
 			u.setUsuario("testPA1");
@@ -117,6 +121,7 @@ public class PruebaUsuarios {
 	}
 	
 	@Test
+	@Requisitos({"RF10"}) //Comrueba los datos de usuario de los clientes para poder hacer el login, esten mal
 	public void usuarioRegiExistMal() {
 		try {
 			gestionUsuarios.usuarioRegistrado("testAD5", "fallo");

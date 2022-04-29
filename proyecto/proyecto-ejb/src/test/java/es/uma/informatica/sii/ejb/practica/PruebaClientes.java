@@ -11,7 +11,6 @@ import javax.naming.NamingException;
 import org.junit.Before;
 import org.junit.Test;
 
-import es.uma.proyecto.Cliente;
 import es.uma.proyecto.Empresa;
 import es.uma.proyecto.GestionClientes;
 import es.uma.proyecto.Individual;
@@ -33,6 +32,7 @@ public class PruebaClientes {
 	}
 
 	@Test
+	@Requisitos({"RF2"}) //Se da de alta un cliente de tipo empresa a la BBDD
 	public void altaEmpresaNoRegTest() {
 		Empresa emp = new Empresa();
 		Usuario u = new Usuario();
@@ -59,6 +59,7 @@ public class PruebaClientes {
 	
 	
 	@Test
+	@Requisitos({"RF2"}) //Se da de alta un cliente de tipo empresa ya existiente, fallara
 	public void altaEmpresaRegTest() {
 		Empresa emp = new Empresa();
 		Usuario u = new Usuario();
@@ -79,6 +80,7 @@ public class PruebaClientes {
 	
 
 	@Test
+	@Requisitos({"RF2"}) //Se da de alta un cliente de tipo individual a la BBDD
 	public void altaIndividualNoRegTest() {
 		Individual ind = new Individual();
 		Usuario u = new Usuario();
@@ -107,6 +109,7 @@ public class PruebaClientes {
 	
 	
 	@Test
+	@Requisitos({"RF2"}) //Se da de alta un cliente de tipo individual y existente, fallara
 	public void altaIndividualRegTest() {
 		Empresa ind = new Empresa();
 		Usuario u = new Usuario();
@@ -127,6 +130,7 @@ public class PruebaClientes {
 	
 	
 	@Test
+	@Requisitos({"RF3"}) //Se modifica la informacion de un cliente en la BBDD
 	public void modificarClienteIndExistTest() {
 		Individual ind = gestionClientes.sacarIndividual().get(0);
 		Individual ind2 = null;
@@ -146,6 +150,7 @@ public class PruebaClientes {
 	}
 	
 	@Test
+	@Requisitos({"RF3"}) //Se meodifica la informacion de un cliente ya existente y fallara
 	public void modificarClienteIndNoExistTest() {
 		Individual ind = new Individual();
 		ind.setId(10L);
@@ -162,6 +167,7 @@ public class PruebaClientes {
 	}
 	
 	@Test
+	@Requisitos({"RF4"}) //Da de baja una empresa existente sin eleminarlo
 	public void bajaEmpresaExistTest() {
 		Empresa emp = new Empresa();
 		emp.setId(2L);
@@ -183,6 +189,7 @@ public class PruebaClientes {
 	}
 	
 	@Test
+	@Requisitos({"RF4"}) //Da de baja una Empresa no existente y falla
 	public void bajaEmpresaNoExist() {
 		Empresa emp = new Empresa();
 		emp.setId(1L);
@@ -199,6 +206,7 @@ public class PruebaClientes {
 	
 	
 	@Test
+	@Requisitos({"RF4"}) //Da de baja un individual existente sin eleminarlo
 	public void bajaIndiviExistTest() {
 		Individual ind = new Individual();
 		ind.setId(4L);
@@ -220,6 +228,7 @@ public class PruebaClientes {
 	}
 	
 	@Test
+	@Requisitos({"RF4"}) //Da de baja un individual no existente, falla
 	public void bajaIndiviNoExist() {
 		Individual ind = new Individual();
 		ind.setId(3L);
@@ -235,11 +244,54 @@ public class PruebaClientes {
 	}
 	
 	@Test
+	@Requisitos({"RF16"}) //Bloquea la cuenta de un cliente
+	public void bloquearClienteTest() {
+		Individual c=new Individual();
+		c.setId(3L);
+		Individual ind2=new Individual();
+
+		try {
+			gestionClientes.bloquearCliente(c);
+			for(Individual i:gestionClientes.sacarIndividual()) {
+				if(i.getId().equals(c.getId())) {
+					ind2=i;
+				}
+			}
+			assertEquals("BLOQUEADO", ind2.getEstado().toUpperCase());
+		}catch (Exception e) {
+			fail("no deberia haber lanzado excepcion");
+		}
+	}
+	
+	@Test
+	@Requisitos({"RF16"}) //Desbloquea la cuenta de un cliente
+	public void desbloquearClienteTest() {
+		Individual c=new Individual();
+		c.setId(3L);
+		Individual ind2=new Individual();
+
+		try {
+			gestionClientes.bloquearCliente(c);
+			gestionClientes.desbloquearCliente(c);
+			for(Individual i:gestionClientes.sacarIndividual()) {
+				if(i.getId().equals(c.getId())) {
+					ind2=i;
+				}
+			}
+			assertEquals("ALTA", ind2.getEstado().toUpperCase());
+		}catch (Exception e) {
+			fail("no deberia haber lanzado excepcion");
+		}
+	}
+	
+	@Test
+	@Requisitos({"RF11"}) //Saca la informacion necesaria para generar el reporte
 	public void numIndividuales() {
 		assertEquals(2, gestionClientes.sacarIndividual().size());
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Saca la informacion necesara para los reportes
 	public void numEmpresas() {
 		assertEquals(2, gestionClientes.sacarEmpresas().size());
 	}

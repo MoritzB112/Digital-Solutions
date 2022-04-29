@@ -93,6 +93,46 @@ public class ClientesEJB implements GestionClientes {
 
 		ent.setEstado("Baja");
 	}
+	
+	public void bloquearCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException {
+		if(cl instanceof Empresa) {
+			Empresa emp=em.find(Empresa.class, cl.getId());
+			if(emp==null) {
+				throw new ClienteNoExisteException();
+			}
+			
+			emp.setEstado("BLOQUEADO");
+		}else if(cl instanceof Individual) {
+			Individual ind=em.find(Individual.class, cl.getId());
+			if(ind==null) {
+				throw new ClienteNoExisteException();
+			}
+			
+			ind.setEstado("BLOQUEADO");
+		}else {
+			throw new ClienteNoSuporteadoException();
+		}
+	}
+	
+	public void desbloquearCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException {
+		if(cl instanceof Empresa) {
+			Empresa emp=em.find(Empresa.class, cl.getId());
+			if(emp==null) {
+				throw new ClienteNoExisteException();
+			}
+			
+			emp.setEstado("ALTA");
+		}else if(cl instanceof Individual) {
+			Individual ind=em.find(Individual.class, cl.getId());
+			if(ind==null) {
+				throw new ClienteNoExisteException();
+			}
+			
+			ind.setEstado("ALTA");
+		}else {
+			throw new ClienteNoSuporteadoException();
+		}
+	}
 
 	public List<Empresa> sacarEmpresas() {
 		return em.createQuery("SELECT ent FROM Empresa ent", Empresa.class).getResultList();

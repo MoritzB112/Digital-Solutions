@@ -35,7 +35,7 @@ public class PruebaDivisas {
 	}
 
 	
-	@Test
+	@Test //Permite meter una nueva divisa en la BBDD
 	public void insertarDivisaTest() {
 		int preSize = gestionDivisas.getDivisas().size();
 		
@@ -55,7 +55,7 @@ public class PruebaDivisas {
 		assertEquals(divisas.size(), preSize+1);
 	}
 	
-	@Test
+	@Test //Permite modificar una divisa existente en la BBDD
 	public void modificarDivisaExistenteTest() {
 		Divisa d1 = gestionDivisas.getDivisas().get(0);
 		d1.setCambioEuro(0.5);
@@ -74,7 +74,7 @@ public class PruebaDivisas {
 		}
 	}
 	
-	@Test
+	@Test //Permite modificar una divisa no existente y da error
 	public void modificarDivisaNoExistenteTest() {
 		Divisa d = new Divisa();
 		d.setAbreviatura("NA");
@@ -91,7 +91,7 @@ public class PruebaDivisas {
 		}
 	}
 	
-	@Test
+	@Test //Sacara todas las divisas de la BBDD
 	public void getDivisasTest() {
 		assertEquals(2, gestionDivisas.getDivisas().size());
 	}

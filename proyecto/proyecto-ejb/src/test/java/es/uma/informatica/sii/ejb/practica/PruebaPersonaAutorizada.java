@@ -50,7 +50,7 @@ public class PruebaPersonaAutorizada {
 		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 
-	@Test
+	@Test //Da de alta a una nueva Persona_Autorizada
 	public void insertarPersonaAutorizadaTest() {	
 	
 		Persona_Autorizada paut= new Persona_Autorizada();
@@ -73,7 +73,7 @@ public class PruebaPersonaAutorizada {
 			
 }
 	
-	@Test
+	@Test //Da de alta a una nueva Persona_Autorizada ya existente y falla
 	public void insertarPersonaAutorizadaNoUsuarioTest() {	
 	
 		Persona_Autorizada paut= new Persona_Autorizada();
@@ -97,7 +97,7 @@ public class PruebaPersonaAutorizada {
 		}
 	}
 	
-	@Test
+	@Test //Da de alta a una nueva Persona_Autorizada
 	public void insertarPersonaAutorizadaExistenteTest() {	
 	
 		Persona_Autorizada paut= new Persona_Autorizada();
@@ -115,7 +115,7 @@ public class PruebaPersonaAutorizada {
 		}			
 }
 	
-	@Test
+	@Test //Da de alta a una nueva Persona_Autorizada
 	public void darAutorizacionExistenteTest() {
 		Autorizacion au=new Autorizacion();
 		
@@ -139,6 +139,7 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF6"}) //Da una autorisacion de una empresa a una Persona Autorizada
 	public void darAutorizacionTest() {
 		Autorizacion au=new Autorizacion();
 		
@@ -162,6 +163,7 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF8"}) //Da de baja una presona autorizada
 	public void eliminarAutorizadoCuentaTest() {
 		Persona_Autorizada paut= new Persona_Autorizada();
 		paut.setID(1L);
@@ -174,7 +176,7 @@ public class PruebaPersonaAutorizada {
 					paut2=a;
 				}
 			}
-			assertEquals("ELIMINADO", paut2.getEstado().toUpperCase());
+			assertEquals("BAJA", paut2.getEstado().toUpperCase());
 			
 		}catch(Exception e) {
 			fail("No se debe lanzar excepción");
@@ -182,6 +184,7 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF16"}) //Bloquea una presona autorizada
 	public void bloquearAutorizadoTest() {
 		Persona_Autorizada paut= new Persona_Autorizada();
 		paut.setID(1L);
@@ -202,6 +205,29 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF16"}) //Desbloquea una presona autorizada
+	public void desbloquearAutorizadoTest() {
+		Persona_Autorizada paut= new Persona_Autorizada();
+		paut.setID(1L);
+		Persona_Autorizada paut2=null;
+		
+		try {
+			gestionPA.bloquearAutorizado(paut);
+			gestionPA.desbloquearAutorizado(paut);
+			for(Persona_Autorizada a:gestionPA.sacarPA()) {
+				if(a.getID().equals(paut.getID())) {
+					paut2=a;
+				}
+			}
+			assertEquals("ALTA", paut2.getEstado().toUpperCase());
+			
+		}catch(Exception e) {
+			fail("No se debe lanzar excepción");
+		}
+	}
+	
+	@Test
+	@Requisitos({"RF7"}) //Modifica los datod de una presona autorizada existente
 	public void modificarDatosAutorizadoTest() {
 		Persona_Autorizada paut= gestionPA.sacarPA().get(0);
 		Persona_Autorizada paut2=null;
@@ -228,6 +254,7 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF7"}) //Modifica los datod de una presona autorizada no existente, resulta en error
 	public void modificarDatosAutorizadoNoExistenteTest() {
 		Persona_Autorizada paut= new Persona_Autorizada();
 		paut.setID(10L);
@@ -249,11 +276,13 @@ public class PruebaPersonaAutorizada {
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Saca las personas autorizadas para poder generar reportes
 	public void sacarPATest() {
 		assertEquals(2, gestionPA.sacarPA().size());
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Saca las autorizaciones para poder generar reportes
 	public void sacarAutorizacionesTest() {
 		assertEquals(1, gestionPA.sacarAutorizaciones().size());
 	}

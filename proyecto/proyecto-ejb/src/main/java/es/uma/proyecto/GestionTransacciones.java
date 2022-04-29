@@ -6,15 +6,15 @@ import javax.ejb.Local;
 
 import es.uma.proyecto.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.Excepciones.DepositoNoExisteException;
-import es.uma.proyecto.Excepciones.SladoInsuficianteException;
+import es.uma.proyecto.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.Excepciones.TransaccionYaExisteException;
 
 @Local
 public interface GestionTransacciones {
 
-	public void crearTransaccion(Transaccion t, Depositado_en dep1, Depositado_en depDEST)
+	public void cambioDivisa(Transaccion t, Depositado_en dep1, Depositado_en depDEST)
 			throws TransaccionYaExisteException, DepositoNoExisteException, CuentasNoIgualesException,
-			SladoInsuficianteException;
+			SaldoInsuficianteException;
 
 	public List<Transaccion> sacarTransacciones();
 

@@ -35,6 +35,7 @@ public class PruebaCSV {
 	
 	
 	@Test
+	@Requisitos({"RF12"}) //Crea el informe del primer tipo del RF12
 	public void CSVprimerSegundoTest() {
 		List<List <String>> listasList = new ArrayList<>();
 		List <String> linea1 = new ArrayList<>();
@@ -99,6 +100,7 @@ public class PruebaCSV {
 	}
 	
 	@Test
+	@Requisitos({"RF12"}) //Crea el informe del segundo tipo del RF12
 	public void CSVprimerReporteTest() {
 		List<List <String>> listasList = new ArrayList<>();
 		List <String> linea1 = new ArrayList<>();

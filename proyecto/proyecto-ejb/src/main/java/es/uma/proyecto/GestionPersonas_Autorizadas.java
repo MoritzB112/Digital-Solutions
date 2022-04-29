@@ -24,6 +24,8 @@ public interface GestionPersonas_Autorizadas {
 	
 	public void bloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException;
 	
+	public void desbloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException;
+	
 	public List<Persona_Autorizada> sacarPA();
 	
 	public List<Autorizacion> sacarAutorizaciones();

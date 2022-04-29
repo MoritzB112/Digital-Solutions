@@ -24,6 +24,10 @@ public interface GestionClientes {
 	
 	public void darDeBajaEmpresa(Empresa e) throws ClienteNoExisteException, TieneCuentaAsociadoException;
 	
+	public void bloquearCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
+	
+	public void desbloquearCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
+	
 	public List<Empresa> sacarEmpresas ();
 	
 	public List<Individual> sacarIndividual();

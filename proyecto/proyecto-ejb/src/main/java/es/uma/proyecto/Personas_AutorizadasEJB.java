@@ -78,7 +78,7 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 		if (pareal == null) {
 			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a eliminar");
 		}
-		pareal.setEstado("Eliminado");
+		pareal.setEstado("Baja");
 		// Se debe mantener en la BD el objeto
 
 	}
@@ -90,6 +90,15 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a bloquear");
 		}
 		pareal.setEstado("Bloqueado");
+
+	}
+	
+	public void desbloquearAutorizado(Persona_Autorizada pa) throws Persona_AutorizadaNoEncontradaException {
+		Persona_Autorizada pareal = em.find(Persona_Autorizada.class, pa.getID());
+		if (pareal == null) {
+			throw new Persona_AutorizadaNoEncontradaException("ERROR: No existe la persona autorizada a bloquear");
+		}
+		pareal.setEstado("ALTA");
 
 	}
 	

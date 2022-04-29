@@ -38,6 +38,7 @@ public class PruebaCuentas {
 	}
 
 	@Test
+	@Requisitos({"RF5"}) //Permite crear una cuenta Pooled y asociarlo a un cliente existente
 	public void addCuentaPooledTest() {
 		Pooled_Account pa = new Pooled_Account();
 		Cuenta_Referencia ref = new Cuenta_Referencia();
@@ -58,6 +59,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF5"}) //Permite crear una cuenta Segregada y asociarlo a un cliente existente
 	public void addCuentaSegTest() {
 		Segregada se = new Segregada();
 		Cuenta_Referencia ref = new Cuenta_Referencia();
@@ -79,6 +81,7 @@ public class PruebaCuentas {
 	
 	
 	@Test
+	@Requisitos({"RF5"}) //Es para dar de alta una cuenta de referencia(externa), con una divisa
 	public void abrirCuentaRefTest() {
 		Cuenta_Referencia cf = new Cuenta_Referencia();
 		Divisa dv = new Divisa();
@@ -98,6 +101,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF5"}) //Es para dar de alta una cuenta de referencia(externa), pero la divisa no existe (falla)
 	public void abrirCuentaRefNoDivisaTest() {
 		Cuenta_Referencia cf = new Cuenta_Referencia();
 		Divisa dv = new Divisa();
@@ -119,6 +123,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF9"}) //Permite cerrar una cuenta con saldo 0.0 cambia al estado BAJA
 	public void cerrarCuentaTest() {
 		Segregada se = new Segregada();
 		se.setIBAN("IBANTESTSE2");
@@ -138,6 +143,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF9"}) //Permite cerrar una cuenta con saldo > 0.0, fallara
 	public void cerrarCuentaPoolVacioTest() {
 		Pooled_Account pa = new Pooled_Account();
 		pa.setIBAN("IBANTESTPA1");
@@ -153,6 +159,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Seca toda la informacion de una cuenta
 	public void sacarCuentaTest() {
 		Pooled_Account pa = new Pooled_Account();
 		pa.setIBAN("IBANTESTPA1");
@@ -166,6 +173,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Seca toda la informacion de una cuenta, pero no le pasa una cuenta de tipo segregada ni pooled y fallara
 	public void sacarCuentaNoSuporTest() {
 		Cuenta cu = new Cuenta();
 		cu.setIBAN("ES123");
@@ -225,6 +233,7 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF10"}) //Seca todas las transacciones asociados a un cliente
 	public void sacarTrasaccionesTest() {
 		Pooled_Account pa = new Pooled_Account();
 		pa.setIBAN("IBANTESTPA1");
@@ -240,16 +249,19 @@ public class PruebaCuentas {
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Seca toda la informacion de una cuenta para el reporte por ejemplo
 	public void sacarPooledAccountTest() {
 		assertEquals(1, gestionCuentas.sacarPooledAccount().size());
 	}
 	
 	@Test
+	@Requisitos({"RF11", "RF12"}) //Seca toda la informacion de una cuenta para el reporte por ejemplo
 	public void sacarSegregadasTest() {
 		assertEquals(2, gestionCuentas.sacarSegregadas().size());
 	}
 	
 	@Test
+	@Requisitos({"RF11"}) //Seca toda la informacion de una cuenta para el reporte por ejemplo
 	public void sacarReferenciasTest() {
 		assertEquals(3, gestionCuentas.sacarCuentaReferencia().size());
 	}
