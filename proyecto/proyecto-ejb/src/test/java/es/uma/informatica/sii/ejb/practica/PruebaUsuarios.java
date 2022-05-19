@@ -10,11 +10,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.GestionUsuarios;
-import es.uma.proyecto.Usuario;
-import es.uma.proyecto.Excepciones.ContraseñaIncorrectaException;
-import es.uma.proyecto.Excepciones.UsuarioExistenteException;
-import es.uma.proyecto.Excepciones.UsuarioNoEncontradoException;
+import es.uma.proyecto.ejb.GestionUsuarios;
+import es.uma.proyecto.ejb.Excepciones.ContraseñaIncorrectaException;
+import es.uma.proyecto.ejb.Excepciones.UsuarioExistenteException;
+import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
+import es.uma.proyecto.jpa.Usuario;
 
 public class PruebaUsuarios {
 

@@ -12,13 +12,13 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.Empresa;
-import es.uma.proyecto.GestionClientes;
-import es.uma.proyecto.Individual;
-import es.uma.proyecto.Usuario;
-import es.uma.proyecto.Excepciones.ClienteExistenteException;
-import es.uma.proyecto.Excepciones.ClienteNoExisteException;
-import es.uma.proyecto.Excepciones.TieneCuentaAsociadoException;
+import es.uma.proyecto.ejb.GestionClientes;
+import es.uma.proyecto.ejb.Excepciones.ClienteExistenteException;
+import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.TieneCuentaAsociadoException;
+import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
+import es.uma.proyecto.jpa.Usuario;
 
 public class PruebaClientes {
 

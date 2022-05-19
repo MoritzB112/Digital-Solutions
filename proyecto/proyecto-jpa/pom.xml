@@ -8,8 +8,14 @@
 	</parent>
 	<artifactId>proyecto-jpa</artifactId>
 	<packaging>jar</packaging>
-	
+
 	<dependencies>
+	<dependency>
+                    <groupId>javax</groupId>
+                    <artifactId>javaee-api</artifactId>
+                    <version>8.0</version>
+                    <scope>provided</scope>
+                </dependency>
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
@@ -26,4 +32,18 @@
 			<version>2.7.6</version>
 		</dependency>
 	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.2.2</version>
+				<configuration>
+					<excludes>
+						<exclude>META-INF/persistence.xml</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 </project>

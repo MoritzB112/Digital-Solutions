@@ -15,18 +15,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.Autorizacion;
-import es.uma.proyecto.Autorizacion_PK;
-import es.uma.proyecto.Empresa;
-import es.uma.proyecto.GestionClientes;
-import es.uma.proyecto.GestionPersonas_Autorizadas;
-import es.uma.proyecto.GestionUsuarios;
-import es.uma.proyecto.Persona_Autorizada;
-import es.uma.proyecto.Usuario;
-import es.uma.proyecto.Excepciones.AutorizacionYaExisteException;
-import es.uma.proyecto.Excepciones.Persona_AutorizadaNoEncontradaException;
-import es.uma.proyecto.Excepciones.Persona_AutorizadaYaExisteException;
-import es.uma.proyecto.Excepciones.UsuarioNoEncontradoException;
+import es.uma.proyecto.ejb.GestionClientes;
+import es.uma.proyecto.ejb.GestionPersonas_Autorizadas;
+import es.uma.proyecto.ejb.GestionUsuarios;
+import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
+import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
+import es.uma.proyecto.jpa.Autorizacion;
+import es.uma.proyecto.jpa.Autorizacion_PK;
+import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Persona_Autorizada;
+import es.uma.proyecto.jpa.Usuario;
 
 public class PruebaPersonaAutorizada {
 	

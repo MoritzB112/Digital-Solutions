@@ -9,19 +9,19 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import es.uma.proyecto.Autorizacion;
-import es.uma.proyecto.Autorizacion_PK;
-import es.uma.proyecto.Cuenta_Referencia;
-import es.uma.proyecto.Depositado_en;
-import es.uma.proyecto.Depositado_en_PK;
-import es.uma.proyecto.Divisa;
-import es.uma.proyecto.Empresa;
-import es.uma.proyecto.Individual;
-import es.uma.proyecto.Persona_Autorizada;
-import es.uma.proyecto.Pooled_Account;
-import es.uma.proyecto.Segregada;
-import es.uma.proyecto.Transaccion;
-import es.uma.proyecto.Usuario;
+import es.uma.proyecto.jpa.Autorizacion;
+import es.uma.proyecto.jpa.Autorizacion_PK;
+import es.uma.proyecto.jpa.Cuenta_Referencia;
+import es.uma.proyecto.jpa.Depositado_en;
+import es.uma.proyecto.jpa.Depositado_en_PK;
+import es.uma.proyecto.jpa.Divisa;
+import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
+import es.uma.proyecto.jpa.Persona_Autorizada;
+import es.uma.proyecto.jpa.Pooled_Account;
+import es.uma.proyecto.jpa.Segregada;
+import es.uma.proyecto.jpa.Transaccion;
+import es.uma.proyecto.jpa.Usuario;
 
 public class BaseDatos {
 	public static void inicializaBaseDatos(String nombreUnidadPersistencia) {

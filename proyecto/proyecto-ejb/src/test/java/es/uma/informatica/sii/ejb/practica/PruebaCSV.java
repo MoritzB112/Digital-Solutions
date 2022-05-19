@@ -19,7 +19,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.GestionGenerarReportes;
+import es.uma.proyecto.ejb.GestionGenerarReportes;
 
 public class PruebaCSV {
 

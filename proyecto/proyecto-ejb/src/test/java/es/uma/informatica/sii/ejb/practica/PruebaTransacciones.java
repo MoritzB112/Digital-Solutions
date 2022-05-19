@@ -13,11 +13,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.Depositado_en;
-import es.uma.proyecto.Depositado_en_PK;
-import es.uma.proyecto.GestionTransacciones;
-import es.uma.proyecto.Transaccion;
-import es.uma.proyecto.Excepciones.DepositoNoExisteException;
+import es.uma.proyecto.ejb.GestionTransacciones;
+import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
+import es.uma.proyecto.jpa.Depositado_en;
+import es.uma.proyecto.jpa.Depositado_en_PK;
+import es.uma.proyecto.jpa.Transaccion;
 
 public class PruebaTransacciones {
 	

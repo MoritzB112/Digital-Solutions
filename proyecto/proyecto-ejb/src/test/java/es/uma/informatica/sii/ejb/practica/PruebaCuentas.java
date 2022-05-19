@@ -12,19 +12,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import es.uma.informatica.sii.anotaciones.Requisitos;
-import es.uma.proyecto.Cliente;
-import es.uma.proyecto.Cuenta;
-import es.uma.proyecto.Cuenta_Referencia;
-import es.uma.proyecto.Depositado_en;
-import es.uma.proyecto.Depositado_en_PK;
-import es.uma.proyecto.Divisa;
-import es.uma.proyecto.GestionCuentas;
-import es.uma.proyecto.Pooled_Account;
-import es.uma.proyecto.Segregada;
-import es.uma.proyecto.Excepciones.CuentaNoExisteException;
-import es.uma.proyecto.Excepciones.CuentaNoSuporteadaException;
-import es.uma.proyecto.Excepciones.DivisaNoExisteException;
-import es.uma.proyecto.Excepciones.SaldoNoVacioException;
+import es.uma.proyecto.ejb.GestionCuentas;
+import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
+import es.uma.proyecto.ejb.Excepciones.DivisaNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.SaldoNoVacioException;
+import es.uma.proyecto.jpa.Cliente;
+import es.uma.proyecto.jpa.Cuenta;
+import es.uma.proyecto.jpa.Cuenta_Referencia;
+import es.uma.proyecto.jpa.Depositado_en;
+import es.uma.proyecto.jpa.Depositado_en_PK;
+import es.uma.proyecto.jpa.Divisa;
+import es.uma.proyecto.jpa.Pooled_Account;
+import es.uma.proyecto.jpa.Segregada;
 
 public class PruebaCuentas {
 	

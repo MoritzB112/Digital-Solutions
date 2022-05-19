@@ -44,6 +44,12 @@
     <module>proyecto-jpa</module>
     
     <module>proyecto-ejb</module>
+
+    <module>proyecto-war</module>
+
+    <module>proyecto-ear</module>
+    
+    <module>proyecto-tests</module>
       
   </modules>
 </project>

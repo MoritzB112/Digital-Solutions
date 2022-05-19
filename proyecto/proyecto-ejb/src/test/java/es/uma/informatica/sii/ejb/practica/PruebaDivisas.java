@@ -1,8 +1,8 @@
 package es.uma.informatica.sii.ejb.practica;
 
-import es.uma.proyecto.Divisa;
-import es.uma.proyecto.GestionDivisas;
-import es.uma.proyecto.Excepciones.*;
+import es.uma.proyecto.ejb.GestionDivisas;
+import es.uma.proyecto.ejb.Excepciones.*;
+import es.uma.proyecto.jpa.Divisa;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
