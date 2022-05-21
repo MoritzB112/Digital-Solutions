@@ -16,8 +16,10 @@ import javax.inject.Named;
 
 import es.uma.proyecto.ejb.GestionUsuarios;
 import es.uma.proyecto.jpa.Cliente;
-import es.uma.proyecto.jpa.Cuenta;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
+import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
+import es.uma.proyecto.jpa.Persona_Autorizada;
 import es.uma.proyecto.jpa.Usuario;
 
 /**
@@ -31,7 +33,9 @@ public class InfoSesion implements Serializable {
 	@Inject
 	private GestionUsuarios cuenta;
 	private Usuario usuario;
-	private Cliente client;
+	private Individual id;
+	private Empresa em;
+	private Persona_Autorizada pa;
 	private Cuenta_Fintech cf;
 
 	/**
@@ -47,13 +51,30 @@ public class InfoSesion implements Serializable {
 	public synchronized Usuario getUsuario() {
 		return usuario;
 	}
+	
 
-	public Cliente getClient() {
-		return client;
+	public Individual getId() {
+		return id;
 	}
 
-	public void setClient(Cliente client) {
-		this.client = client;
+	public void setId(Individual id) {
+		this.id = id;
+	}
+
+	public Empresa getEm() {
+		return em;
+	}
+
+	public void setEm(Empresa em) {
+		this.em = em;
+	}
+
+	public Persona_Autorizada getPa() {
+		return pa;
+	}
+
+	public void setPa(Persona_Autorizada pa) {
+		this.pa = pa;
 	}
 
 	public Cuenta_Fintech getCf() {
@@ -73,11 +94,15 @@ public class InfoSesion implements Serializable {
 	}
 	
 	public synchronized boolean esPa() {
-		return usuario.getPa()!=null;
+		return pa!=null;
 	}
 	
 	public synchronized boolean esId() {
-		return usuario.getCl()!=null;
+		return id!=null;
+	}
+	
+	public synchronized boolean esEm() {
+		return em!=null;
 	}
 	
 	public synchronized List<Cuenta_Fintech> getCuentas() {

@@ -16,6 +16,7 @@ import es.uma.proyecto.ejb.GestionUsuarios;
 import es.uma.proyecto.ejb.Excepciones.ContraseñaIncorrectaException;
 import es.uma.proyecto.ejb.Excepciones.PasswordException;
 import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
+import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Usuario;
 
 /**
@@ -53,12 +54,14 @@ public class Login {
         try {
             usuario=cuenta.usuarioRegistrado(usuario.getUsuario(),usuario.getPassword());
             sesion.setUsuario(usuario);
-//            if(cuenta.esAdministrativo(usuario)) {
-//            	return "adminView.xhtml";
-//            }
-//            if(sesion.esPa()) {
-//            	return "personaAutorizadaView.xhtml";
-//            }
+            if(cuenta.esAdministrativo(usuario)) {
+            	return "adminView.xhtml";
+            }
+            if(usuario.getPa()!=null) {
+            	sesion.setPa(usuario.getPa());
+            	return "personaAutorizadaView.xhtml";
+            }
+            sesion.setId((Individual) usuario.getCl());
             return "clientView.xhtml";
 
         }catch (UsuarioNoEncontradoException e) {
