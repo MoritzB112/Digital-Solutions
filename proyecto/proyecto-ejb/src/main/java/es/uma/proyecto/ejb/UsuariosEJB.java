@@ -3,6 +3,7 @@ package es.uma.proyecto.ejb;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Base64;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -40,21 +41,21 @@ public class UsuariosEJB implements GestionUsuarios {
 		byte[] salt = new byte[16];
 		SecureRandom sm = new SecureRandom();
 		sm.nextBytes(salt);
-		u.setSalt(new String(salt));
+		
+		u.setSalt(Base64.getEncoder().encodeToString(salt));
 
 		u.setPassword(hashPassword(u.getPassword(), salt));
-
+		
 		em.persist(u);
 	}
 
 	private String hashPassword(String password, byte[] salt) throws PasswordException {
-		ByteArrayOutputStream contra = new ByteArrayOutputStream();
 		try {
-			contra.write(password.getBytes());
-			contra.write(salt);
 			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-
-			return new String(mg.digest(contra.toByteArray()));
+			mg.update(salt);
+			byte[] hashed=mg.digest(Base64.getDecoder().decode(password));
+			
+			return Base64.getEncoder().encodeToString(hashed);
 
 		} catch (Exception e) {
 			throw new PasswordException();
@@ -84,13 +85,11 @@ public class UsuariosEJB implements GestionUsuarios {
 
 	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
 		try {
-			byte[] salt = u.getSalt().getBytes();
-			ByteArrayOutputStream contra = new ByteArrayOutputStream();
-			contra.write(contraseña.getBytes());
-			contra.write(salt);
+			byte[] salt = Base64.getDecoder().decode(u.getSalt());
 			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-
-			return (u.getPassword().equals(new String(mg.digest(contra.toByteArray()))));
+			mg.update(salt);
+			byte[] hashed=mg.digest(Base64.getDecoder().decode(contraseña));
+			return (u.getPassword().equals(Base64.getEncoder().encodeToString(hashed)));
 
 		} catch (Exception e) {
 			throw new PasswordException();

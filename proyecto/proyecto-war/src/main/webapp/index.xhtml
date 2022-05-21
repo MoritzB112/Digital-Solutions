@@ -19,14 +19,14 @@
                 <c:otherwise>
                     <h:panelGrid columns="3">
                         <h:outputText value="Nombre de usuario:"/>
-                        <h:inputText id="user" required="true" value="#{login.usuario.usuario}"/>
+                        <h:inputText id="loginUsername" required="true" value="#{login.usuario.usuario}"/>
                         <h:message id="userMessage" for="user"/>
 
                         <h:outputText value="Contraseña:"/>
-                        <h:inputSecret id="pass" required="true" value="#{login.usuario.password}"/>
+                        <h:inputSecret id="loginPassword" required="true" value="#{login.usuario.password}"/>
                         <h:message id="passwordMessage" for="pass"/>
 
-                        <h:commandButton id="botonLogin" value="Entrar" action="#{login.entrar()}"/>
+                        <h:commandButton id="loginBoton" value="Entrar" action="#{login.entrar()}"/>
 
                     </h:panelGrid>
 

@@ -56,6 +56,9 @@ public class Login {
             if(cuenta.esAdministrativo(usuario)) {
             	return "adminView.xhtml";
             }
+            if(sesion.esPa()) {
+            	return "personaAutorizadaView.xhtml";
+            }
             return "clientView.xhtml";
 
         }catch (UsuarioNoEncontradoException e) {
