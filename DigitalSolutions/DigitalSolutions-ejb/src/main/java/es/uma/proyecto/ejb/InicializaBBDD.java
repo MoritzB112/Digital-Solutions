@@ -24,6 +24,7 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() {
 		
+
 		if(em.find(Usuario.class, "testU")!=null) {
 			return;
 		}
@@ -43,6 +44,7 @@ public class InicializaBBDD {
         a.setPassword(hashPasswword(a.getSalt(), "admin"));
         a.setUsuario("admin");
         em.persist(a);
+
 	}
 	
 	private String hashPasswword(String salt, String password) {

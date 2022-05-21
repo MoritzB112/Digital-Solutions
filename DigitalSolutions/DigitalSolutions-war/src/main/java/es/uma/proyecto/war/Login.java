@@ -63,13 +63,13 @@ public class Login {
 
         }catch (UsuarioNoEncontradoException e) {
         	 FacesMessage fm = new FacesMessage("La cuenta no existe");
-             FacesContext.getCurrentInstance().addMessage("login:user", fm);
+             FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}catch (ContraseñaIncorrectaException e) {
 			 FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
-	         FacesContext.getCurrentInstance().addMessage("login:user", fm);
+	         FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}catch (PasswordException e) {
-			 FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
-	         FacesContext.getCurrentInstance().addMessage("login:user", fm);
+			 FacesMessage fm = new FacesMessage("La contrasena es fdaesfas");
+	         FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}
         return null;
     }
