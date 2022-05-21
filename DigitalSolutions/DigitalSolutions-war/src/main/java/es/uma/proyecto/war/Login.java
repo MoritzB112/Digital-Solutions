@@ -53,12 +53,12 @@ public class Login {
         try {
             usuario=cuenta.usuarioRegistrado(usuario.getUsuario(),usuario.getPassword());
             sesion.setUsuario(usuario);
-            if(cuenta.esAdministrativo(usuario)) {
-            	return "adminView.xhtml";
-            }
-            if(sesion.esPa()) {
-            	return "personaAutorizadaView.xhtml";
-            }
+//            if(cuenta.esAdministrativo(usuario)) {
+//            	return "adminView.xhtml";
+//            }
+//            if(sesion.esPa()) {
+//            	return "personaAutorizadaView.xhtml";
+//            }
             return "clientView.xhtml";
 
         }catch (UsuarioNoEncontradoException e) {
@@ -68,7 +68,8 @@ public class Login {
 			 FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
 	         FacesContext.getCurrentInstance().addMessage("login:user", fm);
 		}catch (PasswordException e) {
-			// TODO: handle exception
+			 FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
+	         FacesContext.getCurrentInstance().addMessage("login:user", fm);
 		}
         return null;
     }
