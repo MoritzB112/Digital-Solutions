@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+<<<<<<< HEAD
                                 
+=======
+                                    
+    
+>>>>>>> de2050427d215930ab35fb702de2b1164bf66d15
     
     
     
@@ -7,7 +12,12 @@
     
     
     <wb-module deploy-name="proyecto-ear-1.0.0-SNAPSHOT">
+<<<<<<< HEAD
                                                                 
+=======
+                                                                        
+        
+>>>>>>> de2050427d215930ab35fb702de2b1164bf66d15
         
         
         
@@ -15,7 +25,12 @@
         
         
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+<<<<<<< HEAD
                                                                 
+=======
+                                                                        
+        
+>>>>>>> de2050427d215930ab35fb702de2b1164bf66d15
         
         
         
@@ -29,7 +44,7 @@
         <dependent-module archiveName="proyecto-war-1.0.0-SNAPSHOT.war" deploy-path="/" handle="module:/resource/proyecto-war/proyecto-war">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="proyecto-jpa-1.0.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/resource/proyecto-jpa/proyecto-jpa">
+        <dependent-module archiveName="proyecto-jpa-1.0.0-SNAPSHOT.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/Proyecto SII/Digital-Solutions/proyecto/proyecto-jpa/target/classes">
             <dependency-type>uses</dependency-type>
         </dependent-module>
         <dependent-module archiveName="h2-2.1.210.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/com/h2database/h2/2.1.210/h2-2.1.210.jar">
@@ -50,7 +65,12 @@
         <dependent-module archiveName="commons-csv-1.9.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/commons/commons-csv/1.9.0/commons-csv-1.9.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+<<<<<<< HEAD
                                                             
+=======
+                                                                    
+    
+>>>>>>> de2050427d215930ab35fb702de2b1164bf66d15
     
     
     
@@ -58,7 +78,12 @@
     
     
     </wb-module>
+<<<<<<< HEAD
                             
+=======
+                                
+
+>>>>>>> de2050427d215930ab35fb702de2b1164bf66d15
 
 
 
