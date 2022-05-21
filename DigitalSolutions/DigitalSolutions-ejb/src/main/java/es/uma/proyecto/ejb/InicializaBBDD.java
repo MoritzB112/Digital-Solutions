@@ -35,6 +35,14 @@ public class InicializaBBDD {
 		u.setPassword(hashPasswword(u.getSalt(), "test"));
 		u.setUsuario("testU");
 		em.persist(u);
+		
+		Usuario a=new Usuario();
+        a.setCorreo("testU@admin.test");
+        a.setEsAdministrativo(true);
+        a.setSalt(getSalt());
+        a.setPassword(hashPasswword(a.getSalt(), "admin"));
+        a.setUsuario("admin");
+        em.persist(a);
 	}
 	
 	private String hashPasswword(String salt, String password) {
@@ -46,7 +54,7 @@ public class InicializaBBDD {
 			return Base64.getEncoder().encodeToString(hashed);
 
 		} catch (Exception e) {
-			return null;
+			return e.getMessage();
 		}
 	}
 	
