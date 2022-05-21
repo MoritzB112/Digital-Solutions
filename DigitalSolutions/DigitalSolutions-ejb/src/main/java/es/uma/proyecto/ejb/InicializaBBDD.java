@@ -24,25 +24,27 @@ public class InicializaBBDD {
 	@PostConstruct
 	public void inicializar() {
 		
-//		if(em.find(Usuario.class, "testU")!=null) {
-//			return;
-//		}
-//		
-//		Usuario u=new Usuario();
-//		u.setCorreo("testU@test.test");
-//		u.setEsAdministrativo(false);
-//		u.setSalt(getSalt());
-//		u.setPassword(hashPasswword(u.getSalt(), "test"));
-//		u.setUsuario("testU");
-//		em.persist(u);
-//		
-//		Usuario a=new Usuario();
-//		a.setCorreo("testU@admin.test");
-//		a.setEsAdministrativo(true);
-//		a.setSalt(getSalt());
-//		a.setPassword(hashPasswword(a.getSalt(), "admin"));
-//		a.setUsuario("admin");
-//		em.persist(a);
+
+		if(em.find(Usuario.class, "testU")!=null) {
+			return;
+		}
+		
+		Usuario u=new Usuario();
+		u.setCorreo("testU@test.test");
+		u.setEsAdministrativo(false);
+		u.setSalt(getSalt());
+		u.setPassword(hashPasswword(u.getSalt(), "test"));
+		u.setUsuario("testU");
+		em.persist(u);
+		
+		Usuario a=new Usuario();
+        a.setCorreo("testU@admin.test");
+        a.setEsAdministrativo(true);
+        a.setSalt(getSalt());
+        a.setPassword(hashPasswword(a.getSalt(), "admin"));
+        a.setUsuario("admin");
+        em.persist(a);
+
 	}
 	
 	private String hashPasswword(String salt, String password) {
@@ -54,7 +56,7 @@ public class InicializaBBDD {
 			return Base64.getEncoder().encodeToString(hashed);
 
 		} catch (Exception e) {
-			return null;
+			return e.getMessage();
 		}
 	}
 	
