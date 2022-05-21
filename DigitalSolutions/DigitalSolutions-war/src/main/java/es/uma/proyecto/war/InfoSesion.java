@@ -37,6 +37,7 @@ public class InfoSesion implements Serializable {
 	private Empresa em;
 	private Persona_Autorizada pa;
 	private Cuenta_Fintech cf;
+	
 
 	/**
 	 * Creates a new instance of InfoSesion
