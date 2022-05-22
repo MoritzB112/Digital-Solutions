@@ -48,26 +48,24 @@ public class InicializaBBDD {
 
 	}
 	
-	private String hashPassword(String password, String salt){
-		try {
-			String encodedSalt = Base64.getEncoder().encodeToString(salt.getBytes());
-			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-			mg.update(Base64.getDecoder().decode(encodedSalt));
-			String encodedString = Base64.getEncoder().encodeToString(password.getBytes());
-			byte[] hashed=mg.digest(Base64.getDecoder().decode(encodedString));
-			
-			return new String(hashed);
+	private byte[] hashPassword(byte[] salt, String password) {
+        try {
+            MessageDigest mg = MessageDigest.getInstance("SHA-256");
+            mg.update(salt);
+            byte[] hashed=mg.digest(password.getBytes());
 
-		} catch (Exception e) {
-			return e.getMessage();
-		}
-	}
+            return hashed;
+
+        } catch (Exception e) {
+            return null;
+        }
+    }
 	
-	private String getSalt() {
-		byte[] salt = new byte[16];
-		sm.nextBytes(salt);
-		
-		return Base64.getEncoder().encodeToString(salt);
-	}
+	private byte[] getSalt() {
+        byte[] salt = new byte[16];
+        sm.nextBytes(salt);
+
+        return salt;
+    }
 
 }

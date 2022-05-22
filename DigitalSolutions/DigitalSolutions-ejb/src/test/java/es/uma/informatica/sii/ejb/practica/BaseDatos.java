@@ -79,31 +79,31 @@ public class BaseDatos {
 		u.setEsAdministrativo(false);
 		u.setUsuario("testPA1");
 		u.setPassword(hashPassword("testPA1", "SAL"));
-		u.setSalt("SAL");
+//		u.setSalt("SAL");
 		em.persist(u);
 		Usuario u2 = new Usuario();
 		u2.setEsAdministrativo(false);
 		u2.setUsuario("testPA2");
 		u2.setPassword(hashPassword("testPA2", "SAL"));
-		u2.setSalt("SAL");
+//		u2.setSalt("SAL");
 		em.persist(u2);
 		Usuario u3 = new Usuario();
 		u3.setEsAdministrativo(false);
 		u3.setUsuario("testID3");
 		u3.setPassword(hashPassword("testID3", "SAL"));
-		u3.setSalt("SAL");
+//		u3.setSalt("SAL");
 		em.persist(u3);
 		Usuario u4 = new Usuario();
 		u4.setEsAdministrativo(false);
 		u4.setUsuario("testID4");
 		u4.setPassword(hashPassword("testID4", "SAL"));
-		u4.setSalt("SAL");
+//		u4.setSalt("SAL");
 		em.persist(u4);
 		Usuario u5 = new Usuario();
 		u5.setEsAdministrativo(true);
 		u5.setUsuario("testAD5");
 		u5.setPassword(hashPassword("testAD5", "SAL"));
-		u5.setSalt("SAL");
+//		u5.setSalt("SAL");
 		em.persist(u5);
 
 		// Empresa de ejemplo
@@ -289,31 +289,31 @@ public class BaseDatos {
 		u.setEsAdministrativo(false);
 		u.setUsuario("testPA1");
 		u.setPassword(hashPassword("testPA1", "SAL"));
-		u.setSalt("SAL");
+//		u.setSalt("SAL");
 		em.persist(u);
 		Usuario u2 = new Usuario();
 		u2.setEsAdministrativo(false);
 		u2.setUsuario("testPA2");
 		u2.setPassword(hashPassword("testPA2", "SAL"));
-		u2.setSalt("SAL");
+//		u2.setSalt("SAL");
 		em.persist(u2);
 		Usuario u3 = new Usuario();
 		u3.setEsAdministrativo(false);
 		u3.setUsuario("testID3");
 		u3.setPassword(hashPassword("testID3", "SAL"));
-		u3.setSalt("SAL");
+//		u3.setSalt("SAL");
 		em.persist(u3);
 		Usuario u4 = new Usuario();
 		u4.setEsAdministrativo(false);
 		u4.setUsuario("testID4");
 		u4.setPassword(hashPassword("testID4", "SAL"));
-		u4.setSalt("SAL");
+//		u4.setSalt("SAL");
 		em.persist(u4);
 		Usuario u5 = new Usuario();
 		u5.setEsAdministrativo(true);
 		u5.setUsuario("testAD5");
 		u5.setPassword(hashPassword("testAD5", "SAL"));
-		u5.setSalt("SAL");
+//		u5.setSalt("SAL");
 		em.persist(u5);
 
 		// PA de ejemplo
@@ -494,14 +494,12 @@ public class BaseDatos {
 		emf.close();
 	}
 
-	public static String hashPassword(String pw, String s) {
-		ByteArrayOutputStream contra = new ByteArrayOutputStream();
+	public static byte[] hashPassword(String pw, String s) {
 		try {
-			contra.write(pw.getBytes());
-			contra.write(s.getBytes());
 			MessageDigest mg = MessageDigest.getInstance("SHA-256");
+			mg.update(s.getBytes());
 
-			return new String(mg.digest(contra.toByteArray()));
+			return mg.digest(pw.getBytes());
 
 		} catch (Exception e) {
 

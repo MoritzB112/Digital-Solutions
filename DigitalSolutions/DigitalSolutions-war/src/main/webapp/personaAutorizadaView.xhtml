@@ -19,7 +19,7 @@
 				<h:link outcome="index.xhtml">test</h:link>
 			</p>
 		</c:when>
-		<c:when test="#{infoSesion.esId()}">
+		<c:when test="#{infoSesion.esPa()==false}">
 			<p id="cuentasErrorMsg">
 				Fallo,
 				<h:link outcome="index.xhtml">test</h:link>
@@ -28,12 +28,17 @@
 		<c:otherwise>
 			<h:dataTable value="#{infoSesion.usuario.pa.autorizaciones}" var="au">
 				<h:column>
-					<f:facet name="header">Id empresa</f:facet>
-					<h:outputText value="#{au.em.id}" />
+					<f:facet name="header">NIF Empresa</f:facet>
+					<h:outputText rendered="#{au.em.identificacion!=null}" value="#{au.em.identificacion}" />
+					<h:outputText rendered="#{au.em.identificacion==null}" value="No existe" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Pulas aqui</f:facet>
-					<h:outputText>sdsadasd</h:outputText>
+					<f:facet name="header">Nombre Empresa</f:facet>
+					<h:outputText value="#{au.em.razon_social}"/>
+				</h:column>
+				<h:column>
+					<f:facet name="header"></f:facet>
+					<h:commandButton value="Elegir" action="#{infoCuentas.elegirEmpresa(em)}"/>
 				</h:column>
 			</h:dataTable>
 		</c:otherwise>

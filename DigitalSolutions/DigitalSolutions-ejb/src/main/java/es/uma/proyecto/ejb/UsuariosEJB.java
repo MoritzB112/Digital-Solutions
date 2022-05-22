@@ -42,21 +42,19 @@ public class UsuariosEJB implements GestionUsuarios {
 		SecureRandom sm = new SecureRandom();
 		sm.nextBytes(salt);
 		
-		u.setSalt(new String(salt));
+		u.setSalt(salt);
 
 		u.setPassword(hashPassword(u.getPassword(), salt));
 		
 		em.persist(u);
 	}
 
-	private String hashPassword(String password, byte[] salt) throws PasswordException {
+	private byte[] hashPassword(byte[] password, byte[] salt) throws PasswordException {
 		try {
 			MessageDigest mg = MessageDigest.getInstance("SHA-256");
 			mg.update(salt);
-			String encodedString = Base64.getEncoder().encodeToString(password.getBytes());
-			byte[] hashed=mg.digest(Base64.getDecoder().decode(encodedString));
 			
-			return new String(hashed);
+			return mg.digest(password);
 
 		} catch (Exception e) {
 			throw new PasswordException();
@@ -86,15 +84,10 @@ public class UsuariosEJB implements GestionUsuarios {
 
 	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
 		try {
-			String encodedSalt = Base64.getEncoder().encodeToString(u.getSalt().getBytes());
-			byte[] salt = Base64.getDecoder().decode(encodedSalt);
 			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-			mg.update(salt);
-			String encodePassword = Base64.getEncoder().encodeToString(contraseña.getBytes());
-			byte[] hashed=mg.digest(Base64.getDecoder().decode(encodePassword));
-			String encodedPwBD = Base64.getEncoder().encodeToString(u.getPassword().getBytes());
+			mg.update(u.getSalt());
 
-			return MessageDigest.isEqual(hashed, Base64.getDecoder().decode(encodedPwBD));
+			return MessageDigest.isEqual(mg.digest(contraseña.getBytes()), u.getPassword());
 
 		} catch (Exception e) {
 			throw new PasswordException();
