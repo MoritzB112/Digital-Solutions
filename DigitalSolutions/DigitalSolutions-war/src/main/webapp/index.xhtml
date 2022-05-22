@@ -20,15 +20,12 @@
                     <h:panelGrid columns="3">
                         <h:outputText value="Nombre de usuario:"/>
                         <h:inputText id="loginUsername" required="true" value="#{login.userName}"/>
-                        <h:message id="userMessage" for="user"/>
 
                         <h:outputText value="Contraseña:"/>
                         <h:inputSecret id="loginPassword" required="true" value="#{login.password}"/>
-                        <h:message id="passwordMessage" for="pass"/>
 
                         <h:commandButton id="loginBoton" value="Entrar" action="#{login.entrar()}"/>
-                        
-                       
+                       	<h:messages/>
 
                     </h:panelGrid>
 
@@ -40,7 +37,7 @@
                 </c:otherwise>
             </c:choose>
 
-
+			
 
 
         </h:form>

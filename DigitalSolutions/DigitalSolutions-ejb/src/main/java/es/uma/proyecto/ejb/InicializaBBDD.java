@@ -38,13 +38,13 @@ public class InicializaBBDD {
 		u.setUsuario("testU");
 		em.persist(u);
 		
-		Usuario a=new Usuario();
-        a.setCorreo("testU@admin.test");
-        a.setEsAdministrativo(true);
-        a.setSalt(getSalt());
-        a.setPassword(hashPassword(a.getSalt(), "admin"));
-        a.setUsuario("admin");
-        em.persist(a);
+//		Usuario a=new Usuario();
+//        a.setCorreo("testU@admin.test");
+//        a.setEsAdministrativo(true);
+//        a.setSalt(getSalt());
+//        a.setPassword(hashPassword(a.getSalt(), "admin"));
+//        a.setUsuario("admin");
+//        em.persist(a);
 
 	}
 	

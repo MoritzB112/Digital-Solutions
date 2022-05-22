@@ -16,12 +16,12 @@ public class Usuario {
 	@Id
 	private String usuario;
 
-	@Basic(fetch = FetchType.LAZY)
-	@Lob
+	@Lob @Basic(fetch= FetchType.LAZY)
+	@Column(name="password", columnDefinition="BINARY(1000)")
 	private byte[] password;
 
-	@Basic(fetch = FetchType.LAZY)
-	@Lob
+	@Lob @Basic(fetch= FetchType.LAZY)
+	@Column(name="salt", columnDefinition="BINARY(1000)")
 	private byte[] salt;
 
 	private String correo;
@@ -55,9 +55,7 @@ public class Usuario {
 		this.password = password;
 	}
 	
-	public void setPassword(String password) {
-		this.password = password.getBytes();
-	}
+	
 
 	public byte[] getSalt() {
 		return salt;

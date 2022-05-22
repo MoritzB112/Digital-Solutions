@@ -3,6 +3,7 @@ package es.uma.proyecto.ejb;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -90,7 +91,7 @@ public class UsuariosEJB implements GestionUsuarios {
 			return MessageDigest.isEqual(mg.digest(contraseña.getBytes()), u.getPassword());
 
 		} catch (Exception e) {
-			throw new PasswordException();
+			throw new PasswordException(Arrays.toString(e.getStackTrace()));
 		}
 	}
 
