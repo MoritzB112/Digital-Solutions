@@ -37,29 +37,29 @@ public class UsuariosEJB implements GestionUsuarios {
 			throw new UsuarioExistenteException();
 		}
 
-		// Generamos la salt
-		byte[] salt = new byte[16];
-		SecureRandom sm = new SecureRandom();
-		sm.nextBytes(salt);
-		
-		u.setSalt(salt);
+//		// Generamos la salt
+//		byte[] salt = new byte[16];
+//		SecureRandom sm = new SecureRandom();
+//		sm.nextBytes(salt);
+//		
+//		u.setSalt(salt);
 
-		u.setPassword(hashPassword(u.getPassword(), salt));
+//		u.setPassword(hashPassword(u.getPassword(), salt));
 		
 		em.persist(u);
 	}
 
-	private byte[] hashPassword(byte[] password, byte[] salt) throws PasswordException {
-		try {
-			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-			mg.update(salt);
-			
-			return mg.digest(password);
-
-		} catch (Exception e) {
-			throw new PasswordException();
-		}
-	}
+//	private byte[] hashPassword(byte[] password, byte[] salt) throws PasswordException {
+//		try {
+//			MessageDigest mg = MessageDigest.getInstance("SHA-256");
+//			mg.update(salt);
+//			
+//			return mg.digest(password);
+//
+//		} catch (Exception e) {
+//			throw new PasswordException();
+//		}
+//	}
 
 	public Usuario usuarioRegistrado(String usuario, String contraseña)
 			throws PasswordException, UsuarioNoEncontradoException, ContraseñaIncorrectaException {
@@ -67,7 +67,8 @@ public class UsuariosEJB implements GestionUsuarios {
 
 		for (Usuario usu : l) {
 			if (usuario.equals(usu.getUsuario())) {
-				if (comprobarContraseña(usu, contraseña)) {
+//				if (comprobarContraseña(usu, contraseña)) {
+				if(contraseña.equals(usu.getPassword())) {
 
 					return usu;
 
@@ -82,17 +83,17 @@ public class UsuariosEJB implements GestionUsuarios {
 		throw new UsuarioNoEncontradoException();
 	}
 
-	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
-		try {
-			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-			mg.update(u.getSalt());
-
-			return MessageDigest.isEqual(mg.digest(contraseña.getBytes()), u.getPassword());
-
-		} catch (Exception e) {
-			throw new PasswordException();
-		}
-	}
+//	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
+//		try {
+//			MessageDigest mg = MessageDigest.getInstance("SHA-256");
+//			mg.update(u.getSalt());
+//
+//			return MessageDigest.isEqual(mg.digest(contraseña.getBytes()), u.getPassword());
+//
+//		} catch (Exception e) {
+//			throw new PasswordException();
+//		}
+//	}
 
 	public List<Usuario> sacarUsuarios(){
 		return em.createQuery("SELECT usu FROM Usuario usu", Usuario.class).getResultList();

@@ -16,13 +16,11 @@ public class Usuario {
 	@Id
 	private String usuario;
 
-	@Basic(fetch = FetchType.LAZY)
-	@Lob
-	private byte[] password;
+	private String password;
 
-	@Basic(fetch = FetchType.LAZY)
-	@Lob
-	private byte[] salt;
+//	@Basic(fetch = FetchType.LAZY)
+//	@Lob
+//	private byte[] salt;
 
 	private String correo;
 
@@ -47,25 +45,21 @@ public class Usuario {
 		this.usuario = usuario;
 	}
 
-	public byte[] getPassword() {
+	public String getPassword() {
 		return password;
-	}
-
-	public void setPassword(byte[] password) {
-		this.password = password;
 	}
 	
 	public void setPassword(String password) {
-		this.password = password.getBytes();
+		this.password = password;
 	}
 
-	public byte[] getSalt() {
-		return salt;
-	}
-
-	public void setSalt(byte[] salt) {
-		this.salt = salt;
-	}
+//	public byte[] getSalt() {
+//		return salt;
+//	}
+//
+//	public void setSalt(byte[] salt) {
+//		this.salt = salt;
+//	}
 
 	public String getCorreo() {
 		return correo;
@@ -118,8 +112,14 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
-				+ ", esAdministrativo=" + esAdministrativo + "]";
+		return "Usuario [usuario=" + usuario + ", password=" + password + ", correo=" + correo + ", esAdministrativo="
+				+ esAdministrativo + "]";
 	}
+
+//	@Override
+//	public String toString() {
+//		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
+//				+ ", esAdministrativo=" + esAdministrativo + "]";
+//	}
 
 }

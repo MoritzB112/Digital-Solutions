@@ -96,18 +96,5 @@ public class Login {
 		return null;
 	}
 	
-	public String entrarPATEST() {
-		Persona_Autorizada pa=new Persona_Autorizada();
-		pa.setID(1L);
-		pa.setUs(usuario);
-		usuario.setUsuario("testU");
-		usuario.setPassword("test".getBytes());
-		usuario.setEsAdministrativo(false);
-		usuario.setPa(pa);
-		usuario.setSalt("test".getBytes());
-		sesion.setUsuario(usuario);
-		sesion.setPa(pa);
-		return "personaAutorizadaView.xhtml";
-	}
 
 }

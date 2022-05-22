@@ -35,7 +35,7 @@ public class PruebaUsuarios {
 		Usuario u = new Usuario();
 		u.setUsuario("prueba1");
 		u.setEsAdministrativo(false);
-		u.setPassword("umaFeliz".getBytes());
+//		u.setPassword("umaFeliz".getBytes());
 		
 		try {
 			gestionUsuarios.crearUsuario(u);
@@ -51,7 +51,7 @@ public class PruebaUsuarios {
 		Usuario u = new Usuario();
 		u.setUsuario("testPA1");
 		u.setEsAdministrativo(false);
-		u.setPassword("cuidadito".getBytes());
+//		u.setPassword("cuidadito".getBytes());
 		
 		try {
 			gestionUsuarios.crearUsuario(u);

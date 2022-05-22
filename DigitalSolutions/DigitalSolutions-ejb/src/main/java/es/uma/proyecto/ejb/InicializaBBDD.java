@@ -32,39 +32,41 @@ public class InicializaBBDD {
 		Usuario u=new Usuario();
 		u.setCorreo("testU@test.test");
 		u.setEsAdministrativo(false);
-		u.setSalt(getSalt());
-		u.setPassword(hashPasswword(u.getSalt(), "test"));
+//		u.setSalt(getSalt());
+//		u.setPassword(hashPasswword(u.getSalt(), "test"));
+		u.setPassword("test");
 		u.setUsuario("testU");
 		em.persist(u);
 		
 		Usuario a=new Usuario();
         a.setCorreo("testU@admin.test");
         a.setEsAdministrativo(true);
-        a.setSalt(getSalt());
-        a.setPassword(hashPasswword(a.getSalt(), "admin"));
+//        a.setSalt(getSalt());
+//        a.setPassword(hashPasswword(a.getSalt(), "admin"));
+        u.setPassword("test");
         a.setUsuario("admin");
         em.persist(a);
 
 	}
 	
-	private byte[] hashPasswword(byte[] salt, String password) {
-		try {
-			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-			mg.update(salt);
-			byte[] hashed=mg.digest(Base64.getDecoder().decode(password));
-			
-			return hashed;
-
-		} catch (Exception e) {
-			return null;
-		}
-	}
-	
-	private byte[] getSalt() {
-		byte[] salt = new byte[16];
-		sm.nextBytes(salt);
-		
-		return salt;
-	}
+//	private byte[] hashPasswword(byte[] salt, String password) {
+//		try {
+//			MessageDigest mg = MessageDigest.getInstance("SHA-256");
+//			mg.update(salt);
+//			byte[] hashed=mg.digest(password.getBytes());
+//			
+//			return hashed;
+//
+//		} catch (Exception e) {
+//			return null;
+//		}
+//	}
+//	
+//	private byte[] getSalt() {
+//		byte[] salt = new byte[16];
+//		sm.nextBytes(salt);
+//		
+//		return salt;
+//	}
 
 }
