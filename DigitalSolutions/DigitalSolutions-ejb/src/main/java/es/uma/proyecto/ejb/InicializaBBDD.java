@@ -10,6 +10,7 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import es.uma.proyecto.ejb.Excepciones.PasswordException;
 import es.uma.proyecto.jpa.Usuario;
 
 @Singleton
