@@ -17,6 +17,11 @@ public class InfoCuentas implements Serializable {
 	
 	public String elegirCuenta() {
 //		sesion.setClient(em);
-		return "clientView"+".xhtml";
+		return "clientView.xhtml";
+	}
+	
+	public String elegirEmpresa(Empresa em) {
+		sesion.setEm(em);
+		return "clientView.xhtml";
 	}
 }

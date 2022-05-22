@@ -25,6 +25,9 @@ public class Cliente {
 	@GeneratedValue
 	private Long id;
 
+	@Column(unique = true)
+	private String identificacion;
+	
 	@Column(nullable = false)
 	private String tipo_cliente;
 
@@ -66,6 +69,14 @@ public class Cliente {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+	
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
 	}
 
 	public String getTipo_cliente() {
@@ -167,9 +178,9 @@ public class Cliente {
 
 	@Override
 	public String toString() {
-		return "Cliente [id=" + id + ", tipo_cliente=" + tipo_cliente + ", estado=" + estado + ", fecha_alta="
-				+ fecha_alta + ", fecha_baja=" + fecha_baja + ", direccion=" + direccion + ", ciudad=" + ciudad
-				+ ", codigoPostal=" + codigoPostal + ", pais=" + pais + "]";
+		return "Cliente [id=" + id + ", identificacion=" + identificacion + ", tipo_cliente=" + tipo_cliente
+				+ ", estado=" + estado + ", fecha_alta=" + fecha_alta + ", fecha_baja=" + fecha_baja + ", direccion="
+				+ direccion + ", ciudad=" + ciudad + ", codigoPostal=" + codigoPostal + ", pais=" + pais + "]";
 	}
 
 	
