@@ -1,8 +1,11 @@
 package es.uma.proyecto.war;
 
 import java.io.Serializable;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -23,6 +26,7 @@ public class InfoCuentas implements Serializable {
 	public String elegirEmpresa(Empresa em) {
 		
 		sesion.setEm(em);
+		
 		return "clientView.xhtml";
 	}
 }

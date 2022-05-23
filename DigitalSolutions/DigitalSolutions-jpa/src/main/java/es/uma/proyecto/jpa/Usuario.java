@@ -16,6 +16,7 @@ public class Usuario {
 	@Id
 	private String usuario;
 
+
 	private String password;
 
 //	@Basic(fetch = FetchType.LAZY)
@@ -49,6 +50,7 @@ public class Usuario {
 		return password;
 	}
 	
+
 	public void setPassword(String password) {
 		this.password = password;
 	}

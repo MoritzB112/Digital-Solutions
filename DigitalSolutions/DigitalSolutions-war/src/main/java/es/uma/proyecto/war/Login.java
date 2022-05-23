@@ -75,13 +75,13 @@ public class Login {
 			sesion.setUsuario(usuario);
 			if (cuenta.esAdministrativo(usuario)) {
 				return "adminView.xhtml";
-			}
-			if (usuario.getPa() != null) {
+			} else if (usuario.getPa() != null) {
 				sesion.setPa(usuario.getPa());
 				return ".xhtml";
+			} else if (usuario.getCl() != null) {
+				sesion.setId((Individual) usuario.getCl());
 			}
-			sesion.setId((Individual) usuario.getCl());
-			return "clientView.xhtml";
+			return null;
 
 		} catch (UsuarioNoEncontradoException e) {
 			FacesMessage fm = new FacesMessage("La cuenta no existe");
@@ -90,11 +90,11 @@ public class Login {
 			FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		} catch (PasswordException e) {
-			FacesMessage fm = new FacesMessage("La contrasena es fdaesfas");
+			FacesMessage fm = new FacesMessage(e.getMessage());
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}
 		return null;
 	}
-	
+
 
 }

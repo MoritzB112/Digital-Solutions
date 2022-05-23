@@ -12,6 +12,7 @@
 </h:head>
 
 <h:body>
+<h:form>
 	<c:choose>
 		<c:when test="#{empty infoSesion.usuario}">
 			<p id="cuentasErrorMsg">
@@ -26,6 +27,7 @@
 			</p>
 		</c:when>
 		<c:otherwise>
+		<h:messages/>
 			<h:dataTable value="#{infoSesion.usuario.pa.autorizaciones}" var="au">
 				<h:column>
 					<f:facet name="header">NIF Empresa</f:facet>
@@ -38,11 +40,13 @@
 				</h:column>
 				<h:column>
 					<f:facet name="header"></f:facet>
-					<h:commandButton value="Elegir" action="#{infoCuentas.elegirEmpresa(em)}"/>
+					<h:commandButton value="Elegir" action="#{infoCuentas.elegirEmpresa(au.em)}">
+					</h:commandButton>
 				</h:column>
 			</h:dataTable>
 		</c:otherwise>
 	</c:choose>
+</h:form>
 </h:body>
 
 </html>

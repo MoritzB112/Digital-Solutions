@@ -3,6 +3,7 @@ package es.uma.proyecto.ejb;
 import java.io.ByteArrayOutputStream;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Arrays;
 import java.util.Base64;
 import java.util.List;
 
@@ -82,6 +83,7 @@ public class UsuariosEJB implements GestionUsuarios {
 
 		throw new UsuarioNoEncontradoException();
 	}
+
 
 //	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
 //		try {
