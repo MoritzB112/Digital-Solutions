@@ -20,6 +20,8 @@ import javax.ws.rs.core.UriInfo;
 
 import es.uma.proyecto.ejb.ClientesEJB;
 import es.uma.proyecto.ejb.CuentasEJB;
+import es.uma.proyecto.ejb.GestionClientes;
+import es.uma.proyecto.ejb.GestionCuentas;
 import es.uma.proyecto.ejb.Excepciones.*;
 import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
@@ -32,10 +34,10 @@ import es.uma.proyecto.jpa.Segregada;
 public class ServicioREST {
 	
 	@EJB
-	private ClientesEJB clientes;
+	private GestionClientes clientes;
 	
 	@EJB
-	private CuentasEJB cuentas;
+	private GestionCuentas cuentas;
 	
 	@Context
 	private UriInfo uriInfo;
