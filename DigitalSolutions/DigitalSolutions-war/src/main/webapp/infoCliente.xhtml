@@ -23,46 +23,37 @@
 			</c:when>
 
 			<c:when test="#{infoSesion.esId()}">
-				<h:outputText value="Nombre: #{infoSesion.id.nombre}" />
-				<br />
-				<h:outputText value="Apellido: #{infoSesion.id.apellido}" />
-				<br />
-				<h:outputText value="DNI: #{infoSesion.id.identificacion}" />
-				<br />
+				<h:panelGrid columns="2">
+				<h:outputText value="Nombre: "/>							
+				<h:outputText value="{infoSesion.id.nombre}" />
+				<h:outputText value="Apellidos: "/>
+				<h:outputText value="#{infoSesion.id.apellido}" />
+				<h:outputText value="DNI: "/>
+				<h:outputText value="#{infoSesion.id.identificacion}" />
+				<h:outputText value="Dirección: "/>
 				<h:outputText
-					value="Direccion: #{infoSesion.id.pais}, #{infoSesion.id.direccion}, #{infoSesion.id.ciudad}, #{infoSesion.id.codigoPostal}" />
-				<br />
-				<h:outputText value="Fecha alta: #{infoSesion.id.fecha_alta}" />
-				<br />
+					value="#{infoSesion.id.pais}, #{infoSesion.id.direccion}, #{infoSesion.id.ciudad}, #{infoSesion.id.codigoPostal}" />
+				<h:outputText value="Fecha de alta: "/>					
+				<h:outputText value="#{infoSesion.id.fecha_alta}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
+				<h:outputText value="Fecha de nacimiento: "/>
 				<h:outputText
-					value="Fecha Nacimiento: #{infoSesion.id.fecha_nacimiento}" />
-				<br />
-
+					value="#{infoSesion.id.fecha_nacimiento}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
+				<h:button value="volver" outcome="clientView.xhtml"/>
+				</h:panelGrid>
 			</c:when>
 			<c:when test="#{infoSesion.esEm()}">
-				<h:outputText value="Razón Social: #{infoSesion.em.razon_social}" />
-				<br />
-				<h:outputText value="NIF: #{infoSesion.em.identificacion}" />
-				<br />
+				<h:panelGrid columns="2">
+				<h:outputText value="Razón Social: "/>
+				<h:outputText value="#{infoSesion.em.razon_social}" />
+				<h:outputText value="NIF: "/>				
+				<h:outputText value="#{infoSesion.em.identificacion}" />
+				<h:outputText value="Dirección: "/>				
 				<h:outputText
-					value="Direccion: #{infoSesion.em.pais}, #{infoSesion.em.direccion}, #{infoSesion.em.ciudad}, #{infoSesion.em.codigoPostal}" />
-				<br />
-				<h:outputText value="Fecha alta: #{infoSesion.em.fecha_alta}" />
-				<br />
-			</c:when>
-			<c:when test="#{infoSesion.esPa()}">
-				<h:outputText value="Nombre: #{infoSesion.pa.nombre}" />
-				<br />
-				<h:outputText value="Apellido: #{infoSesion.pa.apellidos}" />
-				<br />
-				<h:outputText value="DNI: #{infoSesion.id.identificacion}" />
-				<br />
-				<h:outputText
-					value="Direccion: #{infoSesion.pa.pais}, #{infoSesion.pa.direccion}, #{infoSesion.pa.ciudad}, #{infoSesion.pa.codigoPostal}" />
-				<br />
-				<h:outputText value="Fecha Nacimiento: #{infoSesion.pa.fecha_nacimiento}" />
-				<br />
-				<h:outputText value="Fecha Alta: #{infoSesion.pa.fechaInicio}" />
+					value="#{infoSesion.em.pais}, #{infoSesion.em.direccion}, #{infoSesion.em.ciudad}, #{infoSesion.em.codigoPostal}" />
+				<h:outputText value="Fecha alta: " />
+				<h:outputText value="#{infoSesion.em.fecha_alta}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
+				<h:button value="volver" outcome="clientView.xhtml"/>
+				</h:panelGrid>
 			</c:when>
 		</c:choose>
 	</h:form>

@@ -20,7 +20,7 @@
 					<h:link outcome="index.xhtml">test</h:link>
 				</p>
 			</c:when>
-			<c:when test="#{infoSesion.esPa() && empty infoSesion.em}">
+			<c:when test="#{infoSesion.esPa() and empty infoSesion.em}">
 				<p >
 					Selecciona primero una empresa para la que quieres ver las cuentas:
 					<h:link outcome="personaAutorizadaView.xhtml">Empresas</h:link>

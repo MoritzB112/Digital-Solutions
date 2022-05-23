@@ -2,6 +2,7 @@ package es.uma.proyecto.ejb;
 
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.annotation.PostConstruct;
@@ -12,8 +13,13 @@ import javax.persistence.PersistenceContext;
 
 import es.uma.proyecto.jpa.Autorizacion;
 import es.uma.proyecto.jpa.Autorizacion_PK;
+import es.uma.proyecto.jpa.Cuenta_Referencia;
+import es.uma.proyecto.jpa.Divisa;
 import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
+import es.uma.proyecto.jpa.Pooled_Account;
+import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Usuario;
 
 @Singleton
@@ -40,47 +46,116 @@ public class InicializaBBDD {
 		u.setUsuario("testU");
 		em.persist(u);
 
+		
 		Usuario a = new Usuario();
-		a.setCorreo("testU@admin.test");
-		a.setEsAdministrativo(true);
+		a.setEsAdministrativo(false);
 		a.setSalt(parseString(getSalt()));
-		a.setPassword(parseString(hashPassword(parseByte(a.getSalt()), "test".getBytes())));
-		a.setUsuario("admin");
+		a.setPassword(parseString(hashPassword(parseByte(a.getSalt()), "juan".getBytes())));
+		a.setUsuario("juan");
 		em.persist(a);
-
-		Persona_Autorizada pa = new Persona_Autorizada();
-		pa.setID(1L);
-		pa.setNombre("alguno");
-		pa.setApellidos("garcia");
-		pa.setDireccion("pozo");
-		pa.setCiudad("malaga");
-		pa.setCodigoPostal(29010);
-		pa.setUs(u);
-		pa.setPais("España");
-		em.persist(pa);
-
+		
+		Usuario b = new Usuario();
+		b.setEsAdministrativo(false);
+		b.setSalt(parseString(getSalt()));
+		b.setPassword(parseString(hashPassword(parseByte(b.getSalt()), "ana".getBytes())));
+		b.setUsuario("ana");
+		em.persist(b);
+		
+		Individual ind = new Individual();
+		ind.setIdentificacion("63937528N");
+		ind.setId(2L);
+		ind.setNombre("Juan");
+		ind.setApellido("Pérez");
+		ind.setUs(a);
+		em.persist(ind);
+		
 		Empresa emp = new Empresa();
-		emp.setIdentificacion("algunString");
+		emp.setIdentificacion("P3310693A");
 		emp.setId(1L);
-		emp.setTipo_cliente("juridica");
-		emp.setEstado("activa");
+		emp.setTipo_cliente("JURÍDICA");
+		emp.setEstado("ACTIVA");
 		emp.setFecha_alta(new Date());
-		emp.setDireccion("direccion");
-		emp.setCiudad("granada");
+		emp.setDireccion("Avenida del Cid");
+		emp.setCiudad("Granada");
 		emp.setCodigoPostal(29000);
 		emp.setPais("España");
-		emp.setRazon_social("trabajador");
+		emp.setRazon_social("TECHFUTURE");
 		em.persist(emp);
-
+		
+		Persona_Autorizada pa = new Persona_Autorizada();
+		pa.setID(3L);
+		pa.setIdentificacion("Y4001267V");
+		pa.setApellidos("García");
+		pa.setNombre("Andrea");
+		pa.setDireccion("Plaza Alta");
+		pa.setCiudad("Madrid");
+		pa.setCodigoPostal(21000);
+		pa.setPais("España");
+		pa.setUs(b);
+		em.persist(pa);
+		
 		Autorizacion au = new Autorizacion();
 		Autorizacion_PK aupk = new Autorizacion_PK();
-		aupk.setEmID(1L);
-		aupk.setPaID(1L);
-		au.setId(aupk);
-		au.setTipo("prueba");
+		aupk.setEmID(emp.getId());
+		aupk.setPaID(pa.getID());
 		au.setEm(emp);
+		au.setId(aupk);
 		au.setPa(pa);
-		em.persist(au);
+		au.setTipo("AUTORIZADO");
+		
+		
+		Divisa div = new Divisa();
+		div.setNombre("Dolares");
+		div.setAbreviatura("USD");
+		div.setCambioEuro(2.0);
+		div.setSimbolo("$");
+		
+		Cuenta_Referencia cr = new Cuenta_Referencia();
+		cr.setIBAN("VG57DDVS5173214964983931");
+		cr.setDiv(div);
+		cr.setEstado("ACTIVA");
+		cr.setNombreBanco("SANTANDER");
+		cr.setSaldo(24351.15);
+		
+		Cuenta_Referencia cr2 = new Cuenta_Referencia();
+		cr2.setIBAN("HN47QUXH11325678769785549996");
+		cr2.setDiv(div);
+		cr2.setEstado("ACTIVA");
+		cr2.setNombreBanco("UNICAJA");
+		cr2.setSaldo(54671.15);
+		
+		Segregada se = new Segregada();
+		se.setIBAN("NL63ABNA6548268733");
+		se.setCl(emp);
+		se.setEstado("ACTIVA");
+		se.setFecha_apertura(new Date());
+		se.setCr(cr);
+		
+		
+		Segregada se2 = new Segregada();
+		se2.setIBAN("FR5514508000502273293129K55");
+		se2.setEstado("ACTIVA");
+		se2.setCl(emp);
+		se2.setFecha_apertura(new Date());
+		se2.setCr(cr2);
+		
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.DAY_OF_MONTH, 1);
+		cal.set(Calendar.MONTH, 9);
+		cal.set(Calendar.YEAR, 2021);
+		Segregada se3 = new Segregada();
+		se3.setIBAN("DE31500105179261215675");
+		se3.setCl(emp);
+		se3.setEstado("CERRADA");
+		se3.setFecha_apertura(new Date());
+		se3.setFecha_cierre(cal.getTime());
+		
+		Pooled_Account pooA = new Pooled_Account();
+		pooA.setIBAN("ES8400817251647192321264");
+		
+		
+		
 	}
 
 	private byte[] hashPassword(byte[] salt, byte[] password) {

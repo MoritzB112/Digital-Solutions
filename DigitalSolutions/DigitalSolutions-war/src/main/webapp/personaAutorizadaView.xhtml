@@ -12,7 +12,7 @@
 </h:head>
 
 <h:body>
-<h:form>
+<h:form id="test2">
 	<c:choose>
 		<c:when test="#{empty infoSesion.usuario}">
 			<p id="cuentasErrorMsg">
@@ -30,7 +30,7 @@
 		<h:messages/>
 			<h:dataTable value="#{infoSesion.usuario.pa.autorizaciones}" var="au">
 				<h:column>
-					<f:facet name="header">NIF Empresa</f:facet>
+					<f:facet id="test" name="header">NIF Empresa</f:facet>
 					<h:outputText rendered="#{au.em.identificacion!=null}" value="#{au.em.identificacion}" />
 					<h:outputText rendered="#{au.em.identificacion==null}" value="No existe" />
 				</h:column>
