@@ -27,7 +27,7 @@ public class Cliente {
 
 	@Column(unique = true)
 	private String identificacion;
-	
+
 	@Column(nullable = false)
 	private String tipo_cliente;
 
