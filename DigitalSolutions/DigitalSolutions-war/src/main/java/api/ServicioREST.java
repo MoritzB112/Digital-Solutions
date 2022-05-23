@@ -54,7 +54,7 @@ public class ServicioREST {
 	public Response filterClients (searchClients c) {
 		JsonObjectBuilder result = Json.createObjectBuilder();
 		
-		List<Cliente> l = clientes.sacarInformacionCliente(c.getNombre(), c.getNombre());
+//		List<Cliente> l = clientes.sacarInformacionCliente(c.getNombre(), c.getNombre());
 		
 	
  /*		result.add(Json.createArrayBuilder()
@@ -73,7 +73,8 @@ public class ServicioREST {
 						.add("postalCode", )
 						.add("city", )
 						.add("country", ));
- */	}
+						
+ */	return null;}
 	
 	@Path("/products")
 	@POST
