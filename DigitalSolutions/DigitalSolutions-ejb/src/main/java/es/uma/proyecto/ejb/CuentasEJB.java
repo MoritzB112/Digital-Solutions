@@ -238,6 +238,7 @@ public class CuentasEJB implements GestionCuentas {
 		} else {
 			
 		}
+		return null;
 	}
 
 	@Override

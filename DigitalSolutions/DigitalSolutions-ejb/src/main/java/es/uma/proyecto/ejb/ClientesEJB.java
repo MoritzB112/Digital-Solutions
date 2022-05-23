@@ -143,6 +143,7 @@ public class ClientesEJB implements GestionClientes {
 	@Override
 	public Cliente sacarInformacionCliente(String nombre, String apellido) {
 		Cliente result;
+		return null;
 	}
 
 	public List<Empresa> sacarEmpresas() {
