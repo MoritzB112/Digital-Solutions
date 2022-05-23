@@ -19,15 +19,21 @@
                 <c:otherwise>
                     <h:panelGrid columns="2">
                         <h:outputText id="textLoginUsernameAD" value="Nombre de usuario:"/>
-                        <h:inputText id="loginUsername" required="true" value="#{login.userName}"/>
+                        <h:inputText id="loginUsernameAD" required="true" value="#{login.userName}"/>
 
-                        <h:outputText id="textLoginPassword" value="Contraseña:"/>
-                        <h:inputSecret id="loginPassword" required="true" value="#{login.password}"/>
+                        <h:outputText id="textLoginPasswordAD" value="Contraseña:"/>
+                        <h:inputSecret id="loginPasswordAD" required="true" value="#{login.password}"/>
 
-                        <h:commandButton id="loginBoton" value="Entrar" action="#{login.entrar()}"/>
+                        <h:commandButton id="loginBotonAD" value="Entrar" action="#{login.entrarAD()}"/>
                        	<h:messages/>
 
                     </h:panelGrid>
+
+                    <div>
+                        <p>Si no tiene cuenta puede crear una en la <h:link outcome="registroUsuario.xhtml">página de registro</h:link></p>
+                    	
+                    </div>
+
                 </c:otherwise>
             </c:choose>
 

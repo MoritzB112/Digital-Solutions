@@ -72,17 +72,20 @@ public class Login {
 	public String entrar() {
 		try {
 			usuario = cuenta.usuarioRegistrado(getUserName(), getPassword());
+			if(cuenta.esAdministrativo(usuario)) {
+				FacesMessage fm = new FacesMessage("La cuenta no existe");
+				FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+				usuario=new Usuario();
+				return null;
+			}
 			sesion.setUsuario(usuario);
-			if (cuenta.esAdministrativo(usuario)) {
-				return "adminView.xhtml";
-			} else if (usuario.getPa() != null) {
+			if (usuario.getPa() != null) {
 				sesion.setPa(usuario.getPa());
-				return ".xhtml";
+				return "personaAutorizadaView.xhtml";
 			} else if (usuario.getCl() != null) {
 				sesion.setId((Individual) usuario.getCl());
+				return "clientView.xhtml";
 			}
-			return null;
-
 		} catch (UsuarioNoEncontradoException e) {
 			FacesMessage fm = new FacesMessage("La cuenta no existe");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
@@ -96,5 +99,28 @@ public class Login {
 		return null;
 	}
 
+	public String entrarAD() {
+		try {
+			usuario = cuenta.usuarioRegistrado(getUserName(), getPassword());
+			if (!cuenta.esAdministrativo(usuario)) {
+				FacesMessage fm = new FacesMessage("La cuenta no existe");
+				FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+				return null;
+			} 
+			sesion.setUsuario(usuario);
+			return "adminView.xhtml";
+
+		} catch (UsuarioNoEncontradoException e) {
+			FacesMessage fm = new FacesMessage("La cuenta no existe");
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+		} catch (ContraseñaIncorrectaException e) {
+			FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+		} catch (PasswordException e) {
+			FacesMessage fm = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+		}
+		return null;
+	}
 
 }
