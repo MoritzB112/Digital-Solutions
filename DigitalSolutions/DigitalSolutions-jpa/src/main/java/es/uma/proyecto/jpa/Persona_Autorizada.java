@@ -135,12 +135,9 @@ public class Persona_Autorizada {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
-	public Date getFecha_nacimeinteo() {
-		return fecha_nacimiento;
-	}
 
-	public void setFecha_nacimeinteo(Date fecha_nacimeinteo) {
-		this.fecha_nacimiento = fecha_nacimeinteo;
+	public void setFecha_nacimeinteo(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
 	public String getEstado() {
