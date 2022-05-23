@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
@@ -219,6 +220,25 @@ public class CuentasEJB implements GestionCuentas {
 			l.addAll(se.getPagos());
 			return l;
 		}
+	}
+	
+	@Override
+	public List<Cuenta_Fintech> sacarInformacionCuenta(String iban, String estado) {
+		List<Cuenta_Fintech> result;
+		String consulta = "SELECT c FROM Cuenta_Fintech c";
+		String s_iban;
+		String s_estado;
+		
+		if (iban != null) {
+			s_iban = "";
+			
+		} else if (estado == null) {
+			s_estado = "";
+			
+		} else {
+			
+		}
+		return null;
 	}
 
 	@Override

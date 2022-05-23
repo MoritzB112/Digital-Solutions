@@ -43,5 +43,7 @@ public interface GestionCuentas {
 	public List<Pooled_Account> sacarPooledAccount();
 	
 	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException;
+	
+	public List<Cuenta_Fintech> sacarInformacionCuenta(String iban, String estado);
 
 }
