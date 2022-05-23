@@ -8,7 +8,7 @@
     </h:head>
     <h:body>
 
-        <h:form id="login">
+        <h:form id="loginAD">
 
             <c:choose>
                 <c:when test="#{!empty infoSesion.usuario}">
@@ -29,10 +29,6 @@
 
                     </h:panelGrid>
 
-                    <div>
-                        <p>Si no tiene cuenta puede crear una en la <h:link outcome="registroUsuario.xhtml">página de registro</h:link></p>
-                    	
-                    </div>
 
                 </c:otherwise>
             </c:choose>
