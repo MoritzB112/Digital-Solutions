@@ -19,9 +19,7 @@ public class Usuario {
 
 	private String password;
 
-//	@Basic(fetch = FetchType.LAZY)
-//	@Lob
-//	private byte[] salt;
+	private String salt;
 
 	private String correo;
 
@@ -55,13 +53,13 @@ public class Usuario {
 		this.password = password;
 	}
 
-//	public byte[] getSalt() {
-//		return salt;
-//	}
-//
-//	public void setSalt(byte[] salt) {
-//		this.salt = salt;
-//	}
+	public String getSalt() {
+		return salt;
+	}
+
+	public void setSalt(String salt) {
+		this.salt = salt;
+	}
 
 	public String getCorreo() {
 		return correo;
@@ -114,14 +112,8 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario [usuario=" + usuario + ", password=" + password + ", correo=" + correo + ", esAdministrativo="
-				+ esAdministrativo + "]";
+		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
+				+ ", esAdministrativo=" + esAdministrativo + "]";
 	}
-
-//	@Override
-//	public String toString() {
-//		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
-//				+ ", esAdministrativo=" + esAdministrativo + "]";
-//	}
 
 }

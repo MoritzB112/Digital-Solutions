@@ -38,29 +38,17 @@ public class UsuariosEJB implements GestionUsuarios {
 			throw new UsuarioExistenteException();
 		}
 
-//		// Generamos la salt
-//		byte[] salt = new byte[16];
-//		SecureRandom sm = new SecureRandom();
-//		sm.nextBytes(salt);
-//		
-//		u.setSalt(salt);
+		// Generamos la salt
+		byte[] salt = new byte[16];
+		SecureRandom sm = new SecureRandom();
+		sm.nextBytes(salt);
+		
+		u.setSalt(parseString(salt));
 
-//		u.setPassword(hashPassword(u.getPassword(), salt));
+		u.setPassword(parseString(hashPassword(salt, u.getPassword().getBytes())));
 		
 		em.persist(u);
 	}
-
-//	private byte[] hashPassword(byte[] password, byte[] salt) throws PasswordException {
-//		try {
-//			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-//			mg.update(salt);
-//			
-//			return mg.digest(password);
-//
-//		} catch (Exception e) {
-//			throw new PasswordException();
-//		}
-//	}
 
 	public Usuario usuarioRegistrado(String usuario, String contraseña)
 			throws PasswordException, UsuarioNoEncontradoException, ContraseñaIncorrectaException {
@@ -68,8 +56,7 @@ public class UsuariosEJB implements GestionUsuarios {
 
 		for (Usuario usu : l) {
 			if (usuario.equals(usu.getUsuario())) {
-//				if (comprobarContraseña(usu, contraseña)) {
-				if(contraseña.equals(usu.getPassword())) {
+				if (comprobarPw(usu, contraseña)) {
 
 					return usu;
 
@@ -84,20 +71,51 @@ public class UsuariosEJB implements GestionUsuarios {
 		throw new UsuarioNoEncontradoException();
 	}
 
-
-//	private boolean comprobarContraseña(Usuario u, String contraseña) throws PasswordException {
-//		try {
-//			MessageDigest mg = MessageDigest.getInstance("SHA-256");
-//			mg.update(u.getSalt());
-//
-//			return MessageDigest.isEqual(mg.digest(contraseña.getBytes()), u.getPassword());
-//
-//		} catch (Exception e) {
-//			throw new PasswordException();
-//		}
-//	}
-
 	public List<Usuario> sacarUsuarios(){
 		return em.createQuery("SELECT usu FROM Usuario usu", Usuario.class).getResultList();
+	}
+	
+	private static byte[] hashPassword(byte[] salt, byte[] password) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			digest.update(salt);
+			return digest.digest(password);
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return null;
+	}
+	
+	private static boolean comprobarPw(Usuario u, String pw) {
+		try {
+			MessageDigest digest = MessageDigest.getInstance("SHA-256");
+			digest.update(parseByte(u.getSalt()));
+			return MessageDigest.isEqual(parseByte(u.getPassword()), digest.digest(pw.getBytes()));
+
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return false;
+	}
+
+	private static String parseString(byte[] ba) {
+		StringBuilder sb = new StringBuilder();
+		for (int i = 0; i < ba.length; i++) {
+			sb.append(Integer.toString((ba[i] & 0xff) + 0x100, 16).substring(1));
+		}
+
+		return sb.toString();
+	}
+
+	private static byte[] parseByte(String str) {
+		byte[] ans = new byte[str.length() / 2];
+		for (int i = 0; i < ans.length; i++) {
+			int index = i * 2;
+			int val = Integer.parseInt(str.substring(index, index + 2), 16);
+			ans[i] = (byte) val;
+		}
+
+		return ans;
 	}
 }
