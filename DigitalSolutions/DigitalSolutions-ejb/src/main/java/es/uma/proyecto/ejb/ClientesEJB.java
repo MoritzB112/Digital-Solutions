@@ -18,6 +18,7 @@ import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
+import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Usuario;
 
 @Stateless
@@ -138,13 +139,26 @@ public class ClientesEJB implements GestionClientes {
 			throw new ClienteNoSuporteadoException();
 		}
 	}
+	
+	@Override
+	public Cliente sacarInformacionCliente(String nombre, String apellido) {
+		Cliente result;
+	}
 
 	public List<Empresa> sacarEmpresas() {
 		return em.createQuery("SELECT ent FROM Empresa ent", Empresa.class).getResultList();
 	}
+	
+	public Empresa sacarEmpresaConcreta(Long id) {
+		return em.find(Empresa.class, "SELECT ent FROM Empresa ent WHERE ent.id='"+id+"'");
+	}
 
 	public List<Individual> sacarIndividual() {
 		return em.createQuery("SELECT i FROM Individual i", Individual.class).getResultList();
+	}
+	
+	public Individual sacarIndividualConcreto(Long id) {
+		return em.find(Individual.class, "SELECT i FROM Individual i WHERE i.id='"+id+"'");
 	}
 
 }
