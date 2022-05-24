@@ -20,6 +20,8 @@ import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
+import es.uma.proyecto.jpa.Pooled_Account;
+import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Usuario;
 
 /**
@@ -37,7 +39,6 @@ public class InfoSesion implements Serializable {
 	private Empresa em;
 	private Persona_Autorizada pa;
 	private Cuenta_Fintech cf;
-	
 
 	/**
 	 * Creates a new instance of InfoSesion
