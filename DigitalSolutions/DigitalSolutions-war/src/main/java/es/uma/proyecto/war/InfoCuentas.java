@@ -124,6 +124,10 @@ public class InfoCuentas implements Serializable {
 		return "infoCuentas.xhtml";
 	}
 	
+	public String sacarMoneda(Cuenta_Referencia cr) {
+		return cr.getDiv().getAbreviatura();
+	}
+	
 	public List<Depositado_en> sacarDeps(){
 		if(sesion.getCf() instanceof Pooled_Account) {
 			return ((Pooled_Account) sesion.getCf()).getDeps();
@@ -133,6 +137,12 @@ public class InfoCuentas implements Serializable {
 	
 	public String cambiarDivisa() {
 		try {
+			tr.setOrigen(sesion.getCf());
+			tr.setDestino(sesion.getCf());
+			tr.setComision(0.0);
+			tr.setDivEm(depOr.getCr().getDiv());
+			tr.setDivRec(depDest.getCr().getDiv());
+			tr.setTipo("Cambio de divisa");
 			tr.setFechaInstruccion(new Date());
 			transacciones.cambioDivisa(tr, depOr, depDest);
 		} catch (TransaccionYaExisteException e) {

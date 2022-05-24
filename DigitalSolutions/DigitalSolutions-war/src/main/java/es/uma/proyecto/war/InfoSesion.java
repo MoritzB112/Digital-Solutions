@@ -90,6 +90,11 @@ public class InfoSesion implements Serializable {
 	public synchronized String invalidarSesion() {
 		if (usuario != null) {
 			usuario = null;
+			id = null;
+			em = null;
+			pa = null;
+			cf = null;
+			
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		}
 		return "login.xhtml";

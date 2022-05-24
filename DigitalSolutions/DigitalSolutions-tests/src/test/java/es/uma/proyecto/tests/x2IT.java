@@ -28,7 +28,7 @@ import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-public class TestsIT {
+public class x2IT {
 	private WebDriver driver;
 	private Map<String, Object> vars;
 	JavascriptExecutor js;
@@ -43,7 +43,7 @@ public class TestsIT {
 	@BeforeClass
 	public static void setupClass() {
 		String server = "localhost";
-		try (InputStream is = TestsIT.class.getClassLoader().getResourceAsStream("pom.properties")) {
+		try (InputStream is = x2IT.class.getClassLoader().getResourceAsStream("pom.properties")) {
 			Properties pomProperties = new Properties();
 			pomProperties.load(is);
 			server = pomProperties.getProperty("server.host");

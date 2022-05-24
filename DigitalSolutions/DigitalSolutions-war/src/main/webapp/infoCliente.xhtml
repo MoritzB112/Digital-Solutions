@@ -25,7 +25,7 @@
 			<c:when test="#{infoSesion.esId()}">
 				<h:panelGrid columns="2">
 				<h:outputText value="Nombre: "/>							
-				<h:outputText value="{infoSesion.id.nombre}" />
+				<h:outputText value="#{infoSesion.id.nombre}" />
 				<h:outputText value="Apellidos: "/>
 				<h:outputText value="#{infoSesion.id.apellido}" />
 				<h:outputText value="DNI: "/>

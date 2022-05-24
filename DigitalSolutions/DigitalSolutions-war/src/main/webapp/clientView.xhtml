@@ -12,7 +12,7 @@
 </h:head>
 
 <body>
-	<form id="clientViewForm">
+	<h:form id="clientViewForm">
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
 				<p id="clientViewNoSesion">
@@ -20,7 +20,7 @@
 				</p>
 			</c:when>
 
-			<c:when test="#{infoSesion.esPa() && empty infoSesion.em}">
+			<c:when test="#{infoSesion.esPa() and empty infoSesion.em}">
 				<p id="clientViewNoEm">
 					Selecciona primero una empresa para la que quieres ver las cuentas: <h:link outcome="personaAutorizadaView.xhtml">Empresas</h:link>.
 				</p>
@@ -48,7 +48,7 @@
 					</h:column>
 					<h:column>
 						<f:facet id="clientViewC5HPa" name="header"></f:facet>
-						<h:commandButton id="clientViewC5BPa"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuantaPa)}" />
+						<h:commandButton id="clientViewC5BPa"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaPa)}" />
 					</h:column>
 				</h:dataTable>
 			</c:when>
@@ -75,12 +75,12 @@
 					</h:column>
 					<h:column>
 						<f:facet id="clientViewC5HId" name="header"></f:facet>
-						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuantaIa)}" />
+						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaId)}" />
 					</h:column>
 				</h:dataTable>
 			</c:otherwise>
 		</c:choose>
-	</form>
+	</h:form>
 </body>
 
 </html>
