@@ -12,7 +12,7 @@
 </h:head>
 
 <body>
-	<form id="clientViewForm">
+	<h:form id="clientViewForm">
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
 				<p id="clientViewNoSesion">
@@ -74,12 +74,12 @@
 					</h:column>
 					<h:column>
 						<f:facet id="clientViewC5HId" name="header"></f:facet>
-						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuantaIa)}" />
+						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaId)}" />
 					</h:column>
 				</h:dataTable>
 			</c:otherwise>
 		</c:choose>
-	</form>
+	</h:form>
 </body>
 
 </html>
