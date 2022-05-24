@@ -44,7 +44,11 @@
 					</h:column>
 					<h:column>
 						<f:facet id="clientViewC4HPa" name="header">Saldo</f:facet>
-						<h:outputText id="clientViewC3TPa"  value="#{infoCuentas.sacarSaldo(cuentaPa)}" />
+						<h:outputText id="clientViewC4TPa"  value="#{infoCuentas.sacarSaldo(cuentaPa)}" />
+					</h:column>
+					<h:column>
+						<f:facet id="clientViewC5HPa" name="header"></f:facet>
+						<h:commandButton id="clientViewC5BPa"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuantaPa)}" />
 					</h:column>
 				</h:dataTable>
 			</c:when>
@@ -67,7 +71,11 @@
 					</h:column>
 					<h:column>
 						<f:facet id="clientViewC4HId" name="header">Saldo</f:facet>
-						<h:outputText id="clientViewC3TId"  value="#{infoCuentas.sacarSaldo(cuentaId)}" />
+						<h:outputText id="clientViewC4TId"  value="#{infoCuentas.sacarSaldo(cuentaId)}" />
+					</h:column>
+					<h:column>
+						<f:facet id="clientViewC5HId" name="header"></f:facet>
+						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuantaIa)}" />
 					</h:column>
 				</h:dataTable>
 			</c:otherwise>
