@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      
+
+      
+<h:head>
+<title>Datos de la cuenta segregada</title>
+</h:head>
+
+<h:body>  
+<ui:param name="segregada" value="#{administrativo.sacarSegr(param['id'])}" />   
+<h:panelGrid columns=4>
+
+<h:inputHidden id="fechaAperturaSeg_modificar2" value="#{administrativo.seg.fecha_apertura}">#{segregada.fecha_apertura}</h:inputHidden>
+<h:inputHidden id="fechaCierreSeg_modificar2" value="#{administrativo.seg.fecha_cierre}">#{segregada.fecha_cierre}</h:inputHidden>
+<h:inputHidden id="IBANSeg_modificar2" value="#{administrativo.seg.IBAN}">#{segregada.IBAN}</h:inputHidden>
+<h:inputHidden id="estadoSeg_modificar2" value="#{administrativo.seg.estado}">#{segregada.estado}</h:inputHidden>
+<h:inputHidden id="clienteSeg_modificar2" value="#{administrativo.seg.cl}">#{segregada.cl}</h:inputHidden>
+<h:inputHidden id="CRSeg_modificar2" value="#{administrativo.seg.cr}">#{segregada.cr}</h:inputHidden>
+
+
+
+<h:outputText id="SWIFTSeg_modificar2" value="SWIFT:"/>
+<h:inputText id="SWIFTSeg_modificar2T" pt:placeholder="#{segregada.SWIFT}" value="#{administrativo.seg.SWIFT}"/>
+
+<h:outputText id="clasificacionSeg_modificar2" value="Clasificación:"/>
+<h:inputText id="clasificacionSeg_modificar2T" pt:placeholder="#{segregada.clasificacion}" value="#{administrativo.seg.clasificacion}"/>
+
+<h:outputText id="comisionSeg_modificar2" value="Comisión:"/>
+<h:inputText id="comisionSeg_modificar2" pt:placeholder="#{segregada.comision}" value="#{administrativo.seg.comision}"/>
+
+
+
+
+            
+</h:panelGrid>
+
+<h:button id="TerminarSeg_modificar" outcome="administrativo.xhtml" value="Terminar"/>
+</h:body>
+</html>

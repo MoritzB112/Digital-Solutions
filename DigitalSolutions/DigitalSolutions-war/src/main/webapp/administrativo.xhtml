@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Perfil</title>
+</h:head>
+<h:body>
+<h:outputText id="UsuarioAdmin" value="Usuario:#{infoSesion.usuario.usuario}" />
+<h:outputText id="CorreoAdmin" value="Correo:#{infoSesion.usuario.correo}" />
+<h:commandButton id="logoutBotonAdmin" value="Cerrar sesión" action="#{infoSesion.invalidarSesion()}"/>
+
+<h:outputText id="AdminPanel1" value="Panel de administración de clientes"/>
+<h:hr></h:hr>
+<h:outputText id="AdminTexto1" value="Las acciones que usted puede realizar como administrativo del sistema
+sobre los clientes almacenados en la base de datos son las siguientes:"/>
+
+<h:outputText id="AñadirClienteAdminT" value="Añadir un nuevo cliente a la base de datos."/> <h:button id="AñadirClienteAdmin" outcome="darDeAlta.xhtml" value="Registro de usuarios"/>
+<h:outputText id="ModificarClienteAdminT" value="Modificar los datos de un cliente existente."/> <h:button id="ModificarClienteAdmin" outcome="modificar_listaUsuarios.xhtml" value="Actualizar usuarios"/>
+<h:outputText id="DarAltaAdminT" value="Quitar permisos de operación."/> <h:button id="DarAltaAdmin" outcome="darDeBaja.xhtml" value="Dar de baja"/>
+<h:outputText id="BloquearClienteAdminT" value="Bloquear de manera temporal a un usuario."/> <h:button id="BloquearClienteAdmin" outcome="bloquear.xhtml" value="Bloquear temporalmente"/>
+<h:outputText id="DesbloquearClienteAdminT" value="Desbloquear a un usuario temporalmente bloqueado."/> <h:button id="BloquearClienteAdmin" outcome="desbloquear.xhtml" value="Desbloquear usuario"/>
+
+
+<h:outputText id="AdminPanel2" value="Panel de administración de cuentas"/>
+<h:hr></h:hr>
+<h:outputText id="AdminTexto2" value="Las acciones que usted puede realizar como administrativo del sistema
+sobre las cuentas almacenados en la base de datos son las siguientes:"/>
+
+<h:outputText id="AñadirCuentaAdminT" value="Añadir una nueva cuenta a los datos del cliente."/> <h:button id="AñadirCuentaAdmin" outcome="abrirCuenta.xhtml" value="Apertura de cuentas"/>
+<h:outputText id="AlterarCuentaAdminT" value="Alteración de las características de la cuenta."/> <h:button id="AlterarCuentaAdmin" outcome="modificar_listaCuentas.xhtml" value="Modificar datos cuenta"/>
+<h:outputText id="DarBajaCuentaAdminT" value="Quitar permisos de operación a una cuenta."/> <h:button id="DarBajaCuentaAdmin" outcome="darDeBaja_cuenta.xhtml" value="Dar cuenta de baja"/>
+<h:outputText id="CambiarDivisasAdminT" value="Cambio entre divisas de una misma cuenta."/> <h:button id="CambiarDivisasAdmin" outcome="" value="Cambio de divisa"/>
+
+
+<h:outputText id="AdminPanel3" value="Panel de administración de personas autorizadas"/>
+<h:hr></h:hr>
+<h:outputText id="AdminTexto3" value="Las acciones que usted puede realizar como administrativo del sistema
+sobre las personas autorizadas en la base de datos son las siguientes:"/>
+
+<h:outputText id="AutorizacionPAAdminT" value="Dar una autorización de la empresa a una persona autorizada."/> <h:button id="AutorizacionPAAdmin" outcome="añadirAutorizacion.xhtml" value="Añadir autorización"/>
+
+
+</h:body>
+</html>

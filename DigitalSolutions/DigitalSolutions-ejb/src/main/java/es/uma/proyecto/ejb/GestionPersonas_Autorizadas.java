@@ -33,4 +33,6 @@ public interface GestionPersonas_Autorizadas {
 	public List<Persona_Autorizada> sacarPA();
 	
 	public List<Autorizacion> sacarAutorizaciones();
+	
+	public Persona_Autorizada gtPautorizada(Long id);
 }

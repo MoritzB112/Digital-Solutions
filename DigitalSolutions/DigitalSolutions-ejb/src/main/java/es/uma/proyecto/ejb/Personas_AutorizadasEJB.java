@@ -14,6 +14,7 @@ import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
 import es.uma.proyecto.jpa.Autorizacion;
 import es.uma.proyecto.jpa.Autorizacion_PK;
 import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
 import es.uma.proyecto.jpa.Usuario;
 
@@ -114,4 +115,8 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 	public List<Autorizacion> sacarAutorizaciones(){
 		return em.createQuery("SELECT aut FROM Autorizacion aut", Autorizacion.class).getResultList();
 	}
+	
+	public Persona_Autorizada gtPautorizada(Long id) {
+		return em.find(Persona_Autorizada.class,id);
+		}
 }

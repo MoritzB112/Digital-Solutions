@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Lista de usuarios</title>
+</h:head>
+
+<h:body>
+<h:h1>Lista de Individuales</h:h1>
+<h:dataTable id="ListaInd_bloquear" value="#{administrativo.gtIndividualNoBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="dniInd_bloquear" value="dni"/>
+</h:facet>
+#{dato.dni}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="nombreInd_bloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="apellidoInd_bloquear" value="Apellido"/>
+</h:facet>
+#{dato.apellido}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="bloquearInd_seleccionar" value="Seleccionar" action="#{administrativo.bloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+
+<h:h1>Lista de Empresas</h:h1>
+<h:dataTable id="ListaEmp_bloquear" value="#{administrativo.gtEmpresaNoBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="nifEmp_bloquear" value="dni"/>
+</h:facet>
+#{dato.nif}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="RSEmpresa_bloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="bloquearEmp_seleccionar" value="Seleccionar" action="#{administrativo.bloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+
+<h:h1>Lista de Personas autorizadas</h:h1>
+<h:dataTable id="ListaPA_bloquear" value="#{administrativo.gtPautNoBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="dniPA_bloquear" value="Identificación"/>
+</h:facet>
+#{dato.identificacion}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="nombrePA_bloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="apellidoPA_bloquear" value="Apellido"/>
+</h:facet>
+#{dato.apellido}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="bloquearPA_seleccionar" value="Seleccionar" action="#{administrativo.bloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+</h:body>
+</html>

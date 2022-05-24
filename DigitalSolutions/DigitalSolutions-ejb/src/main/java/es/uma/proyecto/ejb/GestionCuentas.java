@@ -25,7 +25,10 @@ public interface GestionCuentas {
 
 	public void addCuenta(Cuenta_Fintech cf, Cuenta_Referencia cr, Cliente cl) throws CuentaYaExisteException,
 			CuentaNoSuporteadaException, ClienteNoExisteException, CuentaReferenciaNoExisteException;
+	
 
+	public void addCuentaPooled(Pooled_Account pa, Cliente cl) throws CuentaYaExisteException, ClienteNoExisteException;
+	
 	public void abrirCuentaReferencia(Cuenta_Referencia cr, Divisa dv)
 			throws CuentaYaExisteException, DivisaNoExisteException;
 	
@@ -38,10 +41,13 @@ public interface GestionCuentas {
 	
 	public List<Segregada> sacarSegregadas();
 
-	public void addCuenta(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException;
+	public void añadirCartera(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException;
 
 	public List<Pooled_Account> sacarPooledAccount();
 	
 	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException;
 
+	public Segregada gtSegregada(Long id);
+	
+	public Pooled_Account gtPooled(Long id);
 }

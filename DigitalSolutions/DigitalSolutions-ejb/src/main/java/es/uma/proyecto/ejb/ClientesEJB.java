@@ -146,5 +146,17 @@ public class ClientesEJB implements GestionClientes {
 	public List<Individual> sacarIndividual() {
 		return em.createQuery("SELECT i FROM Individual i", Individual.class).getResultList();
 	}
+	
+	public List<Cliente> sacarClientes() {
+		return em.createQuery("SELECT i FROM Cliente i", Cliente.class).getResultList();
+	}
+	
+	public Individual gtIndividual(Long id) {
+		return em.find(Individual.class,id);
+		}
+	
+	public Empresa gtEmpresa(Long id) {
+		return em.find(Empresa.class,id);
+		}
 
 }

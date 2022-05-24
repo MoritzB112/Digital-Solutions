@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.ClienteNoSuporteadoException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
@@ -21,6 +22,8 @@ import es.uma.proyecto.jpa.Cuenta_Referencia;
 import es.uma.proyecto.jpa.Depositado_en;
 import es.uma.proyecto.jpa.Depositado_en_PK;
 import es.uma.proyecto.jpa.Divisa;
+import es.uma.proyecto.jpa.Empresa;
+import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Pooled_Account;
 import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Transaccion;
@@ -77,7 +80,7 @@ public class CuentasEJB implements GestionCuentas {
 	}
 
 	@Override
-	public void addCuenta(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException {
+	public void añadirCartera(Pooled_Account pa, Cuenta_Referencia cr) throws CuentaNoExisteException {
 		Pooled_Account pareal = em.find(Pooled_Account.class, pa.getIBAN());
 		if (pareal == null) {
 			throw new CuentaNoExisteException("POOLED_ACCOUNT");
@@ -101,6 +104,20 @@ public class CuentasEJB implements GestionCuentas {
 		em.persist(de);
 
 	}
+	
+	public void addCuentaPooled(Pooled_Account pa, Cliente cl) throws CuentaYaExisteException, ClienteNoExisteException {
+		if (em.find(Pooled_Account.class, pa.getIBAN()) != null) {
+			throw new CuentaYaExisteException();
+		}
+		Cliente clreal = em.find(Cliente.class, cl.getId());
+		if (clreal == null) {
+			throw new ClienteNoExisteException();
+		}
+		
+		pa.setCl(clreal);
+		em.persist(pa);
+	}
+	
 
 	@Override
 	public void abrirCuentaReferencia(Cuenta_Referencia cr, Divisa dv)
@@ -235,4 +252,14 @@ public class CuentasEJB implements GestionCuentas {
 	public List<Pooled_Account> sacarPooledAccount() {
 		return em.createQuery("SELECT pa FROM Pooled_Account pa", Pooled_Account.class).getResultList();
 	}
+	
+	public Segregada gtSegregada(Long id) {
+		return em.find(Segregada.class,id);
+		}
+	
+	public Pooled_Account gtPooled(Long id) {
+		return em.find(Pooled_Account.class,id);
+		}
+	
+	
 }

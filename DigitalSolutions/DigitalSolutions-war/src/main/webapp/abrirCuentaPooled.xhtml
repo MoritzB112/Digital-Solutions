@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Datos de la cuenta pooled</title>
+</h:head>
+<h:body>
+<h:panelGrid columns=4>
+
+<h:outputText id="clientePooled_abrirCuenta" value="Cliente:"/>
+<p:selectOneMenu id="clientePooled_abrirCuentaT" styleClass="selectOneMenu" value="#{administrativo.pa.cl}" required="true">
+    <f:selectItems value="#{administrativo.sacarCli}" ></f:selectItems>
+</p:selectOneMenu>
+---------------------------------------------------------depos
+<p:selectOneMenu id="clientePooled_abrirCuentaT" styleClass="selectOneMenu" value="#{administrativo.pa.cl}" required="true">
+    <f:selectItems value="#{administrativo.sacarCli}" ></f:selectItems>
+</p:selectOneMenu>
+
+
+
+<h:outputText id="idPooled_abrirCuenta" value="IBAN:"/>
+<h:inputText id="idPooled_abrirCuentaT" value="#{administrativo.pa.IBAN}" required="true"/>
+
+<h:outputText id="CorreoPooled_abrirCuenta" value="SWIFT:"/>
+<h:inputText id="CorreoPooled_abrirCuentaT" value="#{administrativo.pa.SWIFT}"/>
+
+<h:outputText id="EstadoPooled_abrirCuenta" value="Estado:"/>
+<h:selectOneMenu id="EstadoPooled_abrirCuentaT" required="true"/>
+<f:selectItem itemLabel="Baja"/>
+<f:selectItem itemLabel="Alta"/>
+</h:selectOneMenu>
+
+
+<h:outputText id="ContrasenaPooled_abrirCuenta" value="Clasificación:"/>
+<h:inputText id="ContrasenaPooled_abrirCuenta" value="#{administrativo.pa.clasificacion}"/>
+
+</h:panelGrid>
+
+<h:commandButton id="SiguientePooled_abrirCuenta" value="Terminar" action="#{administrativo.crearCuentaPooled()}"/>
+</h:body>
+</html>

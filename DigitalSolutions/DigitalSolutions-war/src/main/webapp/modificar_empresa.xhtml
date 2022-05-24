@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Datos de la empresa</title>
+</h:head>
+<h:body>
+<ui:param name="empresa" value="#{administrativo.sacarEmpresa(param['id'])}" />  
+<h:panelGrid columns=4>
+
+<h:inputHidden id="fechaAltaEmp_modificar2" value="#{administrativo.em.fecha_alta}">#{empresa.fecha_alta}</h:inputHidden>
+<h:inputHidden id="fechaBajaEmp_modificar2" value="#{administrativo.em.fecha_baja}">#{empresa.fecha_baja}</h:inputHidden>
+<h:inputHidden id="idEmp_modificar2" value="#{administrativo.em.id}">#{empresa.id}</h:inputHidden>
+<h:inputHidden id="usuarioEmp_modificar2" value="#{administrativo.usuario.usuario}">#{empresa.us.usuario}</h:inputHidden>
+<h:inputHidden id="tipoEmp_modificar2" value="#{administrativo.em.tipo}">#{empresa.tipo}</h:inputHidden>
+<h:inputHidden id="estadoEmp_modificar2" value="#{administrativo.em.estado}">#{empresa.estado}</h:inputHidden>
+<h:inputHidden id="passwordEmp_modificar2" value="#{administrativo.usuario.password}">#{empresa.us.password}</h:inputHidden>
+<h:inputHidden id="saltEmp_modificar2" value="#{administrativo.usuario.salt}">#{empresa.us.salt}</h:inputHidden>
+<h:inputHidden id="esAdministrativoEmp_modificar2" value="#{administrativo.usuario.esAdministrativo}">#{empresa.us.esAdministrativo}</h:inputHidden>
+
+<h:outputText id="CorreoEmp_modificar2" value="Correo:"/>
+<h:inputText id="CorreoEmp_modificar2T" pt:placeholder="#{empresa.us.correo}" value="#{administrativo.usuario.correo}"/>
+
+<h:outputText id="ContrasenaEmp_modificar2" value="Contraseña:"/>
+<h:inputText id="ContrasenaEmp_modificar2T" pt:placeholder="#{empresa.password}" value="#{administrativo.em.password}"/>
+
+<h:outputText id="DireccionEmp_modificar2" value="Dirección:"/>
+<h:inputText id="DireccionEmp_modificar2T" pt:placeholder="#{empresa.direccion}" value="#{administrativo.em.direccion}"/>
+
+<h:outputText id="CiudadEmp_modificar2" value="Ciudad:"/>
+<h:inputText id="CiudadEmp_modificar2T" pt:placeholder="#{empresa.ciudad}" value="#{administrativo.em.ciudad}"/>
+
+<h:outputText id="codigoPostaEmp_modificar2" value="Código postal:"/>
+<h:inputText id="codigoPostaEmp_modificar2T" pt:placeholder="#{empresa.codigoPostal}" value="#{administrativo.em.codigoPostal}" />
+
+<h:outputText id="PaisEmp_modificar2" value="País:"/>
+<h:inputText id="PaisEmp_modificar2T" pt:placeholder="#{empresa.pais}" value="#{administrativo.em.pais}" />
+
+<h:outputText id="RSEmp_modificar2" value="Razón social:"/>
+<h:inputText id="RSEmp_modificar2T" pt:placeholder="#{empresa.razon_social}" value="#{administrativo.em.razon_social}" />
+</h:panelGrid>
+
+<h:button id="TerminarEmp_modificar" outcome="administrativo.xhtml" value="Terminar"/>
+</h:body>
+</html>

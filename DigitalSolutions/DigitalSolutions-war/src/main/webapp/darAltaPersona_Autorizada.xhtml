@@ -1,0 +1,53 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Datos del individual</title>
+</h:head>
+<h:body>
+<h:panelGrid columns=4>
+
+<h:outputText id="EstadoDarAlta" value="Estado:"/>
+<h:selectOneMenu id="EstadoDarAltaT" required="true"/>
+<f:selectItem itemLabel="Baja"/>
+<f:selectItem itemLabel="Alta"/>
+<f:selectItem itemLabel="Bloqueado"/>
+</h:selectOneMenu>
+
+---------------------------------------- identificacion
+
+<h:outputText id="IDPA_DarAlta" value="ID:"/>
+<h:inputText id="DireccionPA_DarAltaT" value="#{administrativo.paut.ID}" required="true"/>
+
+<h:outputText id="DireccionPA_DarAlta" value="Dirección:"/>
+<h:inputText id="DireccionPA_DarAltaT" value="#{administrativo.paut.direccion}" required="true"/>
+
+<h:outputText id="CiudadPA_DarAlta" value="Ciudad:"/>
+<h:inputText id="CiudadPA_DarAltaT" value="#{administrativo.paut.ciudad}" required="true"/>
+
+<h:outputText id="codigoPostalPA_DarAlta" value="Código postal:"/>
+<h:inputText id="codigoPostalPA_DarAltaT" value="#{administrativo.paut.codigoPostal}" required="true"/>
+
+<h:outputText id="PaisPA_DarAlta" value="País:"/>
+<h:inputText id="PaisPA_DarAltaT" value="#{administrativo.paut.pais}" required="true"/>
+
+<h:outputText id="NombreIPA_DarAlta" value="Nombre:"/>
+<h:inputText id="NombreIPA_DarAltaT" value="#{administrativo.paut.nombre}" required="true"/>
+
+<h:outputText id="ApellidoIPA_DarAlta" value="Apellido:"/>
+<h:inputText id="ApellidoIPA_DarAltaT" value="#{administrativo.paut.apellido}" required="true"/>
+
+<h:outputText id="FechaNacPA_DarAlta" value="Fecha de nacimiento:"/>
+<h:inputText id="FechaNacPA_DarAltaT" value="#{administrativo.paut.fecha_nacimiento}">
+              <f:convertDateTime pattern="dd-MM-yyyy"/>
+            </h:inputText>
+
+</h:panelGrid>
+
+<h:commandButton id="EnviarPA_DarAlta" value="Enviar" action="#{administrativo.crearPAut()}"/>
+</h:body>
+</html>

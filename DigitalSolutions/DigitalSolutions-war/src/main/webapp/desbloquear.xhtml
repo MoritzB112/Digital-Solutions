@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Lista de usuarios</title>
+</h:head>
+
+<h:body>
+<h:h1>Lista de Individuales</h:h1>
+<h:dataTable id="ListaInd_desbloquear" value="#{administrativo.gtIndividualBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="dniInd_desbloquear" value="dni"/>
+</h:facet>
+#{dato.dni}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="nombreInd_desbloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="apellidoInd_desbloquear" value="Apellido"/>
+</h:facet>
+#{dato.apellido}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="desbloquearInd_seleccionar" value="Seleccionar" action="#{administrativo.desbloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+
+<h:h1>Lista de Empresas</h:h1>
+<h:dataTable id="ListaEmp_desbloquear" value="#{administrativo.gtEmpresaBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="nifEmp_desbloquear" value="dni"/>
+</h:facet>
+#{dato.nif}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="RSEmpresa_desbloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="desbloquearEmp_seleccionar" value="Seleccionar" action="#{administrativo.desbloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+<h:h1>Lista de Personas autorizadas</h:h1>
+<h:dataTable id="ListaPA_desbloquear" value="#{administrativo.gtPAutBloq}" var="dato"/>
+<h:column>
+<h:facet name="header">
+<h:outputText id="dniPA_desbloquear" value="Identificación"/>
+</h:facet>
+#{dato.identificacion}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="nombrePA_desbloquear" value="Nombre"/>
+</h:facet>
+#{dato.nombre}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:outputText id="apellidoPA_desbloquear" value="Apellido"/>
+</h:facet>
+#{dato.apellido}
+</h:column>
+
+<h:column>
+<h:facet name="header">
+<h:commandButton id="desbloquearPA_seleccionar" value="Seleccionar" action="#{administrativo.desbloquear(dato)}"/>
+</h:facet>
+</h:column>
+
+</h:dataTable>
+
+</h:body>
+</html>

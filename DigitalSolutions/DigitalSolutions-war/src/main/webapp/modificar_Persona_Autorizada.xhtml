@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      
+
+      
+<h:head>
+<title>Datos de la persona autorizada</title>
+</h:head>
+
+<h:body>  
+<ui:param name="pauto" value="#{administrativo.sacarPaut(param['id'])}" />   
+<h:panelGrid columns=4>
+
+<h:inputHidden id="FechaInicioPA_modificar2" value="#{administrativo.paut.FechaInicio}">#{pauto.FechaInicio}</h:inputHidden>
+<h:inputHidden id="FechaFinPA_modificar2" value="#{administrativo.paut.FechaFin}">#{pauto.FechaFin}</h:inputHidden>
+<h:inputHidden id="idIPA_modificar2" value="#{administrativo.paut.id}">#{pauto.id}</h:inputHidden>
+<h:inputHidden id="usuarioPA_modificar2" value="#{administrativo.usuario.usuario}">#{pauto.us.usuario}</h:inputHidden>
+<h:inputHidden id="tipoPA_modificar2" value="#{administrativo.paut.tipo}">#{pauto.tipo}</h:inputHidden>
+<h:inputHidden id="estadoPA_modificar2" value="#{administrativo.paut.estado}">#{pauto.estado}</h:inputHidden>
+<h:inputHidden id="passwordPA_modificar2" value="#{administrativo.usuario.password}">#{pauto.us.password}</h:inputHidden>
+<h:inputHidden id="saltPA_modificar2" value="#{administrativo.usuario.salt}">#{pauto.us.salt}</h:inputHidden>
+<h:inputHidden id="esAdministrativoPA_modificar2" value="#{administrativo.usuario.esAdministrativo}">#{pauto.us.esAdministrativo}</h:inputHidden>
+<h:inputHidden id="id2PA_modificar2" value="#{administrativo.paut.id}">#{pauto.ID}</h:inputHidden>
+
+
+<h:outputText id="CorreoPA_modificar2" value="Correo:"/>
+<h:inputText id="CorreoPA_modificar2T" pt:placeholder="#{pauto.us.correo}" value="#{administrativo.usuario.correo}"/>
+
+<h:outputText id="DireccionPA_modificar2" value="Dirección:"/>
+<h:inputText id="DireccionPA_modificar2" pt:placeholder="#{pauto.direccion}" value="#{administrativo.paut.direccion}"/>
+
+<h:outputText id="CiudadPA_modificar2" value="Ciudad:"/>
+<h:inputText id="CiudadPA_modificar2" pt:placeholder="#{pauto.ciudad}" value="#{administrativo.paut.ciudad}"/>
+
+<h:outputText id="codigoPostalPA_modificar2" value="Código postal:"/>
+<h:inputText id="codigoPostalPA_modificar2" pt:placeholder="#{pauto.codigoPostal}" value="#{administrativo.paut.codigoPostal"/>
+
+<h:outputText id="PaisDarPA_modificar2" value="País:"/>
+<h:inputText id="PaisDarPA_modificar2T" pt:placeholder="#{pauto.pais}" value="#{administrativo.paut.pais"/>
+
+<h:outputText id="NombreIPA_modificar2" value="Nombre:"/>
+<h:inputText id="NombreIPA_modificar2T" pt:placeholder="#{pauto.nombre}" value="#{administrativo.paut.nombre"/>
+
+<h:outputText id="ApellidoIPA_modificar2" value="Apellido:"/>
+<h:inputText id="ApellidoIPA_modificar2T" pt:placeholder="#{pauto.apellido}" value="#{administrativo.paut.apellido"/>
+
+<h:outputText id="FechaNacPA_modificar2" value="Fecha de nacimiento:"/>
+<h:inputText id="FechaNacPA_modificar2T" pt:placeholder="#{pauto.fecha_nacimiento}" value="#{administrativo.paut.fecha_nacimiento">
+              <f:convertDateTime pattern="dd-MM-yyyy"/>
+            </h:inputText>
+            
+</h:panelGrid>
+
+<h:button id="TerminarPA_modificar" outcome="administrativo.xhtml" value="Terminar"/>
+</h:body>
+</html>

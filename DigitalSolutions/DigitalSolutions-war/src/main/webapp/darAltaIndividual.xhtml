@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      
+<h:head>
+<title>Datos del individual</title>
+</h:head>
+<h:body>
+<h:panelGrid columns=4>
+
+<h:outputText id="EstadoDarAlta" value="Estado:"/>
+<h:selectOneMenu id="EstadoDarAltaT" required="true"/>
+<f:selectItem itemLabel="Baja"/>
+<f:selectItem itemLabel="Alta"/>
+<f:selectItem itemLabel="Bloqueado"/>
+</h:selectOneMenu>
+
+
+<h:outputText id="DireccionDarAlta" value="Dirección:"/>
+<h:inputText id="DireccionDarAltaT" value="#{administrativo.ind.direccion}" required="true"/>
+
+<h:outputText id="CiudadDarAlta" value="Ciudad:"/>
+<h:inputText id="CiudadDarAltaT" value="#{administrativo.ind.ciudad}" required="true"/>
+
+<h:outputText id="codigoPostalDarAlta" value="Código postal:"/>
+<h:inputText id="codigoPostalDarAltaT" value="#{administrativo.ind.codigoPostal}" required="true"/>
+
+<h:outputText id="PaisDarAlta" value="País:"/>
+<h:inputText id="PaisDarAltaT" value="#{administrativo.ind.pais}" required="true"/>
+
+<h:outputText id="NombreIDarAlta" value="Nombre:"/>
+<h:inputText id="NombreIDarAltaT" value="#{administrativo.ind.nombre}" required="true"/>
+
+<h:outputText id="ApellidoIDarAlta" value="Apellido:"/>
+<h:inputText id="ApellidoIDarAltaT" value="#{administrativo.ind.apellido}" required="true"/>
+
+<h:outputText id="FechaNacDarAlta" value="Fecha de nacimiento:"/>
+<h:inputText id="FechaNacDarAltaT" value="#{administrativo.ind.fecha_nacimiento}">
+              <f:convertDateTime pattern="dd-MM-yyyy"/>
+            </h:inputText>
+
+</h:panelGrid>
+
+<h:commandButton id="EnviarDarAlta_ind" value="Enviar" action="#{administrativo.crearIndividual()}"/>
+</h:body>
+</html>

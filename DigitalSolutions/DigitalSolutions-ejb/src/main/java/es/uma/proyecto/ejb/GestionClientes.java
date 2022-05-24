@@ -32,8 +32,14 @@ public interface GestionClientes {
 	
 	public void desbloquearCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
 	
+	public List<Cliente> sacarClientes();
+	
 	public List<Empresa> sacarEmpresas ();
 	
 	public List<Individual> sacarIndividual();
+	
+	public Individual gtIndividual(Long id);
+	
+	public Empresa gtEmpresa(Long id);
 	
 }
