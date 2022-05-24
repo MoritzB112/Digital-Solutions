@@ -12,6 +12,7 @@ import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
 import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
+import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Usuario;
 
 @Local
@@ -41,5 +42,5 @@ public interface GestionClientes {
 	public Individual gtIndividual(Long id);
 	
 	public Empresa gtEmpresa(Long id);
-	
+
 }

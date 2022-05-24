@@ -12,32 +12,46 @@
 </h:head>
 
 <h:body>
+
+<h:form id="paViewForm">
 	<c:choose>
 		<c:when test="#{empty infoSesion.usuario}">
-			<p id="cuentasErrorMsg">
-				Inicia seccion y vuelve a esta pagina,
-				<h:link outcome="index.xhtml">test</h:link>
+			<p id="paViewNoSesion">
+				Inicia seccion como persona autorizada y vuelve a esta pagina: <h:link outcome="index.xhtml">inicio</h:link>.
 			</p>
 		</c:when>
-		<c:when test="#{infoSesion.esId()}">
-			<p id="cuentasErrorMsg">
-				Fallo,
-				<h:link outcome="index.xhtml">test</h:link>
+		<c:when test="#{infoSesion.esPa()==false}">
+			<p id="paViewNoPA">
+				No tienes acceso a esta pagina: <h:link outcome="clientView.xhtml">volver</h:link>.
 			</p>
 		</c:when>
 		<c:otherwise>
+			<h:messages/>
+			<p id="paViewInfoText">Si deseas ver informacion sobre tu cuenta: <h:button id="paAInfo" value="Info" outcome="infoPA.xhtml"/></p>
+			<h1 id="paViewH1">Elige la empresa</h1>
+			<br/>
 			<h:dataTable value="#{infoSesion.usuario.pa.autorizaciones}" var="au">
 				<h:column>
-					<f:facet name="header">Id empresa</f:facet>
-					<h:outputText value="#{au.em.id}" />
+					<f:facet id="paViewC1H" name="header">NIF Empresa</f:facet>
+					<h:outputText id="paViewC1T2" rendered="#{au.em.identificacion!=null}" value="#{au.em.identificacion}" />
+					<h:outputText id="paViewC1T" rendered="#{au.em.identificacion==null}" value="No existe" />
 				</h:column>
 				<h:column>
-					<f:facet name="header">Pulas aqui</f:facet>
-					<h:outputText>sdsadasd</h:outputText>
+					<f:facet id="paViewC2H" name="header">Nombre Empresa</f:facet>
+					<h:outputText id="paViewC2T" value="#{au.em.razon_social}"/>
+				</h:column>
+				<h:column>
+					<f:facet id="paViewC3H" name="header">Autorizacion</f:facet>
+					<h:outputText id="paViewC3T" value="#{au.tipo}"/>
+				</h:column>
+				<h:column>
+					<f:facet id="paViewC4H" name="header"></f:facet>
+					<h:commandButton id="paViewC4B" value="Elegir" action="#{infoCuentas.elegirEmpresa(au.em)}"/>
 				</h:column>
 			</h:dataTable>
 		</c:otherwise>
 	</c:choose>
+</h:form>
 </h:body>
 
 </html>

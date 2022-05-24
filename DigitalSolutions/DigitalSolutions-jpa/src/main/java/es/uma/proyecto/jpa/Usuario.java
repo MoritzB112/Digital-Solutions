@@ -2,33 +2,36 @@ package es.uma.proyecto.jpa;
 
 import java.util.Objects;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 @Entity
 public class Usuario {
-	
+
 	@Id
 	private String usuario;
-	
+
+
 	private String password;
-	
+
 	private String salt;
-	
+
 	private String correo;
-	
-	@Column(nullable=false)
+
+	@Column(nullable = false)
 	private Boolean esAdministrativo;
-	
-	@OneToOne(mappedBy="us", fetch = FetchType.LAZY)
+
+	@OneToOne(mappedBy = "us", fetch = FetchType.LAZY)
 	private Cliente cl;
-	
-	@OneToOne(mappedBy="us",fetch = FetchType.LAZY)
+
+	@OneToOne(mappedBy = "us", fetch = FetchType.LAZY)
 	private Persona_Autorizada pa;
-	
+
 	public Usuario() {
 		// TODO Auto-generated constructor stub
 	}
@@ -44,6 +47,7 @@ public class Usuario {
 	public String getPassword() {
 		return password;
 	}
+	
 
 	public void setPassword(String password) {
 		this.password = password;
@@ -111,6 +115,5 @@ public class Usuario {
 		return "Usuario [usuario=" + usuario + ", password=" + password + ", salt=" + salt + ", correo=" + correo
 				+ ", esAdministrativo=" + esAdministrativo + "]";
 	}
-	
 
 }

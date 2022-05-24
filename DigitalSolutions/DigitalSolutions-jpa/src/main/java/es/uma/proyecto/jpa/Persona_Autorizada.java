@@ -19,6 +19,9 @@ public class Persona_Autorizada {
 	@Id
 	@GeneratedValue
 	private Long ID;
+	
+	@Column(unique = true)
+	private String identificacion;
 
 	@Column(nullable = false)
 	private String nombre;
@@ -65,6 +68,14 @@ public class Persona_Autorizada {
 
 	public void setID(Long iD) {
 		ID = iD;
+	}
+
+	public String getIdentificacion() {
+		return identificacion;
+	}
+
+	public void setIdentificacion(String identificacion) {
+		this.identificacion = identificacion;
 	}
 
 	public String getNombre() {
@@ -124,12 +135,9 @@ public class Persona_Autorizada {
 		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
-	public Date getFecha_nacimeinteo() {
-		return fecha_nacimiento;
-	}
 
-	public void setFecha_nacimeinteo(Date fecha_nacimeinteo) {
-		this.fecha_nacimiento = fecha_nacimeinteo;
+	public void setFecha_nacimeinteo(Date fecha_nacimiento) {
+		this.fecha_nacimiento = fecha_nacimiento;
 	}
 
 	public String getEstado() {
@@ -191,10 +199,12 @@ public class Persona_Autorizada {
 
 	@Override
 	public String toString() {
-		return "Persona_Autorizada [ID=" + ID + ", nombre=" + nombre + ", apellidos=" + apellidos + ", direccion="
-				+ direccion + ", ciudad=" + ciudad + ", codigoPostal=" + codigoPostal + ", pais=" + pais
-				+ ", fecha_nacimiento=" + fecha_nacimiento + ", estado=" + estado + ", FechaInicio=" + FechaInicio
-				+ ", FechaFin=" + FechaFin + "]";
+		return "Persona_Autorizada [ID=" + ID + ", identificacion=" + identificacion + ", nombre=" + nombre
+				+ ", apellidos=" + apellidos + ", direccion=" + direccion + ", ciudad=" + ciudad + ", codigoPostal="
+				+ codigoPostal + ", pais=" + pais + ", fecha_nacimiento=" + fecha_nacimiento + ", estado=" + estado
+				+ ", FechaInicio=" + FechaInicio + ", FechaFin=" + FechaFin + "]";
 	}
+
+	
 	
 }

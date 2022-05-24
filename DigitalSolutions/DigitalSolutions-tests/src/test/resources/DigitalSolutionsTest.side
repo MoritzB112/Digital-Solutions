@@ -1,0 +1,129 @@
+{
+  "id": "1b3f090c-3e04-4eaf-8c91-4c740b188c3b",
+  "version": "2.0",
+  "name": "DigitalSolutionsTest",
+  "url": "http://localhost:8080/DigitalSolutions-war/index.xhtml",
+  "tests": [{
+    "id": "5310d102-ad5e-44ec-bab2-1c454eca9095",
+    "name": "LogIn",
+    "commands": [{
+      "id": "2d508549-34a3-44c7-8e2d-7d690a39d5be",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/DigitalSolutions-war/index.xhtml",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "361707e5-407e-45db-bf96-a6f92a9ec132",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1267x1111",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "6c9abd36-baab-4ed1-a89f-e516fe3acf61",
+      "comment": "",
+      "command": "click",
+      "target": "id=login:loginUsername",
+      "targets": [
+        ["id=login:loginUsername", "id"],
+        ["name=login:loginUsername", "name"],
+        ["css=#login\\3AloginUsername", "css:finder"],
+        ["xpath=//input[@id='login:loginUsername']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr/td[2]/input", "xpath:idRelative"],
+        ["xpath=//td[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9c4415e9-2b74-45a1-901e-7764c8d4e935",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:loginUsername",
+      "targets": [
+        ["id=login:loginUsername", "id"],
+        ["name=login:loginUsername", "name"],
+        ["css=#login\\3AloginUsername", "css:finder"],
+        ["xpath=//input[@id='login:loginUsername']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr/td[2]/input", "xpath:idRelative"],
+        ["xpath=//td[2]/input", "xpath:position"]
+      ],
+      "value": "testU"
+    }, {
+      "id": "d3b6e28a-e4e0-4eea-967d-68274d3cf8d0",
+      "comment": "",
+      "command": "click",
+      "target": "id=login:loginPassword",
+      "targets": [
+        ["id=login:loginPassword", "id"],
+        ["name=login:loginPassword", "name"],
+        ["css=#login\\3AloginPassword", "css:finder"],
+        ["xpath=//input[@id='login:loginPassword']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[2]/td[2]/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "650492c5-8f9e-4506-a4cd-a614527a46c1",
+      "comment": "",
+      "command": "type",
+      "target": "id=login:loginPassword",
+      "targets": [
+        ["id=login:loginPassword", "id"],
+        ["name=login:loginPassword", "name"],
+        ["css=#login\\3AloginPassword", "css:finder"],
+        ["xpath=//input[@id='login:loginPassword']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[2]/td[2]/input", "xpath:idRelative"],
+        ["xpath=//tr[2]/td[2]/input", "xpath:position"]
+      ],
+      "value": "test"
+    }, {
+      "id": "1bd47404-dbdf-4072-b344-380a3c2a740f",
+      "comment": "",
+      "command": "click",
+      "target": "id=login:loginBoton",
+      "targets": [
+        ["id=login:loginBoton", "id"],
+        ["name=login:loginBoton", "name"],
+        ["css=#login\\3AloginBoton", "css:finder"],
+        ["xpath=//input[@id='login:loginBoton']", "xpath:attributes"],
+        ["xpath=//form[@id='login']/table/tbody/tr[3]/td/input", "xpath:idRelative"],
+        ["xpath=//tr[3]/td/input", "xpath:position"]
+      ],
+      "value": ""
+    }, {
+      "id": "9204a0b6-71e6-44e4-a129-2abee6cfe6d0",
+      "comment": "",
+      "command": "click",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//form[@id='j_idt5']/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'NIF Empresa')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "c94b6585-399a-4ecf-b36a-d8de901c032a",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=th:nth-child(1)",
+      "targets": [
+        ["css=th:nth-child(1)", "css:finder"],
+        ["xpath=//form[@id='j_idt5']/table/thead/tr/th", "xpath:idRelative"],
+        ["xpath=//th", "xpath:position"],
+        ["xpath=//th[contains(.,'NIF Empresa')]", "xpath:innerText"]
+      ],
+      "value": "NIF Empresa"
+    }]
+  }],
+  "suites": [{
+    "id": "1a97654a-6e1e-4bc1-90e3-87deef333746",
+    "name": "TestsIT",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": ["5310d102-ad5e-44ec-bab2-1c454eca9095"]
+  }],
+  "urls": [],
+  "plugins": []
+}

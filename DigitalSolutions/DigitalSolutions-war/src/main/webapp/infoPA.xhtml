@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+<h:head>
+	<title>Información del Cliente</title>
+</h:head>
+
+
+<h:body>
+	<h:form>
+		<c:choose>
+			<c:when test="#{empty infoSesion.usuario}">
+				<p id="cuentasErrorMsg">
+					Inicia sesion y vuelve a esta pagina,
+					<h:link outcome="index.xhtml">test</h:link>
+				</p>
+			</c:when>
+
+			<c:when test="#{infoSesion.esPa()}">
+				<h:panelGrid columns="2">
+					<h:outputText value="Nombre: " />
+					<h:outputText value="#{infoSesion.pa.nombre}" />
+					<h:outputText value="Apellidos: " />
+					<h:outputText value="#{infoSesion.pa.apellidos}" />
+					<h:outputText value="DNI: " />
+					<h:outputText value="#{infoSesion.id.identificacion}" />
+					<h:outputText value="Dirección: " />
+					<h:outputText
+						value="#{infoSesion.pa.pais}, #{infoSesion.pa.direccion}, #{infoSesion.pa.ciudad}, #{infoSesion.pa.codigoPostal}" />
+					<h:outputText value="Fecha de Nacimiento: " />
+					<h:outputText value="#{infoSesion.pa.fecha_nacimiento}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					<h:outputText value="Fecha de Inicio: " />
+					<h:outputText value="#{infoSesion.pa.fechaInicio}">
+						<f:convertDateTime pattern="dd/MM/yyyy" />
+					</h:outputText>
+					<h:button value="volver" outcome="personaAutorizadaView.xhtml" />
+				</h:panelGrid>
+			</c:when>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

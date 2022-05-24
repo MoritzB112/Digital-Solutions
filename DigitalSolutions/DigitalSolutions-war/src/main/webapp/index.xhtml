@@ -17,28 +17,21 @@
                 </c:when>
 
                 <c:otherwise>
-                    <h:panelGrid columns="3">
-                        <h:outputText value="Nombre de usuario:"/>
-                        <h:inputText id="loginUsername" required="true" value="#{login.usuario.usuario}"/>
-                        <h:message id="userMessage" for="user"/>
+                    <h:panelGrid columns="2">
+                        <h:outputText id="textLoginUsernameAD" value="Nombre de usuario:"/>
+                        <h:inputText id="loginUsername" required="true" value="#{login.userName}"/>
 
-                        <h:outputText value="Contraseña:"/>
-                        <h:inputSecret id="loginPassword" required="true" value="#{login.usuario.password}"/>
-                        <h:message id="passwordMessage" for="pass"/>
+                        <h:outputText id="textLoginPassword" value="Contraseña:"/>
+                        <h:inputSecret id="loginPassword" required="true" value="#{login.password}"/>
 
                         <h:commandButton id="loginBoton" value="Entrar" action="#{login.entrar()}"/>
+                       	<h:messages/>
 
                     </h:panelGrid>
-
-                    <div>
-                        <p>Si no tiene cuenta puede crear una en la <h:link outcome="registroUsuario.xhtml">página de registro</h:link></p>
-                    	
-                    </div>
-
                 </c:otherwise>
             </c:choose>
 
-
+			
 
 
         </h:form>
