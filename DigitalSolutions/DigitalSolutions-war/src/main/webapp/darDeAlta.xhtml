@@ -1,33 +1,30 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
-<title>Dar de alta</title>
+	<title>Dar de alta</title>
+
 </h:head>
 <h:body>
-<h:panelGrid columns=4>
-<h:outputText id="UsuarioDarAlta" value="Usuario:"/>
-<h:inputText id="UsuarioDarAltaT" value="#{administrativo.usuario.usuario}" required="true"/>
+	<h:form id="formularioUsuario_darDeAlta">
 
-<h:outputText id="CorreoDarAlta" value="Correo:"/>
-<h:inputText id="CorreoDarAltaT" value="#{administrativo.usuario.correo}"/>
+		<h:outputText id="TipoDarAlta" value="Tipo:" />
+		<h:selectOneRadio id="TipoDarAltaT" required="true"
+			value="#{administrativo.tipo}">
+		<f:selectItem itemLabel="Individual" itemValue="Individual" />
+		<f:selectItem itemLabel="Jurídica" itemValue="Juridica" />
+		<f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />
+		<f:selectItem itemLabel="Persona autorizada"
+			itemValue="Persona autorizada" />
+		</h:selectOneRadio>
 
-<h:outputText id="ContrasenaDarAlta" value="Contraseña:"/>
-<h:inputText id="ContrasenaDarAltaT" value="#{administrativo.usuario.password}"/>
+		<h:commandButton id="SiguienteUsuario_DarAlta" value="Siguiente"
+			action="#{administrativo.tipoUsuario()}" />
 
-<h:outputText id="TipoDarAlta" value="Tipo:"/>
-<h:selectOneRadio id="TipoDarAltaT" required="true" value="#{administrativo.tipo}"/>
-<f:selectItem itemLabel="Individual"/>
-<f:selectItem itemLabel="Juridica"/>
-<f:selectItem itemLabel="Administrativo"/>
-<f:selectItem itemLabel="Persona autorizada"/>
-</h:selectOneRadio>
-</h:panelGrid>
-
-<h:commandButton id="SiguienteDarAlta" value="Siguiente" action="#{administrativo.tipoUsuario()}"/>
+	</h:form>
 </h:body>
 </html>

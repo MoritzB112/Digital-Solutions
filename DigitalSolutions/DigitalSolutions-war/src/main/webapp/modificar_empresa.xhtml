@@ -10,7 +10,7 @@
 </h:head>
 <h:body>
 <ui:param name="empresa" value="#{administrativo.sacarEmpresa(param['id'])}" />  
-<h:panelGrid columns=4>
+<h:panelGrid columns="4">
 
 <h:inputHidden id="fechaAltaEmp_modificar2" value="#{administrativo.em.fecha_alta}">#{empresa.fecha_alta}</h:inputHidden>
 <h:inputHidden id="fechaBajaEmp_modificar2" value="#{administrativo.em.fecha_baja}">#{empresa.fecha_baja}</h:inputHidden>

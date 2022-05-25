@@ -50,7 +50,7 @@ public class PruebaClientes {
 
 		
 		try {
-			gestionClientes.darDeAltaEmpresa(u, emp);
+			gestionClientes.darDeAltaEmpresa(emp);
 			assertTrue(gestionClientes.sacarEmpresas().contains(emp));
 			
 		}catch (Exception e) {
@@ -68,7 +68,7 @@ public class PruebaClientes {
 		emp.setId(1L);
 		
 		try {
-			gestionClientes.darDeAltaEmpresa(u, emp);
+			gestionClientes.darDeAltaEmpresa(emp);
 			fail("No debería haber seguido");
 			
 		} catch (ClienteExistenteException e) {
@@ -118,7 +118,7 @@ public class PruebaClientes {
 		ind.setId(1L);
 		
 		try {
-			gestionClientes.darDeAltaEmpresa(u, ind);
+			gestionClientes.darDeAltaEmpresa(ind);
 			fail("No debería haber seguido");
 			
 		} catch (ClienteExistenteException e) {

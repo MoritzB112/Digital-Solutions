@@ -28,7 +28,7 @@ public class ClientesEJB implements GestionClientes {
 	private EntityManager em;
 
 	public void darDeAltaIndividual(Usuario u, Individual i) throws ClienteExistenteException {
-		if (em.find(Empresa.class, i.getId()) != null || em.find(Individual.class, i.getId()) != null) {
+		if (i.getId()!=null && (em.find(Empresa.class, i.getId()) != null || em.find(Individual.class, i.getId()) != null)) {
 			throw new ClienteExistenteException();
 		}
 		Usuario usu = em.find(Usuario.class, u.getUsuario());
@@ -37,14 +37,12 @@ public class ClientesEJB implements GestionClientes {
 		em.persist(i);
 	}
 
-	public void darDeAltaEmpresa(Usuario u, Empresa e) throws ClienteExistenteException {
-		if (em.find(Empresa.class, e.getId()) != null || em.find(Individual.class, e.getId()) != null) {
+	public void darDeAltaEmpresa(Empresa e) throws ClienteExistenteException {
+		if (e.getId()!=null && (em.find(Empresa.class, e.getId()) != null || em.find(Individual.class, e.getId()) != null)) {
 			throw new ClienteExistenteException();
 		}
 
-		Usuario usu = em.find(Usuario.class, u.getUsuario());
 		e.setTipo_cliente("JURIDICA");
-		e.setUs(usu);
 		em.persist(e);
 	}
 

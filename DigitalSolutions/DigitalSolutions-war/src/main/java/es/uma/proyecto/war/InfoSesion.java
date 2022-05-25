@@ -97,7 +97,7 @@ public class InfoSesion implements Serializable {
 			
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		}
-		return "login.xhtml";
+		return "index.xhtml";
 	}
 	
 	public synchronized boolean esPa() {

@@ -27,7 +27,7 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 	@Override
 	public void insertarPersonaAutorizada(Usuario u, Persona_Autorizada pa)
 			throws Persona_AutorizadaYaExisteException, UsuarioNoEncontradoException {
-		if (em.find(Persona_Autorizada.class, pa.getID()) != null) {
+		if (pa.getID()!=null && (em.find(Persona_Autorizada.class, pa.getID()) != null)) {
 			throw new Persona_AutorizadaYaExisteException();
 		}
 		Usuario ureal = em.find(Usuario.class, u.getUsuario());
