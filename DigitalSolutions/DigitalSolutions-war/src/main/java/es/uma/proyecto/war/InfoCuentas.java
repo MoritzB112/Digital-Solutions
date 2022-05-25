@@ -7,17 +7,25 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import es.uma.proyecto.ejb.GestionCuentas;
 import es.uma.proyecto.ejb.GestionTransacciones;
+import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.ejb.Excepciones.TransaccionYaExisteException;
+import es.uma.proyecto.jpa.Autorizacion;
+import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Cuenta_Referencia;
 import es.uma.proyecto.jpa.Depositado_en;
+import es.uma.proyecto.jpa.Depositado_en_PK;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Pooled_Account;
 import es.uma.proyecto.jpa.Segregada;
@@ -33,39 +41,62 @@ public class InfoCuentas implements Serializable {
 	@EJB
 	private GestionTransacciones transacciones;
 	
+	@EJB
+	private GestionCuentas gc;
+	
 	private Transaccion tr;
-	private Depositado_en depOr;
-	private Depositado_en depDest;
+	private String depOr;
+	private String depDest;
 	
 	public InfoCuentas() {
 		tr=new Transaccion();
-		depOr=new Depositado_en();
-		depDest=new Depositado_en();
+		depOr=new String();
+		depDest=new String();
 	}
 	
 	
 	
-	public Depositado_en getDepOr() {
+	
+
+
+
+	public String getDepOr() {
 		return depOr;
 	}
 
 
 
-	public void setDepOr(Depositado_en depOr) {
+
+
+
+
+	public void setDepOr(String depOr) {
 		this.depOr = depOr;
 	}
 
 
 
-	public Depositado_en getDepDest() {
+
+
+
+
+	public String getDepDest() {
 		return depDest;
 	}
 
 
 
-	public void setDepDest(Depositado_en depDest) {
+
+
+
+
+	public void setDepDest(String depDest) {
 		this.depDest = depDest;
 	}
+
+
+
+
 
 
 
@@ -140,11 +171,26 @@ public class InfoCuentas implements Serializable {
 			tr.setOrigen(sesion.getCf());
 			tr.setDestino(sesion.getCf());
 			tr.setComision(0.0);
-			tr.setDivEm(depOr.getCr().getDiv());
-			tr.setDivRec(depDest.getCr().getDiv());
+			Cuenta_Referencia crOr=new Cuenta_Referencia();
+			crOr.setIBAN(depOr.split(";")[1]);
+			tr.setDivEm(((Cuenta_Referencia)gc.sacarCuenta(crOr)).getDiv());
+			Cuenta_Referencia crDest=new Cuenta_Referencia();
+			crDest.setIBAN(depDest.split(";")[1]);
+			tr.setDivEm(((Cuenta_Referencia)gc.sacarCuenta(crDest)).getDiv());
 			tr.setTipo("Cambio de divisa");
 			tr.setFechaInstruccion(new Date());
+			Depositado_en_PK depOrPK=new Depositado_en_PK();
+			depOrPK.setPaID(depOr.split(";")[0]);
+			depOrPK.setCrID(depOr.split(";")[1]);
+			Depositado_en depOr=new Depositado_en();
+			depOr.setId(depOrPK);
+			Depositado_en_PK depDestPK=new Depositado_en_PK();
+			depDestPK.setPaID(depDest.split(";")[0]);
+			depDestPK.setCrID(depDest.split(";")[1]);
+			Depositado_en depDest=new Depositado_en();
+			depDest.setId(depDestPK);
 			transacciones.cambioDivisa(tr, depOr, depDest);
+			return null;
 		} catch (TransaccionYaExisteException e) {
 
 		} catch (DepositoNoExisteException e) {
@@ -153,9 +199,42 @@ public class InfoCuentas implements Serializable {
 
 		} catch (SaldoInsuficianteException e) {
 
+		} catch (CuentaNoExisteException e) {
+			// TODO Auto-generated catch block
+		} catch (CuentaNoSuporteadaException e) {
+			// TODO Auto-generated catch block
+
+		}catch (Exception e) {
+			FacesMessage fm = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+
 		}
-		
 		
 		return null;
 	}
+	
+	public List<Autorizacion> sacarAutorizaciones(){
+		List<Autorizacion> l=new ArrayList<>();
+		for(Autorizacion au:sesion.getPa().getAutorizaciones()) {
+			if(!au.getEm().getEstado().equalsIgnoreCase("BAJA")) {
+				l.add(au);
+			}
+		}
+		return l;
+	}
+	
+	public boolean esBlq(Empresa em){
+		return em.getEstado().equalsIgnoreCase("BLOQUEADO");
+	}
+	
+	public List<Cuenta_Fintech> sacarCuentas(Cliente cl){
+		List<Cuenta_Fintech> l=new ArrayList<>();
+		for(Cuenta_Fintech cf:cl.getCf()) {
+			if(!cf.getEstado().equalsIgnoreCase("BAJA")) {
+				l.add(cf);
+			}
+		}
+		return l;
+	}
+	
 }

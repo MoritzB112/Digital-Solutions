@@ -78,22 +78,41 @@ public class Login {
 				usuario=new Usuario();
 				return null;
 			}
-			sesion.setUsuario(usuario);
 			if (usuario.getPa() != null) {
+				if(usuario.getPa().getEstado().equalsIgnoreCase("BLOQUEADO")) {
+					FacesMessage fm = new FacesMessage("Cuenta bloqueada");
+					FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+					return null;
+				}else if(usuario.getPa().getEstado().equalsIgnoreCase("BAJA")) {
+					FacesMessage fm = new FacesMessage("Error en los datos de login");
+					FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+					return null;
+				}
+				sesion.setUsuario(usuario);
 				sesion.setPa(usuario.getPa());
 				return "personaAutorizadaView.xhtml";
 			} else if (usuario.getCl() != null) {
+				if(usuario.getCl().getEstado().equalsIgnoreCase("BLOQUEADO")) {
+					FacesMessage fm = new FacesMessage("Cuenta bloqueada");
+					FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+					return null;
+				}else if(usuario.getCl().getEstado().equalsIgnoreCase("BAJA")) {
+					FacesMessage fm = new FacesMessage("Error en los datos de login");
+					FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+					return null;
+				}
+				sesion.setUsuario(usuario);
 				sesion.setId((Individual) usuario.getCl());
 				return "clientView.xhtml";
 			}
 		} catch (UsuarioNoEncontradoException e) {
-			FacesMessage fm = new FacesMessage("La cuenta no existe");
+			FacesMessage fm = new FacesMessage("Error en los datos de login");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		} catch (ContraseñaIncorrectaException e) {
-			FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
+			FacesMessage fm = new FacesMessage("Error en los datos de login");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		} catch (PasswordException e) {
-			FacesMessage fm = new FacesMessage(e.getMessage());
+			FacesMessage fm = new FacesMessage("Problemas internos");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}
 		return null;
@@ -111,13 +130,13 @@ public class Login {
 			return "administrativo.xhtml";
 
 		} catch (UsuarioNoEncontradoException e) {
-			FacesMessage fm = new FacesMessage("La cuenta no existe");
+			FacesMessage fm = new FacesMessage("Error en los datos de login");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		} catch (ContraseñaIncorrectaException e) {
-			FacesMessage fm = new FacesMessage("La contrasena es incorrecta");
+			FacesMessage fm = new FacesMessage("Error en los datos de login");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		} catch (PasswordException e) {
-			FacesMessage fm = new FacesMessage(e.getMessage());
+			FacesMessage fm = new FacesMessage("Problemas internos");
 			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 		}
 		return null;

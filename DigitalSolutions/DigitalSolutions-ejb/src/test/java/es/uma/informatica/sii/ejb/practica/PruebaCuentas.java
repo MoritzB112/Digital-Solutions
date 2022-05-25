@@ -35,7 +35,7 @@ public class PruebaCuentas {
 	@Before
 	public void setup() throws NamingException  {
 		gestionCuentas = (GestionCuentas) SuiteTest.ctx.lookup(CUENTAS_EJB);
-		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
+//		BaseDatos.inicializaBaseDatos(UNIDAD_PERSITENCIA_PRUEBAS);
 	}
 
 	@Test
@@ -216,22 +216,23 @@ public class PruebaCuentas {
 		}
 	}
 	
-//	@Test
-//	public void addCuentaPoolaCarteraNoExistTest() {
+	@Test
+	public void addCuentaPoolaCarteraNoExistTest() {
 //		Cuenta_Referencia ref = new Cuenta_Referencia();
 //		ref.setIBAN("IBANTESTCR3");
 //		Pooled_Account pa = new Pooled_Account();
 //		pa.setIBAN("IBANTESTPA500");
 //		
 //		try {
-////			gestionCuentas.addCuenta(pa, ref);
+//			gestionCuentas.addCuenta(pa, ref);
 //			fail("No debería haberse ejecutado");
 //		}catch (CuentaNoExisteException e) {
 //			assertEquals("POOLED_ACCOUNT", e.getMessage());
 //		}catch (Exception e) {
 //			fail("No debería haber dado excepción");
 //		}
-//	}
+	}
+
 	
 	@Test
 	@Requisitos({"RF10"}) //Seca todas las transacciones asociados a un cliente

@@ -28,7 +28,7 @@
 			<p id="clientViewInfoTextPa">Si deseas ver informacion sobre la empresa: <h:button id="paAInfo" value="Info" outcome="infoCliente.xhtml"/></p>
 				<br/>
 				<h1>Cuentas disponibles</h1>
-				<h:dataTable value="#{infoSesion.em.cf}" var="cuentaPa">
+				<h:dataTable value="#{infoCuentas.sacarCuentas(infoSesion.em)}" var="cuentaPa">
 					<h:column>
 						<f:facet id="clientViewC1HPa" name="header">IBAN</f:facet>
 						<h:outputText id="clientViewC1TPa"  value="#{cuentaPa.IBAN}" />
@@ -50,12 +50,14 @@
 						<h:commandButton id="clientViewC5BPa"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaPa)}" />
 					</h:column>
 				</h:dataTable>
+				<h:button value="Volver" outcome="personaAutorizadaView.xhtml"/>
+				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
 			</c:when>
 			<c:otherwise>			
 				<p id="clientViewInfoTextId">Si deseas ver informacion sobre su cuenta: <h:button id="paAInfo" value="Info" outcome="infoCliente.xhtml"/></p>
 				<br/>
 				<h1>Cuentas disponibles</h1>
-				<h:dataTable value="#{infoSesion.id.cf}" var="cuentaId">
+				<h:dataTable value="#{infoCuentas.sacarCuentas(infoSesion.id)}" var="cuentaId">
 					<h:column>
 						<f:facet id="clientViewC1HId" name="header">IBAN</f:facet>
 						<h:outputText id="clientViewC1TId" value="#{cuentaId.IBAN}" />
@@ -77,6 +79,7 @@
 						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaId)}" />
 					</h:column>
 				</h:dataTable>
+				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

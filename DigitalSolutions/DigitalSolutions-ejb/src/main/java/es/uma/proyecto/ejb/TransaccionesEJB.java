@@ -23,9 +23,9 @@ public class TransaccionesEJB implements GestionTransacciones {
 	public void cambioDivisa(Transaccion t, Depositado_en dep1, Depositado_en dep2)
 			throws TransaccionYaExisteException, DepositoNoExisteException, CuentasNoIgualesException,
 			SaldoInsuficianteException {
-		if (em.find(Transaccion.class, t.getID_unico()) != null) {
-			throw new TransaccionYaExisteException();
-		}
+//		if (em.find(Transaccion.class, t.getID_unico()) != null) {
+//			throw new TransaccionYaExisteException();
+//		}
 		Depositado_en dep1real = em.find(Depositado_en.class, dep1.getId());
 		if (dep1real == null) {
 			throw new DepositoNoExisteException("dep1");
