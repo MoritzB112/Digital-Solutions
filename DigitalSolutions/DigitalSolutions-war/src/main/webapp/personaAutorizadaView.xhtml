@@ -30,7 +30,7 @@
 			<p id="paViewInfoText">Si deseas ver informacion sobre tu cuenta: <h:button id="paAInfo" value="Info" outcome="infoPA.xhtml"/></p>
 			<h1 id="paViewH1">Elige la empresa</h1>
 			<br/>
-			<h:dataTable value="#{infoSesion.usuario.pa.autorizaciones}" var="au">
+			<h:dataTable value="#{infoCuentas.sacarAutorizaciones()}" var="au">
 				<h:column>
 					<f:facet id="paViewC1H" name="header">NIF Empresa</f:facet>
 					<h:outputText id="paViewC1T2" rendered="#{au.em.identificacion!=null}" value="#{au.em.identificacion}" />
@@ -46,9 +46,10 @@
 				</h:column>
 				<h:column>
 					<f:facet id="paViewC4H" name="header"></f:facet>
-					<h:commandButton id="paViewC4B" value="Elegir" action="#{infoCuentas.elegirEmpresa(au.em)}"/>
+					<h:commandButton id="paViewC4B" disabled="#{infoCuentas.esBlq(au.em)==true}" value="Elegir" action="#{infoCuentas.elegirEmpresa(au.em)}"/>
 				</h:column>
 			</h:dataTable>
+			<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
 		</c:otherwise>
 	</c:choose>
 </h:form>

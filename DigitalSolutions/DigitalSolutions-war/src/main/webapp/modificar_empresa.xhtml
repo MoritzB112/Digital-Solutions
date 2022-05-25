@@ -7,10 +7,14 @@
       
 <h:head>
 <title>Datos de la empresa</title>
+<f:metadata>
+<f:viewParam name="id" value=""></f:viewParam>
+</f:metadata>
 </h:head>
 <h:body>
 <ui:param name="empresa" value="#{administrativo.sacarEmpresa(param['id'])}" />  
 <h:panelGrid columns=4>
+
 
 <h:inputHidden id="fechaAltaEmp_modificar2" value="#{administrativo.em.fecha_alta}">#{empresa.fecha_alta}</h:inputHidden>
 <h:inputHidden id="fechaBajaEmp_modificar2" value="#{administrativo.em.fecha_baja}">#{empresa.fecha_baja}</h:inputHidden>

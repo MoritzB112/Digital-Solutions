@@ -29,7 +29,7 @@
 				</p>
 			</c:when>
 			<c:otherwise>
-				<h1>Informacion de la cunta</h1>
+				<h1>Informacion de la cuenta</h1>
 				<br />
 				<h:panelGrid columns="2">
 					<h:outputText id="infoCuentaF1T" value="IBAN: " />
@@ -74,6 +74,11 @@
 								<h:outputText id="infoCuentaF8PaD"
 									value="#{infoCuentas.sacarMoneda(deps.cr)}" />
 							</h:column>
+							<h:column>
+								<f:facet id="infoCuentaF9PaT" name="header">IBAN Cuenta Referencia</f:facet>
+								<h:outputText id="infoCuentaF9PaD"
+									value="#{deps.cr.IBAN}" />
+							</h:column>
 						</h:dataTable>
 
 						<h:form id="infoCuentaPACDF">
@@ -81,12 +86,12 @@
 								<h:outputText value="Elige la cartera de origen" />
 								<h:selectOneMenu id="infoCuentaCDDE1"
 									value="#{infoCuentas.depOr}" required="true">
-									<f:selectItems value="#{infoCuentas.sacarDeps()}"></f:selectItems>
+									<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de1" itemLabel="#{de1.saldo} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"  itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
 								</h:selectOneMenu>
 								<h:outputText value="Elige la cartera de destino" />
 								<h:selectOneMenu id="infoCuentaCDDE2"
 									value="#{infoCuentas.depDest}" required="true">
-									<f:selectItems value="#{infoCuentas.sacarDeps()}"></f:selectItems>
+									<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de2" itemLabel="#{de2.saldo} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}" itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
 								</h:selectOneMenu>
 								<h:outputText id="infoCuentaCDCT" value="Cantidad a Cambiar" />
 								<h:inputText id="infoCuentaCDCD"
@@ -94,9 +99,12 @@
 								<h:commandButton id="infoCuentaCDB" value="Enviar"
 									action="#{infoCuentas.cambiarDivisa()}" />
 							</h:panelGrid>
+							<h:messages/>
 						</h:form>
 					</c:when>
 				</c:choose>
+				<h:button value="Volver" outcome="clientView.xhtml"/>
+				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
 			</c:otherwise>
 		</c:choose>
 	</h:form>
