@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -165,62 +167,41 @@ public class Admin {
 	public String tipoUsuario() {
 		if(tipo.equalsIgnoreCase("Individual")) {
 			
-			ind.setTipo_cliente("Individual");
-			usuario.setEsAdministrativo(false);
 			
 			return "darAltaIndividual.xhtml";
 			
 		}else if(tipo.equalsIgnoreCase("Juridica")) {
 			
-			em.setTipo_cliente("Juridica");
-			usuario.setEsAdministrativo(false);
 			
 			return "darAltaEmpresa.xhtml";
 			
-		}else if(tipo.equalsIgnoreCase("Persona_autorizada")) {
+		}else if(tipo.equalsIgnoreCase("Persona autorizada")) {
 			
-			usuario.setEsAdministrativo(false);
 			
 			return "darAltaPersona_Autorizada.xhtml";
 			
 			
-		}else if(tipo.equalsIgnoreCase("Administrativo")) {
+		}else if(tipo.equalsIgnoreCase("Administrativo")) {	
 			
-			try {
-				
-			us.crearUsuario(usuario);
-			usuario.setEsAdministrativo(true);
-			
-			}catch(UsuarioExistenteException ue) {
-				return null;
-		    }catch(PasswordException pe) {
-			   return null;
-		    }
-		
-			
-			
-			return "administrativo.xhtml";
+			return "darAltaAdministrativo.xhtml";
 		}
-		return "administrativo.xhtml";
+		
+		return null;
 	}
+	
 	
 	public String crearEmpresa() {
 		
 		try {
-			us.crearUsuario(usuario);
+			
 				em.setFecha_alta(new Date());
 				
 			if(em.getEstado().equalsIgnoreCase("baja")) {
 				em.setFecha_baja(new Date());
 			}
-			
-			
-		gcli.darDeAltaEmpresa(usuario, em);
-		}catch(UsuarioExistenteException ue) {
-			
-	    }catch(PasswordException pe) {
-		   
-	    }catch(ClienteExistenteException ce) {
+				
+		gcli.darDeAltaEmpresa(em);
+		}catch(ClienteExistenteException ce) {
 			
 		}
 		return "administrativo.xhtml";
@@ -230,19 +211,43 @@ public class Admin {
 	public String crearIndividual() {
 		
 		try {
+			usuario.setEsAdministrativo(false);
 			us.crearUsuario(usuario);
-			em.setFecha_alta(new Date());
+			ind.setId(null);
+			ind.setFecha_alta(new Date());
 			
-			if(em.getEstado().equalsIgnoreCase("baja")) {
+			if(ind.getEstado().equalsIgnoreCase("baja")) {
 				ind.setFecha_baja(new Date());
 			}
 			
 		gcli.darDeAltaIndividual(usuario, ind);
 		}catch(UsuarioExistenteException ue) {
-
+			FacesMessage fm = new FacesMessage("UsuarioExistenteException");
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+			
 	    }catch(PasswordException pe) {
+	    	FacesMessage fm = new FacesMessage("PasswordException");
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 
 	    }catch(ClienteExistenteException ce) {
+	    	FacesMessage fm = new FacesMessage("ClienteExistenteException");
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+	    }catch(Exception e) {
+	    	FacesMessage fm = new FacesMessage(e.getMessage());
+			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+	    }
+		return "administrativo.xhtml";
+	}
+	
+	public String crearAdministrativo() {
+		
+		try {
+			usuario.setEsAdministrativo(true);
+			us.crearUsuario(usuario);
+			
+		}catch(UsuarioExistenteException ue) {
+
+	    }catch(PasswordException pe) {
 			
 		}
 		return "administrativo.xhtml";
@@ -498,6 +503,7 @@ public class Admin {
 	public String crearPAut() {
 		
 		try {
+			usuario.setEsAdministrativo(false);
 			us.crearUsuario(usuario);
 			paut.setFechaInicio(new Date());
 			

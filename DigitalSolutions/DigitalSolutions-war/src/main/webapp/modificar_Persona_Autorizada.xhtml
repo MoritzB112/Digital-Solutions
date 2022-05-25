@@ -14,7 +14,7 @@
 
 <h:body>  
 <ui:param name="pauto" value="#{administrativo.sacarPaut(param['id'])}" />   
-<h:panelGrid columns=4>
+<h:panelGrid columns="4">
 
 <h:inputHidden id="FechaInicioPA_modificar2" value="#{administrativo.paut.FechaInicio}">#{pauto.FechaInicio}</h:inputHidden>
 <h:inputHidden id="FechaFinPA_modificar2" value="#{administrativo.paut.FechaFin}">#{pauto.FechaFin}</h:inputHidden>

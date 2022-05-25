@@ -127,7 +127,7 @@ public class Login {
 				return null;
 			} 
 			sesion.setUsuario(usuario);
-			return "adminView.xhtml";
+			return "administrativo.xhtml";
 
 		} catch (UsuarioNoEncontradoException e) {
 			FacesMessage fm = new FacesMessage("Error en los datos de login");

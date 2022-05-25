@@ -17,7 +17,7 @@
 <h:facet name="header">
 <h:outputText id="dniInd_modificar" value="dni"/>
 </h:facet>
-#{dato.dni}
+#{dato.identificacion}
 </h:column>
 
 <h:column>
@@ -47,10 +47,9 @@
 <h:dataTable id="ListaEmp_modificar" value="#{administrativo.gtEmpresa_alta_bloq}" var="dato"/>
 <h:column>
 <h:facet name="header">
-<h:outputText id="nifEmp_modificar" value="dni"/>
+<h:outputText id="nifEmp_modificar" value="nif"/>
 </h:facet>
-------------------------------------------------------
-#{dato.nif}
+#{dato.identificacion}
 </h:column>
 
 <h:column>

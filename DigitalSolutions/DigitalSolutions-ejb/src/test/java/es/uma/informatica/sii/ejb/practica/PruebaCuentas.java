@@ -232,6 +232,7 @@ public class PruebaCuentas {
 //			fail("No debería haber dado excepción");
 //		}
 	}
+
 	
 	@Test
 	@Requisitos({"RF10"}) //Seca todas las transacciones asociados a un cliente

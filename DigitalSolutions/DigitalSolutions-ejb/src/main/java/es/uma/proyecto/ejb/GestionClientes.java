@@ -19,7 +19,7 @@ import es.uma.proyecto.jpa.Usuario;
 public interface GestionClientes {
 
 	
-	public void darDeAltaEmpresa(Usuario u, Empresa e) throws ClienteExistenteException;
+	public void darDeAltaEmpresa(Empresa e) throws ClienteExistenteException;
 	
 	public void darDeAltaIndividual(Usuario u, Individual e) throws ClienteExistenteException;
 	

@@ -3,8 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:ui = "http://java.sun.com/jsf/facelets">
       
 
       
@@ -12,10 +13,11 @@
 <title>Datos del individual</title>
 </h:head>
 
-<h:body>  
+<h:body>
+<h:form>  
 <ui:param name="individual" value="#{administrativo.sacarInd(param['id'])}" />   
-<h:panelGrid columns=4>
 
+<!--  
 <h:inputHidden id="fechaAltaInd_modificar2" value="#{administrativo.ind.fecha_alta}">#{individual.fecha_alta}</h:inputHidden>
 <h:inputHidden id="fechaBajaInd_modificar2" value="#{administrativo.ind.fecha_baja}">#{individual.fecha_baja}</h:inputHidden>
 <h:inputHidden id="idInd_modificar2" value="#{administrativo.ind.id}">#{individual.id}</h:inputHidden>
@@ -25,7 +27,9 @@
 <h:inputHidden id="passwordInd_modificar2" value="#{administrativo.usuario.password}">#{individual.us.password}</h:inputHidden>
 <h:inputHidden id="saltInd_modificar2" value="#{administrativo.usuario.salt}">#{individual.us.salt}</h:inputHidden>
 <h:inputHidden id="esAdministrativoInd_modificar2" value="#{administrativo.usuario.esAdministrativo}">#{individual.us.esAdministrativo}</h:inputHidden>
+-->
 
+<h:panelGrid columns="4">
 
 <h:outputText id="CorreoInd_modificar2" value="Correo:"/>
 <h:inputText id="CorreoInd_modificar2T" pt:placeholder="#{individual.us.correo}" value="#{administrativo.usuario.correo}"/>
@@ -56,5 +60,6 @@
 </h:panelGrid>
 
 <h:button id="TerminarInd_modificar" outcome="administrativo.xhtml" value="Terminar"/>
+</h:form>
 </h:body>
 </html>

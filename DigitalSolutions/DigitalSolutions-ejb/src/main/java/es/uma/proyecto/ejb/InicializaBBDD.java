@@ -58,9 +58,8 @@ public class InicializaBBDD {
 		b.setUsuario("ana");
 		em.persist(b);
 		
-		Individual ind = new Individual();
+		Individual ind = new Individual(); //2L
 		ind.setIdentificacion("63937528N");
-		ind.setId(2L);
 		ind.setNombre("Juan");
 		ind.setApellido("Pérez");
 		ind.setUs(a);
@@ -74,9 +73,8 @@ public class InicializaBBDD {
 		ind.setTipo_cliente("FÍSICA");
 		em.persist(ind);
 		
-		Empresa emp = new Empresa();
+		Empresa emp = new Empresa(); //1L
 		emp.setIdentificacion("P3310693A");
-		emp.setId(1L);
 		emp.setTipo_cliente("JURÍDICA");
 		emp.setEstado("ACTIVA");
 		emp.setFecha_alta(new Date());
@@ -87,8 +85,7 @@ public class InicializaBBDD {
 		emp.setRazon_social("TECHFUTURE");
 		em.persist(emp);
 		
-		Persona_Autorizada pa = new Persona_Autorizada();
-		pa.setID(3L);
+		Persona_Autorizada pa = new Persona_Autorizada(); //3L
 		pa.setIdentificacion("Y4001267V");
 		pa.setApellidos("García");
 		pa.setNombre("Andrea");
@@ -254,7 +251,7 @@ public class InicializaBBDD {
 		em.persist(dep3);
 		
 		
-		Transaccion trans = new Transaccion();
+		Transaccion trans = new Transaccion(); //10L
 		trans.setDivEm(divDol);
 		trans.setDivRec(divDol);
 		trans.setCantidad(200.0);
@@ -262,7 +259,6 @@ public class InicializaBBDD {
 		trans.setDestino(pooA);
 		trans.setTipo("pago");
 		trans.setFechaInstruccion(new Date());
-		trans.setID_unico(10L);
 		em.persist(trans);
 		
 		Usuario admin = new Usuario();
