@@ -222,19 +222,16 @@ public class Admin {
 			
 		gcli.darDeAltaIndividual(usuario, ind);
 		}catch(UsuarioExistenteException ue) {
-			FacesMessage fm = new FacesMessage("UsuarioExistenteException");
-			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+			FacesMessage fm = new FacesMessage("Este usuario ya existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_darAltaIndividual", fm);
 			
 	    }catch(PasswordException pe) {
-	    	FacesMessage fm = new FacesMessage("PasswordException");
-			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+	    	FacesMessage fm = new FacesMessage("Problema con la contraseña");
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_darAltaIndividual", fm);
 
 	    }catch(ClienteExistenteException ce) {
-	    	FacesMessage fm = new FacesMessage("ClienteExistenteException");
-			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
-	    }catch(Exception e) {
-	    	FacesMessage fm = new FacesMessage(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
+	    	FacesMessage fm = new FacesMessage("Este cliente ya existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e2_darAltaIndividual", fm);
 	    }
 		return "administrativo.xhtml";
 	}
