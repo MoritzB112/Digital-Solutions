@@ -27,11 +27,14 @@ public class ClientesEJB implements GestionClientes {
 	@PersistenceContext(name = "proyecto-ejb")
 	private EntityManager em;
 
-	public void darDeAltaIndividual(Usuario u, Individual i) throws ClienteExistenteException {
+	public void darDeAltaIndividual(Usuario u, Individual i) throws ClienteExistenteException, UsuarioNoEncontradoException {
 		if (i.getId()!=null && (em.find(Empresa.class, i.getId()) != null || em.find(Individual.class, i.getId()) != null)) {
 			throw new ClienteExistenteException();
 		}
 		Usuario usu = em.find(Usuario.class, u.getUsuario());
+		if(usu==null) {
+			throw new UsuarioNoEncontradoException();
+		}
 		i.setTipo_cliente("FISICA");
 		i.setUs(usu);
 		em.persist(i);

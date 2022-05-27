@@ -47,11 +47,8 @@ public class CuentasEJB implements GestionCuentas {
 			if (clreal == null) {
 				throw new ClienteNoExisteException();
 			}
-			Cuenta_Referencia crreal = em.find(Cuenta_Referencia.class, cr.getIBAN());
-			if (crreal == null) {
-				throw new CuentaReferenciaNoExisteException();
-			}
-
+			
+			pa.setCl(clreal);		
 			pa.setDeps(new ArrayList<>());
 
 			em.persist(pa);

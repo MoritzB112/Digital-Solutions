@@ -21,4 +21,6 @@ public interface GestionUsuarios {
 	
 	public List<Usuario> sacarUsuarios();
 	
+	public void actualizarUsuario(Usuario u) throws UsuarioNoEncontradoException;
+	
 }

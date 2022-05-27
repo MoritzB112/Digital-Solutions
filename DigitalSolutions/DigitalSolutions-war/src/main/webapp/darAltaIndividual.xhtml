@@ -9,77 +9,98 @@
 	<title>Crear cuenta de individual</title>
 </h:head>
 <h:body>
-<h:form id="formulario_darAltaIndividual">
+	<h:form id="formulario_darAltaIndividual">
 
-<h1>Datos del usuario:</h1>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
-<h:panelGrid columns="4">
-			<h:outputText id="UsuarioInd_DarAlta" value="Usuario:" />
-			<h:inputText id="UsuarioInd_DarAltaT"
-				value="#{administrativo.usuario.usuario}" required="true" />
 
-			<h:outputText id="CorreoInd_DarAlta" value="Correo:" />
-			<h:inputText id="CorreoInd_DarAltaT"
-				value="#{administrativo.usuario.correo}" />
+			</c:when>
+			<c:otherwise>
 
-			<h:outputText id="ContrasenaInd_DarAlta" value="Contraseña:" required="true"/>
-			<h:inputSecret id="ContrasenaInd_DarAltaT"
-				value="#{administrativo.usuario.password}" />
+				<h1>Datos del usuario:</h1>
 
-		</h:panelGrid>
-		
+				<h:panelGrid columns="4">
+					<h:outputText id="UsuarioInd_DarAlta" value="Usuario:" />
+					<h:inputText id="UsuarioInd_DarAltaT"
+						value="#{administrativo.usuario.usuario}" required="true" />
 
-<h1>Datos del individual:</h1>	
+					<h:outputText id="CorreoInd_DarAlta" value="Correo:" />
+					<h:inputText id="CorreoInd_DarAltaT"
+						value="#{administrativo.usuario.correo}" />
 
-		<h:outputText id="EstadoInd_DarAlta" value="Estado:" />
-		<h:selectOneMenu id="EstadoInd_DarAltaT" value="#{administrativo.ind.estado}" required="true" >
-		<f:selectItem itemLabel="Baja" itemValue="Baja"/>
-		<f:selectItem itemLabel="Alta" itemValue="Alta"/>
-		<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado"/>
-		</h:selectOneMenu>
+					<h:outputText id="ContrasenaInd_DarAlta" value="Contraseña:"
+						required="true" />
+					<h:inputSecret id="ContrasenaInd_DarAltaT"
+						value="#{administrativo.usuario.password}" />
 
-<h:panelGrid columns="4">
+				</h:panelGrid>
 
-	<h:outputText id="IdentificacionInd_DarAlta" value="DNI:"/>
-	<h:inputText id="IdentificacionInd_DarAltaT" value="#{administrativo.ind.identificacion}" required="true"/>
+				<h:message for="e_darAltaIndividual" />
 
-		<h:outputText id="DireccionInd_DarAlta" value="Dirección:" />
-		<h:inputText id="DireccionInd_DarAltaT"
-			value="#{administrativo.ind.direccion}" required="true" />
 
-		<h:outputText id="CiudadInd_DarAlta" value="Ciudad:" />
-		<h:inputText id="CiudadInd_DarAltaT" value="#{administrativo.ind.ciudad}"
-			required="true" />
+				<h1>Datos del individual:</h1>
 
-		<h:outputText id="codigoPostalInd_DarAlta" value="Código postal:" />
-		<h:inputText id="codigoPostalInd_DarAltaT"
-			value="#{administrativo.ind.codigoPostal}" required="true" />
+				<h:outputText id="EstadoInd_DarAlta" value="Estado:" />
+				<h:selectOneMenu id="EstadoInd_DarAltaT"
+					value="#{administrativo.ind.estado}" required="true">
+					<f:selectItem itemLabel="Baja" itemValue="Baja" />
+					<f:selectItem itemLabel="Alta" itemValue="Alta" />
+					<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
+				</h:selectOneMenu>
 
-		<h:outputText id="PaisInd_DarAlta" value="País:" />
-		<h:inputText id="PaisInd_DarAltaT" value="#{administrativo.ind.pais}"
-			required="true" />
+				<h:panelGrid columns="4">
 
-		<h:outputText id="NombreIInd_DarAlta" value="Nombre:" />
-		<h:inputText id="NombreIInd_DarAltaT" value="#{administrativo.ind.nombre}"
-			required="true" />
+					<h:outputText id="IdentificacionInd_DarAlta" value="DNI:" />
+					<h:inputText id="IdentificacionInd_DarAltaT"
+						value="#{administrativo.ind.identificacion}" required="true" />
 
-		<h:outputText id="ApellidoIInd_DarAlta" value="Apellido:" />
-		<h:inputText id="ApellidoIInd_DarAltaT"
-			value="#{administrativo.ind.apellido}" required="true" />
+					<h:outputText id="DireccionInd_DarAlta" value="Dirección:" />
+					<h:inputText id="DireccionInd_DarAltaT"
+						value="#{administrativo.ind.direccion}" required="true" />
 
-		<h:outputText id="FechaNacInd_DarAlta" value="Fecha de nacimiento:" />
-		<h:inputText id="FechaNacInd_DarAltaT"
-			value="#{administrativo.ind.fecha_nacimiento}">
-			<f:convertDateTime pattern="dd-MM-yyyy" />
-		</h:inputText>
+					<h:outputText id="CiudadInd_DarAlta" value="Ciudad:" />
+					<h:inputText id="CiudadInd_DarAltaT"
+						value="#{administrativo.ind.ciudad}" required="true" />
 
-	
+					<h:outputText id="codigoPostalInd_DarAlta" value="Código postal:" />
+					<h:inputText id="codigoPostalInd_DarAltaT"
+						value="#{administrativo.ind.codigoPostal}" required="true" />
 
-	<h:commandButton id="EnviarInd_DarAlta" value="Enviar"
-		action="#{administrativo.crearIndividual()}" />
-		
-		</h:panelGrid>
+					<h:outputText id="PaisInd_DarAlta" value="País:" />
+					<h:inputText id="PaisInd_DarAltaT"
+						value="#{administrativo.ind.pais}" required="true" />
 
-</h:form>
+					<h:outputText id="NombreIInd_DarAlta" value="Nombre:" />
+					<h:inputText id="NombreIInd_DarAltaT"
+						value="#{administrativo.ind.nombre}" required="true" />
+
+					<h:outputText id="ApellidoIInd_DarAlta" value="Apellido:" />
+					<h:inputText id="ApellidoIInd_DarAltaT"
+						value="#{administrativo.ind.apellido}" required="true" />
+
+					<h:outputText id="FechaNacInd_DarAlta" value="Fecha de nacimiento:" />
+					<h:inputText id="FechaNacInd_DarAltaT"
+						value="#{administrativo.ind.fecha_nacimiento}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:inputText>
+
+
+
+					<h:commandButton id="EnviarInd_DarAlta" value="Enviar"
+						action="#{administrativo.crearIndividual()}" />
+
+				</h:panelGrid>
+
+				<h:message for="e2_darAltaIndividual" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

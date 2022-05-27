@@ -75,6 +75,13 @@ public class UsuariosEJB implements GestionUsuarios {
 		return em.createQuery("SELECT usu FROM Usuario usu", Usuario.class).getResultList();
 	}
 	
+	public void actualizarUsuario(Usuario u) throws UsuarioNoEncontradoException {
+		if(em.find(Usuario.class, u.getUsuario())==null){
+			throw new UsuarioNoEncontradoException();
+		}
+		em.merge(u);
+	}
+	
 	private static byte[] hashPassword(byte[] salt, byte[] password) {
 		try {
 			MessageDigest digest = MessageDigest.getInstance("SHA-256");

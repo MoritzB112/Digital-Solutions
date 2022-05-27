@@ -11,24 +11,44 @@
 </h:head>
 <h:body>
 	<h:form id="formularioAdministrativo_darDeAlta">
-		<h:panelGrid columns="4">
-			
-		
-			<h:outputText id="UsuarioAdministrativo_DarAlta" value="Usuario:" />
-			<h:inputText id="UsuarioAdministrativo_DarAltaT"
-				value="#{administrativo.usuario.usuario}" required="true" />
 
-			<h:outputText id="CorreoAdministrativo_DarAlta" value="Correo:" />
-			<h:inputText id="CorreoAdministrativo_DarAltaT"
-				value="#{administrativo.usuario.correo}" />
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
-			<h:outputText id="ContrasenaAdministrativo_DarAlta" value="Contraseña:" required="true"/>
-			<h:inputSecret id="ContrasenaAdministrativo_DarAltaT"
-				value="#{administrativo.usuario.password}" />
 
-		</h:panelGrid>
-			
-<h:commandButton id="EnviarAdministrativo_DarAlta" value="Enviar" action="#{administrativo.crearAdministrativo()}"/>
+			</c:when>
+			<c:otherwise>
+
+				<h:panelGrid columns="4">
+
+
+					<h:outputText id="UsuarioAdministrativo_DarAlta" value="Usuario:" />
+					<h:inputText id="UsuarioAdministrativo_DarAltaT"
+						value="#{administrativo.usuario.usuario}" required="true" />
+
+					<h:outputText id="CorreoAdministrativo_DarAlta" value="Correo:" />
+					<h:inputText id="CorreoAdministrativo_DarAltaT"
+						value="#{administrativo.usuario.correo}" />
+
+					<h:outputText id="ContrasenaAdministrativo_DarAlta"
+						value="Contraseña:" required="true" />
+					<h:inputSecret id="ContrasenaAdministrativo_DarAltaT"
+						value="#{administrativo.usuario.password}" />
+
+				</h:panelGrid>
+
+				<h:commandButton id="EnviarAdministrativo_DarAlta" value="Enviar"
+					action="#{administrativo.crearAdministrativo()}" />
+
+				<h:message for="e_darAltaAdministrativo" />
+
+			</c:otherwise>
+		</c:choose>
 	</h:form>
 </h:body>
 </html>
