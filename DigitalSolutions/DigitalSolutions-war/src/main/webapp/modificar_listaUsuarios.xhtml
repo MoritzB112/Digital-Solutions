@@ -1,103 +1,126 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
-<title>Lista de usuarios</title>
+	<title>Lista de usuarios</title>
 </h:head>
 
 <h:body>
-<h:form id="form_modificar_lista_Usuarios">
-<h:h1>Lista de Individuales</h:h1>
-<h:dataTable id="ListaInd_modificar" value="#{administrativo.gtIndividual_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="dniInd_modificar" value="dni"/>
-</h:facet>
+	<h:form id="form_modificar_lista_Usuarios">
+
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+				<h1>Lista de Individuales</h1>
+				<h:dataTable id="ListaInd_modificar"
+					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="dniInd_modificar" value="DNI" />
+						</f:facet>
 #{dato.identificacion}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="nombreInd_modificar" value="Nombre"/>
-</h:facet>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="nombreInd_modificar" value="Nombre" />
+						</f:facet>
 #{dato.nombre}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="apellidoInd_modificar" value="Apellido"/>
-</h:facet>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="apellidoInd_modificar" value="Apellido" />
+						</f:facet>
 #{dato.apellido}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:button id="SeleccionarInd_modificar" outcome="modificar_individual?id=#{dato.id}" value="Seleccionar"/>
-</h:facet>
-</h:column>
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+						<h:button id="SeleccionarInd_modificar"
+							outcome="modificar_individual?id=#{dato.id}" value="Seleccionar" />
+					</h:column>
 
-</h:dataTable>
+				</h:dataTable>
 
 
-<h:h1>Lista de Empresas</h:h1>
-<h:dataTable id="ListaEmp_modificar" value="#{administrativo.gtEmpresa_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="nifEmp_modificar" value="nif"/>
-</h:facet>
+				<h1>Lista de Empresas</h1>
+				<h:dataTable id="ListaEmp_modificar"
+					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="nifEmp_modificar" value="NIF" />
+						</f:facet>
 #{dato.identificacion}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="RSEmpresa_modificar" value="Nombre"/>
-</h:facet>
-#{dato.nombre}
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="RSEmpresa_modificar" value="Razón social" />
+						</f:facet>
+#{dato.razon_social}
 </h:column>
 
 
-<h:column>
-<h:facet name="header">
-<h:button id="SeleccionarEmp_modificar" outcome="modificar_empresa?id=#{dato.id}" value="Seleccionar"/>
-</h:facet>
-</h:column>
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+						<h:button id="SeleccionarEmp_modificar"
+							outcome="modificar_empresa?id=#{dato.id}" value="Seleccionar" />
+					</h:column>
 
-</h:dataTable>
+				</h:dataTable>
 
-<h:h1>Lista de Personas autorizadas</h:h1>
-<h:dataTable id="ListaPA_modificar" value="#{administrativo.gtPaut_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="dniPA_modificar" value="Identificación"/>
-</h:facet>
+				<h1>Lista de personas autorizadas</h1>
+				<h:dataTable id="ListaPA_modificar"
+					value="#{administrativo.gtPaut_alta_bloq()}" var="dato">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="dniPA_modificar" value="Identificación" />
+						</f:facet>
 #{dato.identificacion}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="nombrePA_modificar" value="Nombre"/>
-</h:facet>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="nombrePA_modificar" value="Nombre" />
+						</f:facet>
 #{dato.nombre}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="apellidoPA_modificar" value="Apellido"/>
-</h:facet>
-#{dato.apellido}
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="apellidoPA_modificar" value="Apellidos" />
+						</f:facet>
+#{dato.apellidos}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:button id="SeleccionarPA_modificar" outcome="modificar_Persona_Autorizada?id=#{dato.id}" value="Seleccionar"/>
-</h:facet>
-</h:column>
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+						<h:button id="SeleccionarPA_modificar"
+							outcome="modificar_Persona_Autorizada?id=#{dato.ID}"
+							value="Seleccionar" />
+					</h:column>
 
-</h:dataTable>
-</h:form>
+				</h:dataTable>
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

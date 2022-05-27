@@ -11,48 +11,66 @@
 <h:body>
 	<h:form id="formularioEmpresa_darAlta">
 
-		<h1>Datos de la empresa:</h1>
-
-		<h:outputText id="Estado_empDarAlta" value="Estado:" />
-		<h:selectOneMenu id="Estado_empDarAltaT"
-			value="#{administrativo.em.estado}" required="true">
-		<f:selectItem itemLabel="Baja" itemValue="Baja"/>
-		<f:selectItem itemLabel="Alta" itemValue="Alta"/>
-		<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado"/>
-		</h:selectOneMenu>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
 
+			</c:when>
+			<c:otherwise>
 
-		<h:panelGrid columns="4">
+				<h1>Datos de la empresa:</h1>
 
-			<h:outputText id="IdentificacionEmp_DarAlta" value="NIF:" />
-			<h:inputText id="IdentificacionEmp_DarAltaT"
-				value="#{administrativo.em.identificacion}" required="true" />
-
-			<h:outputText id="Direccion_empDarAlta" value="Dirección:" />
-			<h:inputText id="Direccion_empDarAltaT"
-				value="#{administrativo.em.direccion}" required="true" />
-
-			<h:outputText id="Ciudad_empDarAlta" value="Ciudad:" />
-			<h:inputText id="Ciudad_empDarAltaT"
-				value="#{administrativo.em.ciudad}" required="true" />
-
-			<h:outputText id="codigoPostal_empDarAlta" value="Código postal:" />
-			<h:inputText id="codigoPostal_empDarAltaT"
-				value="#{administrativo.em.codigoPostal}" required="true" />
-
-			<h:outputText id="Pais_empDarAlta" value="País:" />
-			<h:inputText id="Pais_empDarAltaT" value="#{administrativo.em.pais}"
-				required="true" />
-
-			<h:outputText id="RSDarAlta" value="Razón social:" />
-			<h:inputText id="RSDarAltaT"
-				value="#{administrativo.em.razon_social}" required="true" />
+				<h:outputText id="Estado_empDarAlta" value="Estado:" />
+				<h:selectOneMenu id="Estado_empDarAltaT"
+					value="#{administrativo.em.estado}" required="true">
+					<f:selectItem itemLabel="Baja" itemValue="Baja" />
+					<f:selectItem itemLabel="Alta" itemValue="Alta" />
+					<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
+				</h:selectOneMenu>
 
 
-			<h:commandButton id="EnviarDarAlta_emp" value="Enviar"
-				action="#{administrativo.crearEmpresa()}" />
-		</h:panelGrid>
+
+				<h:panelGrid columns="4">
+
+					<h:outputText id="IdentificacionEmp_DarAlta" value="NIF:" />
+					<h:inputText id="IdentificacionEmp_DarAltaT"
+						value="#{administrativo.em.identificacion}" required="true" />
+
+					<h:outputText id="Direccion_empDarAlta" value="Dirección:" />
+					<h:inputText id="Direccion_empDarAltaT"
+						value="#{administrativo.em.direccion}" required="true" />
+
+					<h:outputText id="Ciudad_empDarAlta" value="Ciudad:" />
+					<h:inputText id="Ciudad_empDarAltaT"
+						value="#{administrativo.em.ciudad}" required="true" />
+
+					<h:outputText id="codigoPostal_empDarAlta" value="Código postal:" />
+					<h:inputText id="codigoPostal_empDarAltaT"
+						value="#{administrativo.em.codigoPostal}" required="true" />
+
+					<h:outputText id="Pais_empDarAlta" value="País:" />
+					<h:inputText id="Pais_empDarAltaT"
+						value="#{administrativo.em.pais}" required="true" />
+
+					<h:outputText id="RSDarAlta" value="Razón social:" />
+					<h:inputText id="RSDarAltaT"
+						value="#{administrativo.em.razon_social}" required="true" />
+
+				</h:panelGrid>
+
+				<h:commandButton id="EnviarDarAlta_emp" value="Enviar"
+					action="#{administrativo.crearEmpresa()}" />
+
+
+				<h:message for="e_darAltaEmpresa" />
+
+			</c:otherwise>
+		</c:choose>
 	</h:form>
 </h:body>
 </html>

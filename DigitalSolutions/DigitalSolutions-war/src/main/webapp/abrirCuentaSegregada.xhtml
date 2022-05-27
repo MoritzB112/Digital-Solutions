@@ -1,50 +1,81 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
-<title>Datos de la cuenta segregada</title>
+	<title>Datos de la cuenta segregada</title>
 </h:head>
 <h:body>
-<h:panelGrid columns=4>
+	<h:form id="formulario_abrirCuentaSegregada">
 
-<h:outputText id="clienteSegregada_abrirCuenta" value="Cliente:"/>
-<p:selectOneMenu id="clienteSegregada_abrirCuentaT" styleClass="selectOneMenu" value="#{administrativo.seg.cl}" required="true">
-    <f:selectItems value="#{administrativo.sacarCli}" ></f:selectItems>
-</p:selectOneMenu>
-
-
-<h:outputText id="CRSegregada_abrirCuenta" value="Cuenta referencia:"/>
-<p:selectOneMenu id="CRSegregada_abrirCuentaT" styleClass="selectOneMenu" value="administrativo.seg.cr" required="true">
-    <f:selectItems value="#{administrativo.sacarCuRef}" ></f:selectItems>
-</p:selectOneMenu>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
 
+			</c:when>
+			<c:otherwise>
+				<h:panelGrid columns="4">
 
-<h:outputText id="idSegregada_abrirCuenta" value="IBAN:"/>
-<h:inputText id="idSegregada_abrirCuentaT" value="#{administrativo.seg.IBAN}" required="true"/>
-
-<h:outputText id="CorreoSegregada_abrirCuenta" value="SWIFT:"/>
-<h:inputText id="CorreoSegregada_abrirCuentaT" value="#{administrativo.seg.SWIFT}"/>
-
-<h:outputText id="EstadoSegregada_abrirCuenta" value="Estado:"/>
-<h:selectOneMenu id="EstadoSegregada_abrirCuentaT" required="true"/>
-<f:selectItem itemLabel="Baja"/>
-<f:selectItem itemLabel="Alta"/>
-</h:selectOneMenu>
+					<h:outputText id="clienteSegregada_abrirCuenta" value="Cliente:" />
+					<h:selectOneMenu id="clienteSegregada_abrirCuentaT"
+						 value="#{administrativo.id}"
+						required="true">
+						<f:selectItems value="#{administrativo.sacarCli()}" var="cl" itemLabel="#{cl.identificacion}" itemValue="#{cl.id}"></f:selectItems>
+					</h:selectOneMenu>
 
 
-<h:outputText id="ContrasenaSegregada_abrirCuenta" value="Clasificación:"/>
-<h:inputText id="ContrasenaSegregada_abrirCuentaT" value="#{administrativo.seg.clasificacion}"/>
+					<h:outputText id="CRSegregada_abrirCuenta"
+						value="Cuenta referencia:" />
+					<h:selectOneMenu id="CRSegregada_abrirCuentaT"
+						value="#{administrativo.iban}"
+						required="true">
+						<f:selectItems value="#{administrativo.sacarCuRef()}" var="cr" itemLabel="#{cr.IBAN}" itemValue="#{cr.IBAN}"></f:selectItems>
+					</h:selectOneMenu>
 
-<h:outputText id="ContrasenaSegregada_abrirCuenta" value="Comisión:"/>
-<h:inputText id="ContrasenaSegregada_abrirCuenta" value="#{administrativo.seg.comision}"/>
 
-</h:panelGrid>
 
-<h:commandButton id="SiguienteSegregada_abrirCuenta" value="Terminar" action="#{administrativo.crearCuentaSegregada()}"/>
+					<h:outputText id="idSegregada_abrirCuenta" value="IBAN:" />
+					<h:inputText id="idSegregada_abrirCuentaT"
+						value="#{administrativo.seg.IBAN}" required="true" />
+
+					<h:outputText id="CorreoSegregada_abrirCuenta" value="SWIFT:" />
+					<h:inputText id="CorreoSegregada_abrirCuentaT"
+						value="#{administrativo.seg.SWIFT}" />
+
+					<h:outputText id="EstadoSegregada_abrirCuenta" value="Estado:" />
+					<h:selectOneMenu id="EstadoSegregada_abrirCuentaT" value="#{administrativo.seg.estado}" required="true" >
+					<f:selectItem itemLabel="Baja" itemValue="Baja"/>
+					<f:selectItem itemLabel="Alta" itemValue="Alta"/>
+					</h:selectOneMenu>
+
+
+					<h:outputText id="ClasificacionSegregada_abrirCuenta"
+						value="Clasificación:" />
+					<h:inputText id="ClasificacionSegregada_abrirCuentaT"
+						value="#{administrativo.seg.clasificacion}" />
+
+					<h:outputText id="ComisionSegregada_abrirCuenta"
+						value="Comisión:" />
+					<h:inputText id="ComisionSegregada_abrirCuentaT" required="true"
+						value="#{administrativo.seg.comision}" />
+
+				</h:panelGrid>
+
+				<h:commandButton id="SiguienteSegregada_abrirCuenta"
+					value="Terminar" action="#{administrativo.crearCuentaSegregada()}" />
+					
+					<h:message for="e_abrirCuentaSegregada" />
+					
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

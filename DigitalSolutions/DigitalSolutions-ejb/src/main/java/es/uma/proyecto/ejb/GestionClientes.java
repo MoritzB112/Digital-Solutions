@@ -21,7 +21,7 @@ public interface GestionClientes {
 	
 	public void darDeAltaEmpresa(Empresa e) throws ClienteExistenteException;
 	
-	public void darDeAltaIndividual(Usuario u, Individual e) throws ClienteExistenteException;
+	public void darDeAltaIndividual(Usuario u, Individual e) throws ClienteExistenteException, UsuarioNoEncontradoException;
 	
 	public void modificarCliente(Cliente cl) throws ClienteNoExisteException, ClienteNoSuporteadoException;
 	

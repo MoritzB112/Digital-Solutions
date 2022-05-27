@@ -1,65 +1,88 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:ui = "http://java.sun.com/jsf/facelets">
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-      
+
+
 <h:head>
-<title>Datos del individual</title>
+	<title>Datos del individual</title>
+	<f:metadata>
+		<f:viewParam name="id" value="#{modificaciones.id}"></f:viewParam>
+	</f:metadata>
 </h:head>
 
 <h:body>
-<h:form>  
-<ui:param name="individual" value="#{administrativo.sacarInd(param['id'])}" />   
+	<h:form id="formulario_modificar_individual">
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
-<!--  
-<h:inputHidden id="fechaAltaInd_modificar2" value="#{administrativo.ind.fecha_alta}">#{individual.fecha_alta}</h:inputHidden>
-<h:inputHidden id="fechaBajaInd_modificar2" value="#{administrativo.ind.fecha_baja}">#{individual.fecha_baja}</h:inputHidden>
-<h:inputHidden id="idInd_modificar2" value="#{administrativo.ind.id}">#{individual.id}</h:inputHidden>
-<h:inputHidden id="usuarioInd_modificar2" value="#{administrativo.usuario.usuario}">#{individual.us.usuario}</h:inputHidden>
-<h:inputHidden id="tipoInd_modificar2" value="#{administrativo.ind.tipo}">#{individual.tipo}</h:inputHidden>
-<h:inputHidden id="estadoInd_modificar2" value="#{administrativo.ind.estado}">#{individual.estado}</h:inputHidden>
-<h:inputHidden id="passwordInd_modificar2" value="#{administrativo.usuario.password}">#{individual.us.password}</h:inputHidden>
-<h:inputHidden id="saltInd_modificar2" value="#{administrativo.usuario.salt}">#{individual.us.salt}</h:inputHidden>
-<h:inputHidden id="esAdministrativoInd_modificar2" value="#{administrativo.usuario.esAdministrativo}">#{individual.us.esAdministrativo}</h:inputHidden>
--->
 
-<h:panelGrid columns="4">
+			</c:when>
+			<c:otherwise>
 
-<h:outputText id="CorreoInd_modificar2" value="Correo:"/>
-<h:inputText id="CorreoInd_modificar2T" pt:placeholder="#{individual.us.correo}" value="#{administrativo.usuario.correo}"/>
 
-<h:outputText id="DireccionInd_modificar2" value="Dirección:"/>
-<h:inputText id="DireccionInd_modificar2" pt:placeholder="#{individual.direccion}" value="#{administrativo.ind.direccion}"/>
+				<h:panelGrid columns="4">
 
-<h:outputText id="CiudadInd_modificar2" value="Ciudad:"/>
-<h:inputText id="CiudadInd_modificar2" pt:placeholder="#{individual.ciudad}" value="#{administrativo.ind.ciudad}"/>
+					<h:outputText id="IdentInd_modificar2T" value="DNI:" />
+					<h:inputText id="IdentInd_modificar2"
+						value="#{modificaciones.ind.identificacion}" />
 
-<h:outputText id="codigoPostalInd_modificar2" value="Código postal:"/>
-<h:inputText id="codigoPostalInd_modificar2" pt:placeholder="#{individual.codigoPostal}" value="#{administrativo.ind.codigoPostal"/>
+					<h:outputText id="CorreoInd_modificar2T" value="Correo:" />
+					<h:inputText id="CorreoInd_modificar2"
+						value="#{modificaciones.usInd.correo}" />
 
-<h:outputText id="PaisDarInd_modificar2" value="País:"/>
-<h:inputText id="PaisDarInd_modificar2T" pt:placeholder="#{individual.pais}" value="#{administrativo.ind.pais"/>
+					<h:outputText id="DireccionInd_modificar2T" value="Dirección:" />
+					<h:inputText id="DireccionInd_modificar2"
+						value="#{modificaciones.ind.direccion}" />
 
-<h:outputText id="NombreIInd_modificar2" value="Nombre:"/>
-<h:inputText id="NombreIInd_modificar2T" pt:placeholder="#{individual.nombre}" value="#{administrativo.ind.nombre"/>
+					<h:outputText id="CiudadInd_modificar2T" value="Ciudad:" />
+					<h:inputText id="CiudadInd_modificar2"
+						value="#{modificaciones.ind.ciudad}" />
 
-<h:outputText id="ApellidoIInd_modificar2" value="Apellido:"/>
-<h:inputText id="ApellidoIInd_modificar2T" pt:placeholder="#{individual.apellido}" value="#{administrativo.ind.apellido"/>
+					<h:outputText id="codigoPostalInd_modificar2T"
+						value="Código postal:" />
+					<h:inputText id="codigoPostalInd_modificar2"
+						value="#{modificaciones.ind.codigoPostal}" />
 
-<h:outputText id="FechaNacInd_modificar2" value="Fecha de nacimiento:"/>
-<h:inputText id="FechaNacInd_modificar2T" pt:placeholder="#{individual.fecha_nacimiento}" value="#{administrativo.ind.fecha_nacimiento">
-              <f:convertDateTime pattern="dd-MM-yyyy"/>
-            </h:inputText>
-            
-</h:panelGrid>
+					<h:outputText id="PaisDarInd_modificar2T" value="País:" />
+					<h:inputText id="PaisDarInd_modificar2"
+						value="#{modificaciones.ind.pais}" />
 
-<h:button id="TerminarInd_modificar" outcome="administrativo.xhtml" value="Terminar"/>
-</h:form>
+					<h:outputText id="NombreIInd_modificar2T" value="Nombre:" />
+					<h:inputText id="NombreIInd_modificar2"
+						value="#{modificaciones.ind.nombre}" />
+
+					<h:outputText id="ApellidoIInd_modificar2T" value="Apellido:" />
+					<h:inputText id="ApellidoIInd_modificar2"
+						value="#{modificaciones.ind.apellido}" />
+
+					<h:outputText id="FechaNacInd_modificar2T"
+						value="Fecha de nacimiento:" />
+					<h:inputText id="FechaNacInd_modificar2"
+						value="#{modificaciones.ind.fecha_nacimiento}">
+						<f:convertDateTime pattern="dd-MM-yyyy" />
+					</h:inputText>
+
+				</h:panelGrid>
+
+
+				<h:commandButton id="TerminarInd_modificar" value="Siguiente"
+					action="#{modificaciones.actualizarInd()}" />
+					
+					<h:message for="e_modificarIndividual" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

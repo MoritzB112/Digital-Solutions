@@ -10,21 +10,38 @@
 
 </h:head>
 <h:body>
+
 	<h:form id="formularioUsuario_darDeAlta">
 
-		<h:outputText id="TipoDarAlta" value="Tipo:" />
-		<h:selectOneRadio id="TipoDarAltaT" required="true"
-			value="#{administrativo.tipo}">
-		<f:selectItem itemLabel="Individual" itemValue="Individual" />
-		<f:selectItem itemLabel="Jurídica" itemValue="Juridica" />
-		<f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />
-		<f:selectItem itemLabel="Persona autorizada"
-			itemValue="Persona autorizada" />
-		</h:selectOneRadio>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
 
-		<h:commandButton id="SiguienteUsuario_DarAlta" value="Siguiente"
-			action="#{administrativo.tipoUsuario()}" />
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
+
+			</c:when>
+			<c:otherwise>
+
+
+				<h:outputText id="TipoDarAlta" value="Tipo:" />
+				<h:selectOneRadio id="TipoDarAltaT" required="true"
+					value="#{administrativo.tipo}">
+					<f:selectItem itemLabel="Individual" itemValue="Individual" />
+					<f:selectItem itemLabel="Jurídica" itemValue="Juridica" />
+					<f:selectItem itemLabel="Administrativo" itemValue="Administrativo" />
+					<f:selectItem itemLabel="Persona autorizada"
+						itemValue="Persona autorizada" />
+				</h:selectOneRadio>
+
+				<h:commandButton id="SiguienteUsuario_DarAlta" value="Siguiente"
+					action="#{administrativo.tipoUsuario()}" />
+
+			</c:otherwise>
+		</c:choose>
 	</h:form>
 </h:body>
 </html>

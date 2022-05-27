@@ -1,101 +1,129 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
 <h:head>
-<title>Lista de cuentas</title>
+	<title>Lista de cuentas</title>
 </h:head>
 
 <h:body>
-<h:h1>Lista de Individuales</h:h1>
-<h:dataTable id="ListaInd_darBaja" value="#{administrativo.gtIndividual_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="dniInd_darBaja" value="dni"/>
-</h:facet>
-#{dato.dni}
-</h:column>
+	<h:form id="formularioUsuario_darDeBaja">
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="nombreInd_darBaja" value="Nombre"/>
-</h:facet>
-#{dato.nombre}
-</h:column>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="apellidoInd_darBaja" value="Apellido"/>
-</h:facet>
-#{dato.apellido}
-</h:column>
-
-<h:column>
-<h:facet name="header">
-<h:commandButton id="darBajaInd_seleccionar" value="Seleccionar" action="#{administrativo.darDeBajaInd(dato)}"/>
-</h:facet>
-</h:column>
-
-</h:dataTable>
-
-<h:h1>Lista de Empresas</h:h1>
-<h:dataTable id="ListaEmp_darBaja" value="#{administrativo.gtEmpresa_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="nifEmp_darBaja" value="dni"/>
-</h:facet>
-#{dato.nif}
-</h:column>
-
-<h:column>
-<h:facet name="header">
-<h:outputText id="RSEmpresa_darBaja" value="Nombre"/>
-</h:facet>
-#{dato.nombre}
-</h:column>
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
 
 
-<h:column>
-<h:facet name="header">
-<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar" action="#{administrativo.darDeBajaEmp(dato)}"/>
-</h:facet>
-</h:column>
+			</c:when>
+			<c:otherwise>
 
-</h:dataTable>
-
-<h:h1>Lista de Personas autorizadas</h:h1>
-<h:dataTable id="ListaPA_darBaja" value="#{administrativo.gtPaut_alta_bloq}" var="dato"/>
-<h:column>
-<h:facet name="header">
-<h:outputText id="dniPA_darBaja" value="Identificación"/>
-</h:facet>
+				<h1>Lista de Individuales</h1>
+				<h:dataTable id="ListaInd_darBaja"
+					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="dniInd_darBaja" value="DNI" />
+					</f:facet>
 #{dato.identificacion}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="nombrePA_darBaja" value="Nombre"/>
-</h:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="nombreInd_darBaja" value="Nombre" />
+					</f:facet>
 #{dato.nombre}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:outputText id="apellidoPA_darBaja" value="Apellido"/>
-</h:facet>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="apellidoInd_darBaja" value="Apellido" />
+					</f:facet>
 #{dato.apellido}
 </h:column>
 
-<h:column>
-<h:facet name="header">
-<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar" action="#{administrativo.darDeBajaPA(dato)}"/>
-</h:facet>
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:commandButton id="darBajaInd_seleccionar" value="Seleccionar"
+						action="#{administrativo.darDeBajaInd(dato)}" />
+				</h:column>
+
+				</h:dataTable>
+				
+				<h:message for="e_darDeBajaInd" />
+
+				<h1>Lista de Empresas</h1>
+				<h:dataTable id="ListaEmp_darBaja"
+					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="nifEmp_darBaja" value="NIF" />
+					</f:facet>
+#{dato.identificacion}
 </h:column>
 
-</h:dataTable>
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="RSEmpresa_darBaja" value="Razón social" />
+					</f:facet>
+#{dato.razon_social}
+</h:column>
 
+
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar"
+						action="#{administrativo.darDeBajaEmp(dato)}" />
+				</h:column>
+
+				</h:dataTable>
+
+<h:message for="e_darDeBajaEmp" />
+
+				<h1>Lista de Personas autorizadas</h1>
+				<h:dataTable id="ListaPA_darBaja"
+					value="#{administrativo.gtPaut_alta_bloq()}" var="dato">
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="dniPA_darBaja" value="Identificación" />
+					</f:facet>
+#{dato.identificacion}
+</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="nombrePA_darBaja" value="Nombre" />
+					</f:facet>
+#{dato.nombre}
+</h:column>
+
+				<h:column>
+					<f:facet name="header">
+						<h:outputText id="apellidoPA_darBaja" value="Apellido" />
+					</f:facet>
+#{dato.apellidos}
+</h:column>
+
+				<h:column>
+					<f:facet name="header">
+					</f:facet>
+					<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar"
+						action="#{administrativo.darDeBajaEmp(dato)}" />
+				</h:column>
+
+				</h:dataTable>
+<h:message for="e_darDeBajaPAut" />
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

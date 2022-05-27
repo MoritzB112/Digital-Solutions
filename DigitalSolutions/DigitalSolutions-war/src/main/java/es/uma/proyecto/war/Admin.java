@@ -68,6 +68,10 @@ public class Admin {
 	private Individual ind;
 	private Empresa em;
 	private Autorizacion a;
+	private Long id;
+	private String iban;
+	private Long id2;
+	private String iban2;
 	//private Cuenta_Referencia cre;
 
 	private String tipo;
@@ -81,6 +85,10 @@ public class Admin {
 		paut=new Persona_Autorizada();
 		a=new Autorizacion();
 		clin=new Cliente();
+		id=null;
+		id2=null;
+		iban=null;
+		iban2=null;
 	
 		
 		tipo=null;
@@ -160,10 +168,44 @@ public class Admin {
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
 	}
+	
+	public Long getId() {
+		return id;
+	}
 
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+	
+
+	public Long getId2() {
+		return id2;
+	}
+
+	public void setId2(Long id2) {
+		this.id2 = id2;
+	}
+
+	public String getIban2() {
+		return iban2;
+	}
+
+	public void setIban2(String iban2) {
+		this.iban2 = iban2;
+	}
+	
 //---------------------------------------------------------------------
 //Usuario y cliente
 	
+
 	public String tipoUsuario() {
 		if(tipo.equalsIgnoreCase("Individual")) {
 			
@@ -202,7 +244,8 @@ public class Admin {
 				
 		gcli.darDeAltaEmpresa(em);
 		}catch(ClienteExistenteException ce) {
-			
+			FacesMessage fm = new FacesMessage("Este cliente ya existe");
+			FacesContext.getCurrentInstance().addMessage("formularioEmpresa_darAlta:e_darAltaEmpresa", fm);		
 		}
 		return "administrativo.xhtml";
 	}
@@ -221,19 +264,25 @@ public class Admin {
 			}
 			
 		gcli.darDeAltaIndividual(usuario, ind);
+		return "administrativo.xhtml";
+		
 		}catch(UsuarioExistenteException ue) {
 			FacesMessage fm = new FacesMessage("Este usuario ya existe");
-			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_darAltaIndividual", fm);
+			FacesContext.getCurrentInstance().addMessage("formulario_modificar_individual:e_modificarIndividual", fm);
 			
 	    }catch(PasswordException pe) {
 	    	FacesMessage fm = new FacesMessage("Problema con la contraseña");
-			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_darAltaIndividual", fm);
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_modificarIndividual", fm);
 
 	    }catch(ClienteExistenteException ce) {
 	    	FacesMessage fm = new FacesMessage("Este cliente ya existe");
-			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e2_darAltaIndividual", fm);
-	    }
-		return "administrativo.xhtml";
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e2_modificarIndividual", fm);
+			
+	    } catch (UsuarioNoEncontradoException e) {
+	    	FacesMessage fm = new FacesMessage("Usuario no encontrado");
+			FacesContext.getCurrentInstance().addMessage("formulario_darAltaIndividual:e_modificarIndividual", fm);
+		}
+		return null;
 	}
 	
 	public String crearAdministrativo() {
@@ -241,13 +290,17 @@ public class Admin {
 		try {
 			usuario.setEsAdministrativo(true);
 			us.crearUsuario(usuario);
-			
+			return "administrativo.xhtml";
 		}catch(UsuarioExistenteException ue) {
+			FacesMessage fm = new FacesMessage("Este usuario ya existe");
+			FacesContext.getCurrentInstance().addMessage("formularioAdministrativo_darDeAlta:e_darAltaAdministrativo", fm);	
 
 	    }catch(PasswordException pe) {
+	    	FacesMessage fm = new FacesMessage("Problema con la contraseña");
+			FacesContext.getCurrentInstance().addMessage("formularioAdministrativo_darDeAlta:e_darAltaAdministrativo", fm);	
 			
 		}
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 	
@@ -260,27 +313,42 @@ public class Admin {
 	return gcli.gtEmpresa(id);
 		}
 	
+	
 	public String darDeBajaInd(Individual i) {
 		try {
 			gcli.darDeBajaIndividual(i);
+			return "administrativo.xhtml";
 		}catch(ClienteNoExisteException e) {
+			
+			FacesMessage fm = new FacesMessage("Cliente no existe");
+			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaInd", fm);
 			
 		}catch(TieneCuentaAsociadoException te) {
 			
+			FacesMessage fm = new FacesMessage("Tiene cuenta ya asociada");
+			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaInd", fm);
+			
 			}
-		return "administrativo.xhtml";
+		return null;
 	}
 		
 	public String darDeBajaEmp(Empresa e) {
 		try {
 			
 			gcli.darDeBajaEmpresa(e);
+			return "administrativo.xhtml";
 		}catch(ClienteNoExisteException ce) {
+			
+			FacesMessage fm = new FacesMessage("Cliente no existe");
+			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaEmp", fm);
 				
 		}catch(TieneCuentaAsociadoException te){
+			
+			FacesMessage fm = new FacesMessage("Tiene cuenta ya asociada");
+			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaEmp", fm);
 				
 		}
-		return "administrativo.xhtml";
+		return null;
 	}
 		
 	public List<Individual> gtIndividualNoBloq() {
@@ -354,8 +422,12 @@ public class Admin {
 		try {
 		gcli.desbloquearCliente(cl);
 		}catch(ClienteNoExisteException ce) {
+			FacesMessage fm = new FacesMessage("Cliente no existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_desbloquear_usuarios:e_desbloquear_usuario", fm);
 			
 		}catch(ClienteNoSuporteadoException cs) {
+			FacesMessage fm = new FacesMessage("Cliente no suporteado");
+			FacesContext.getCurrentInstance().addMessage("formulario_desbloquear_usuarios:e_desbloquear_usuario", fm);
 			
 		}
 	}
@@ -364,9 +436,12 @@ public class Admin {
 		try {
 		gcli.bloquearCliente(cl);
 		}catch(ClienteNoExisteException ce) {
+			FacesMessage fm = new FacesMessage("Cliente no existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_bloquear_usuarios:e_bloquear_usuario", fm);
 			
 		}catch(ClienteNoSuporteadoException cs) {
-			
+			FacesMessage fm = new FacesMessage("Cliente no suporteado");
+			FacesContext.getCurrentInstance().addMessage("formulario_bloquear_usuarios:e_bloquear_usuario", fm);
 		}
 	}
 	
@@ -380,44 +455,68 @@ public class Admin {
 	public String crearCuentaSegregada() {
 		try {
 		
+			Cuenta_Referencia cr=new Cuenta_Referencia();
+			Cliente cl=new Cliente();
+			cr.setIBAN(iban);			
+			cl.setId(id);
+			
 		seg.setFecha_apertura(new Date());
 		
 		if(seg.getEstado().equalsIgnoreCase("baja")) {
 			seg.setFecha_cierre(new Date());
 		}
 		
-		gc.addCuenta(seg, seg.getCr(), seg.getCl());
+		gc.addCuenta(seg, cr, cl);
+		
+		return "administrativo.xhtml";
 		
 		}catch(CuentaYaExisteException ce) {
+			FacesMessage fm = new FacesMessage("Esta cuenta ya existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaSegregada:e_abrirCuentaSegregada", fm);
 			
 		}catch(CuentaNoSuporteadaException cs) {
+			FacesMessage fm = new FacesMessage("Cuenta no suporteada");
+			FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaSegregada:e_abrirCuentaSegregada", fm);
 			
 		}catch(ClienteNoExisteException cne) {
+			FacesMessage fm = new FacesMessage("Este cliente no existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaSegregada:e_abrirCuentaSegregada", fm);
 			
 		}catch(CuentaReferenciaNoExisteException cre) {
+			FacesMessage fm = new FacesMessage("Esta cuenta de referencia no existe");
+			FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaSegregada:e_abrirCuentaSegregada", fm);
 			
 		}
 		
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 	public String crearCuentaPooled() {
 		try {
 			
-			seg.setFecha_apertura(new Date());
+			Cliente cl=new Cliente();		
+			cl.setId(id);
+			
+			pa.setFecha_apertura(new Date());
 			
 			if(pa.getEstado().equalsIgnoreCase("baja")) {
-				seg.setFecha_cierre(new Date());
+				pa.setFecha_cierre(new Date());
 			}
-			gc.addCuentaPooled(pa, clin);
-			
-			}catch(CuentaYaExisteException ce) {
-				
-			}catch(ClienteNoExisteException cne) {
-				
-			}
+			gc.addCuentaPooled(pa, cl);
 			
 			return "administrativo.xhtml";
+			
+			}catch(CuentaYaExisteException ce) {
+				FacesMessage fm = new FacesMessage("Esta cuenta de referencia no existe");
+				FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaPooled:e_abrirCuentaPooled", fm);
+				
+			}catch(ClienteNoExisteException cne) {
+				FacesMessage fm = new FacesMessage("Esta cuenta de referencia no existe");
+				FacesContext.getCurrentInstance().addMessage("formulario_abrirCuentaPooled:e_abrirCuentaPooled", fm);
+				
+			}
+			
+			return null;
 	}
 	
 //	public List<Segregada> sacarSeg() {
@@ -465,33 +564,49 @@ public class Admin {
 	public String darDeBajaSeg(Segregada e) {
 		try {
 			
-			gc.cerrarCuenta(e);;
+			gc.cerrarCuenta(e);
+			
+			return "administrativo.xhtml";
 			
 		}catch(CuentaNoExisteException ce) {
+			FacesMessage fm = new FacesMessage("Esta cuenta no existe");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaSegregada", fm);	
 				
 		}catch(SaldoNoVacioException sv){
+			FacesMessage fm = new FacesMessage("Saldo no vacío");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaSegregada", fm);	
 				
 		}catch(CuentaNoSuporteadaException cs) {
+			FacesMessage fm = new FacesMessage("Cuenta no suporteada");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaSegregada", fm);	
 			
 		}
 		
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 	public String darDeBajaPool(Pooled_Account e) {
 		try {
 			
-			gc.cerrarCuenta(e);;
+			gc.cerrarCuenta(e);
+			
+			return "administrativo.xhtml";
 			
 		}catch(CuentaNoExisteException ce) {
+			FacesMessage fm = new FacesMessage("Este cliente ya existe");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaPooled", fm);	
 				
 		}catch(SaldoNoVacioException sv){
+			FacesMessage fm = new FacesMessage("Saldo no vacío");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaPooled", fm);	
 				
 		}catch(CuentaNoSuporteadaException cs) {
+			FacesMessage fm = new FacesMessage("Cuenta no suporteada");
+			FacesContext.getCurrentInstance().addMessage("formularioCuenta_darDeBaja:e_darDeBajaCuentaPooled", fm);	
 			
 		}
 		
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 //---------------------------------------
@@ -509,17 +624,26 @@ public class Admin {
 			}
 			
 		gpaut.insertarPersonaAutorizada(usuario, paut);
+		return "administrativo.xhtml";
 		
 		}catch(UsuarioExistenteException ue) {
+			FacesMessage fm = new FacesMessage("Este usuario ya existe");
+			FacesContext.getCurrentInstance().addMessage("formularioPA_darDeAlta:e_darAltaPersona_Autorizada", fm);	
 
 	    }catch(PasswordException pe) {
+			FacesMessage fm = new FacesMessage("Problema con la contraseña");
+			FacesContext.getCurrentInstance().addMessage("formularioPA_darDeAlta:e_darAltaPersona_Autorizada", fm);	
 
 	    }catch(Persona_AutorizadaYaExisteException pye) {
+			FacesMessage fm = new FacesMessage("Esta persona autorizada ya existe");
+			FacesContext.getCurrentInstance().addMessage("formularioPA_darDeAlta:e2_darAltaPersona_Autorizada", fm);	
 			
 		}catch(UsuarioNoEncontradoException une) {
+			FacesMessage fm = new FacesMessage("Usuario no encontrado");
+			FacesContext.getCurrentInstance().addMessage("formularioPA_darDeAlta:e_darAltaPersona_Autorizada", fm);	
 			
 		}
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 	
@@ -533,7 +657,9 @@ public class Admin {
 			gpaut.eliminarAutorizadoCuenta(e);
 			
 		}catch(Persona_AutorizadaNoEncontradaException pn) {
-				
+			
+			FacesMessage fm = new FacesMessage("Persona autorizada no encontrada");
+			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaPAut", fm);	
 		}
 		return "administrativo.xhtml";
 	}
