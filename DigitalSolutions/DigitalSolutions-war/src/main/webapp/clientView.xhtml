@@ -9,80 +9,178 @@
 
 <h:head>
 	<title>Información del Cliente</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 </h:head>
 
-<body>
+<h:body onload="#{infoSesion.refreshAll()}">
 	<h:form id="clientViewForm">
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
 				<p id="clientViewNoSesion">
-					Inicia seccion y vuelve a esta pagina: <h:link outcome="index.xhtml">inicio</h:link>.
+					Inicia seccion y vuelve a esta pagina:
+					<h:link outcome="index.xhtml">inicio</h:link>
+					.
 				</p>
 			</c:when>
 			<c:when test="#{infoSesion.esPa() and empty infoSesion.em}">
 				<p id="clientViewNoEm">
-					Selecciona primero una empresa para la que quieres ver las cuentas: <h:link outcome="personaAutorizadaView.xhtml">Empresas</h:link>.
+					Selecciona primero una empresa para la que quieres ver las cuentas:
+					<h:link outcome="personaAutorizadaView.xhtml">Empresas</h:link>
+					.
 				</p>
 			</c:when>
 			<c:when test="#{infoSesion.esPa()}">
-			<p id="clientViewInfoTextPa">Si deseas ver informacion sobre la empresa: <h:button id="paAInfo" value="Info" outcome="infoCliente.xhtml"/></p>
-				<br/>
-				<h1>Cuentas disponibles</h1>
-				<h:dataTable value="#{infoCuentas.sacarCuentas(infoSesion.em)}" var="cuentaPa">
-					<h:column>
-						<f:facet id="clientViewC1HPa" name="header">IBAN</f:facet>
-						<h:outputText id="clientViewC1TPa"  value="#{cuentaPa.IBAN}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC2HPa" name="header">Estado</f:facet>
-						<h:outputText id="clientViewC2TPa"  value="#{cuentaPa.estado}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC3HPa" name="header">Tipo</f:facet>
-						<h:outputText id="clientViewC3TPa"  value="#{infoCuentas.tipoCuenta(cuentaPa)}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC4HPa" name="header">Saldo</f:facet>
-						<h:outputText id="clientViewC4TPa"  value="#{infoCuentas.sacarSaldo(cuentaPa)}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC5HPa" name="header"></f:facet>
-						<h:commandButton id="clientViewC5BPa"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaPa)}" />
-					</h:column>
-				</h:dataTable>
-				<h:button value="Volver" outcome="personaAutorizadaView.xhtml"/>
-				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
+			<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div style="width: 10em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="paAInfo" value="Info"
+						outcome="infoCliente.xhtml" />
+						<p> </p>
+						<h:button class="btn btn-secondary" value="Volver"
+					outcome="personaAutorizadaView.xhtml" />
+					<p> </p>
+				<h:commandButton class="btn btn-danger" value="Logout"
+					action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Cuentas disponibles</h1>
+				</div>
+				<div class="d-flex justify-content-center">
+					<table>
+						<tr>
+							<ui:repeat var="var"
+								value="#{infoCuentas.sacarCuentas(infoSesion.em)}"
+								varStatus="status">
+								<td>
+									<div class="card" style="width: 18rem;">
+
+										<div class="card-header bg-primary text-white text-center">
+											<h:outputText value="#{var.IBAN}"></h:outputText>
+										</div>
+										<div class="card-body bg-info bold">
+											<div class="col text-center">
+												<p class="card-text ">
+													<h:outputText id="clientViewC1TTPa"
+														value="#{infoCuentas.tipoCuenta(var)}"></h:outputText>
+													:
+													<h:outputText id="clientViewC2TTPa"
+														value="#{infoCuentas.sacarSaldo(var)}" />
+
+													<br /> <br />
+													<h:commandButton class="btn btn-primary"
+														id="clientViewC3BPa" value="Entrar"
+														action="#{infoCuentas.seleccionarCuenta(var)}" />
+
+												</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<h:outputText value="#{infoSesion.aux()}" escape="false"
+									rendered="#{(status.index + 1 ) mod 2 eq 0}"></h:outputText>
+								<h:panelGroup rendered="#{status.last}">
+									<td><h:panelGroup>
+											<!--and there-->
+
+										</h:panelGroup></td>
+								</h:panelGroup>
+							</ui:repeat>
+						</tr>
+					</table>
+				</div>
 			</c:when>
-			<c:otherwise>			
-				<p id="clientViewInfoTextId">Si deseas ver informacion sobre su cuenta: <h:button id="paAInfo" value="Info" outcome="infoCliente.xhtml"/></p>
-				<br/>
-				<h1>Cuentas disponibles</h1>
-				<h:dataTable value="#{infoCuentas.sacarCuentas(infoSesion.id)}" var="cuentaId">
-					<h:column>
-						<f:facet id="clientViewC1HId" name="header">IBAN</f:facet>
-						<h:outputText id="clientViewC1TId" value="#{cuentaId.IBAN}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC2HId" name="header">Estado</f:facet>
-						<h:outputText id="clientViewC2TId"  value="#{cuentaId.estado}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC3HId" name="header">Tipo</f:facet>
-						<h:outputText id="clientViewC3TId"  value="#{infoCuentas.tipoCuenta(cuentaId)}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC4HId" name="header">Saldo</f:facet>
-						<h:outputText id="clientViewC4TId"  value="#{infoCuentas.sacarSaldo(cuentaId)}" />
-					</h:column>
-					<h:column>
-						<f:facet id="clientViewC5HId" name="header"></f:facet>
-						<h:commandButton id="clientViewC5BId"  value="Entrar" action="#{infoCuentas.seleccionarCuenta(cuentaId)}" />
-					</h:column>
-				</h:dataTable>
-				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
+			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div style="width: 10em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="paAInfo" value="Info"
+						outcome="infoCliente.xhtml" />
+						<p> </p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+					action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Cuentas disponibles</h1>
+				</div>
+				<div class="d-flex justify-content-center">
+					<table>
+						<tr>
+							<ui:repeat var="var"
+								value="#{infoCuentas.sacarCuentas(infoSesion.id)}"
+								varStatus="status">
+								<td>
+									<div class="card" style="width: 18rem;">
+
+										<div class="card-header bg-primary text-white text-center">
+											<h:outputText value="#{var.IBAN}"></h:outputText>
+										</div>
+										<div class="card-body bg-info bold">
+											<div class="col text-center">
+												<p class="card-text ">
+													<h:outputText id="clientViewC1TTPa"
+														value="#{infoCuentas.tipoCuenta(var)}"></h:outputText>
+													:
+													<h:outputText id="clientViewC2TTPa"
+														value="#{infoCuentas.sacarSaldo(var)}" />
+
+													<br /> <br />
+													<h:commandButton class="btn btn-primary"
+														id="clientViewC3BPa" value="Entrar"
+														action="#{infoCuentas.seleccionarCuenta(var)}" />
+
+												</p>
+											</div>
+										</div>
+									</div>
+								</td>
+								<h:outputText value="#{infoSesion.aux()}" escape="false"
+									rendered="#{(status.index + 1 ) mod 2 eq 0}"></h:outputText>
+								<h:panelGroup rendered="#{status.last}">
+									<td><h:panelGroup>
+											<!--and there-->
+
+										</h:panelGroup></td>
+								</h:panelGroup>
+							</ui:repeat>
+						</tr>
+					</table>
+				</div>
+				
 			</c:otherwise>
 		</c:choose>
 	</h:form>
-</body>
+</h:body>
 
 </html>

@@ -1,6 +1,7 @@
 package es.uma.proyecto.war;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,6 +35,8 @@ import es.uma.proyecto.jpa.Transaccion;
 @Named(value = "infoCuentas")
 @RequestScoped
 public class InfoCuentas implements Serializable {
+	
+	  private static final DecimalFormat df = new DecimalFormat("0.00");
 
 	@Inject
     private InfoSesion sesion;
@@ -54,72 +57,34 @@ public class InfoCuentas implements Serializable {
 		depDest=new String();
 	}
 	
-	
-	
-	
-
-
-
 	public String getDepOr() {
 		return depOr;
 	}
 
-
-
-
-
-
-
 	public void setDepOr(String depOr) {
 		this.depOr = depOr;
 	}
-
-
-
-
-
-
-
+	
 	public String getDepDest() {
 		return depDest;
 	}
-
-
-
-
-
-
 
 	public void setDepDest(String depDest) {
 		this.depDest = depDest;
 	}
 
-
-
-
-
-
-
 	public Transaccion getTr() {
 		return tr;
 	}
 
-
-
 	public void setTr(Transaccion tr) {
 		this.tr = tr;
-	}
-
-
-
-	public String elegirCuenta() {
-//		sesion.setClient(em);
-		return "clientView.xhtml";
 	}
 	
 	public String elegirEmpresa(Empresa em) {
 		
 		sesion.setEm(em);
+		sesion.refreshAll();
 		
 		return "clientView.xhtml";
 	}
@@ -144,9 +109,9 @@ public class InfoCuentas implements Serializable {
 	public String sacarSaldo(Cuenta_Fintech cf) {
 		if(esSegregada(cf)) {
 			Cuenta_Referencia cr=((Segregada)cf).getCr();
-			return cr.getSaldo().toString()+" "+cr.getDiv().getAbreviatura();
+			return df.format(cr.getSaldo()).toString()+" "+cr.getDiv().getAbreviatura();
 		}
-		return "No disponible";
+		return "Saldo no disponible";
 	}
 	
 	public String seleccionarCuenta(Cuenta_Fintech cf) {
@@ -178,7 +143,7 @@ public class InfoCuentas implements Serializable {
 			crDest.setIBAN(depDest.split(";")[1]);
 			tr.setDivEm(((Cuenta_Referencia)gc.sacarCuenta(crDest)).getDiv());
 			tr.setTipo("Cambio de divisa");
-			tr.setFechaInstruccion(new Date());
+			tr.setFechaInstruccion(new Date());//-------------------
 			Depositado_en_PK depOrPK=new Depositado_en_PK();
 			depOrPK.setPaID(depOr.split(";")[0]);
 			depOrPK.setCrID(depOr.split(";")[1]);
@@ -190,7 +155,10 @@ public class InfoCuentas implements Serializable {
 			Depositado_en depDest=new Depositado_en();
 			depDest.setId(depDestPK);
 			transacciones.cambioDivisa(tr, depOr, depDest);
-			return null;
+			this.tr=new Transaccion();
+			this.depOr=new String();
+			this.depDest=new String();
+			return "infoCuentas.xhtml";
 		} catch (TransaccionYaExisteException e) {
 
 		} catch (DepositoNoExisteException e) {
@@ -203,10 +171,6 @@ public class InfoCuentas implements Serializable {
 			// TODO Auto-generated catch block
 		} catch (CuentaNoSuporteadaException e) {
 			// TODO Auto-generated catch block
-
-		}catch (Exception e) {
-			FacesMessage fm = new FacesMessage(e.getMessage());
-			FacesContext.getCurrentInstance().addMessage("userMessage:user", fm);
 
 		}
 		
@@ -235,6 +199,34 @@ public class InfoCuentas implements Serializable {
 			}
 		}
 		return l;
+	}
+	
+	public List<Transaccion> sacarTr(){
+		List<Transaccion> l=new ArrayList<>();
+		try {
+			for(Transaccion t:transacciones.sacarTransacciones(sesion.getCf())){
+				if(!l.contains(t)) {
+					l.add(t);
+				}
+			}
+			l.sort((o1, o2) ->{
+				
+				return o2.getFechaInstruccion().compareTo(o1.getFechaInstruccion());
+				
+			});
+		} catch (CuentaNoExisteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return l;
+	}
+	
+	public boolean esIngreso(Transaccion t) {
+		return t.getDestino().equals(sesion.getCf());
+	}
+	
+	public String formatSaldo(Double d) {
+		return df.format(d);
 	}
 	
 }

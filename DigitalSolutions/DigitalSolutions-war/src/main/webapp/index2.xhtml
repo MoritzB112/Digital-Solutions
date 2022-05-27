@@ -4,36 +4,31 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 <h:head>
 	<title>Login de usuario</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 <h:body>
-
-	<h:form id="d">
-
-		
-
-		
-
-
-				
-
-				<h:outputText value="#{infoSesion.userName}"></h:outputText>
-				<h:inputHidden value="#{infoSesion.userName}">#{infoSesion.testx}</h:inputHidden>
-
-
-				<h:commandButton id="xx" value="Entrar"
-					action="#{infoSesion.test()}" />
-
-		
-
-
-
-
-
+	<h:form>
+		<h:commandButton value="Download" action="#{infoSesion.download()}"></h:commandButton>
 	</h:form>
-
+	<div class="input-group flex-grow-1">
+		<span class="input-group-text">$</span>
+		<div class="form-floating flex-grow-1">
+			<h:inputText type="text" class="form-control"
+				pt:placeholder="Username" aria-label="Username"
+				aria-describedby="basic-addon1" id="floatingInput" required="true"
+				value="#{login.userName}" />
+			<label for="floatingInput">Email address</label>
+		</div>
+	</div>
 
 
 </h:body>

@@ -4,10 +4,12 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.ejb.Excepciones.TransaccionYaExisteException;
+import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Depositado_en;
 import es.uma.proyecto.jpa.Transaccion;
 
@@ -19,5 +21,7 @@ public interface GestionTransacciones {
 			SaldoInsuficianteException;
 
 	public List<Transaccion> sacarTransacciones();
+
+	public List<Transaccion> sacarTransacciones(Cuenta_Fintech cf) throws CuentaNoExisteException;
 
 }

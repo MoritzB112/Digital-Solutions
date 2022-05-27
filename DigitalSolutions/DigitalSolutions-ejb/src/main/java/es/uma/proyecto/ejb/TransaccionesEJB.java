@@ -1,15 +1,18 @@
 package es.uma.proyecto.ejb;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.ejb.Excepciones.TransaccionYaExisteException;
+import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Depositado_en;
 import es.uma.proyecto.jpa.Transaccion;
 
@@ -23,9 +26,9 @@ public class TransaccionesEJB implements GestionTransacciones {
 	public void cambioDivisa(Transaccion t, Depositado_en dep1, Depositado_en dep2)
 			throws TransaccionYaExisteException, DepositoNoExisteException, CuentasNoIgualesException,
 			SaldoInsuficianteException {
-//		if (em.find(Transaccion.class, t.getID_unico()) != null) {
-//			throw new TransaccionYaExisteException();
-//		}
+		if (t.getID_unico()!=null && em.find(Transaccion.class, t.getID_unico()) != null) {
+			throw new TransaccionYaExisteException();
+		}
 		Depositado_en dep1real = em.find(Depositado_en.class, dep1.getId());
 		if (dep1real == null) {
 			throw new DepositoNoExisteException("dep1");
@@ -55,6 +58,18 @@ public class TransaccionesEJB implements GestionTransacciones {
 				/ dep2real.getCr().getDiv().getCambioEuro();
 		dep2real.setSaldo(dep2real.getSaldo() + dineroDestino);
 
+	}
+	
+	@Override
+	public List<Transaccion> sacarTransacciones(Cuenta_Fintech cf) throws CuentaNoExisteException {
+		Cuenta_Fintech cfr=em.find(Cuenta_Fintech.class, cf.getIBAN());
+		if(cfr==null) {
+			throw new CuentaNoExisteException();
+		}
+		List<Transaccion> l=new ArrayList<>();
+		l.addAll(cfr.getCobros());
+		l.addAll(cfr.getPagos());
+		return l;
 	}
 
 	@Override

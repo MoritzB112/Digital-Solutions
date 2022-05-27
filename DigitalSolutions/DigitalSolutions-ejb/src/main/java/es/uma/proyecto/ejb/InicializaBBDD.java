@@ -76,7 +76,7 @@ public class InicializaBBDD {
 		Empresa emp = new Empresa(); //1L
 		emp.setIdentificacion("P3310693A");
 		emp.setTipo_cliente("JURÍDICA");
-		emp.setEstado("ACTIVA");
+		emp.setEstado("ALTA");
 		emp.setFecha_alta(new Date());
 		emp.setDireccion("Avenida del Cid");
 		emp.setCiudad("Granada");
@@ -93,6 +93,7 @@ public class InicializaBBDD {
 		pa.setCiudad("Madrid");
 		pa.setCodigoPostal(21000);
 		pa.setPais("España");
+		pa.setEstado("ALTA");
 		pa.setUs(b);
 		em.persist(pa);
 		
@@ -132,7 +133,7 @@ public class InicializaBBDD {
 		Cuenta_Referencia cr = new Cuenta_Referencia();
 		cr.setIBAN("VG57DDVS5173214964983931");
 		cr.setDiv(divEur);
-		cr.setEstado("ACTIVA");
+		cr.setEstado("ALTA");
 		cr.setNombreBanco("SANTANDER");
 		cr.setSaldo(24351.15);
 		em.persist(cr);
@@ -140,7 +141,7 @@ public class InicializaBBDD {
 		Cuenta_Referencia cr2 = new Cuenta_Referencia();
 		cr2.setIBAN("HN47QUXH11325678769785549996");
 		cr2.setDiv(divEur);
-		cr2.setEstado("ACTIVA");
+		cr2.setEstado("ALTA");
 		cr2.setNombreBanco("UNICAJA");
 		cr2.setSaldo(54671.15);
 		em.persist(cr2);
@@ -148,7 +149,7 @@ public class InicializaBBDD {
 		Segregada se = new Segregada();
 		se.setIBAN("NL63ABNA6548268733");
 		se.setCl(emp);
-		se.setEstado("ACTIVA");
+		se.setEstado("ALTA");
 		se.setFecha_apertura(new Date());
 		se.setCr(cr);
 		em.persist(se);
@@ -156,7 +157,7 @@ public class InicializaBBDD {
 		
 		Segregada se2 = new Segregada();
 		se2.setIBAN("FR5514508000502273293129K55");
-		se2.setEstado("ACTIVA");
+		se2.setEstado("ALTA");
 		se2.setCl(emp);
 		se2.setFecha_apertura(new Date());
 		se2.setCr(cr2);
@@ -174,6 +175,7 @@ public class InicializaBBDD {
 		cr6.setIBAN("ESPRUEBA12312341095725");
 		cr6.setNombreBanco("UNICAJAV2");
 		cr6.setSaldo(100.0);
+		cr6.setEstado("ALTA");
 		cr6.setDiv(divEur);
 		em.persist(cr6);
 		
@@ -190,6 +192,7 @@ public class InicializaBBDD {
 		cr3.setIBAN("ES7121007487367264321882");
 		cr3.setNombreBanco("CAJAMAR");
 		cr3.setSaldo(100.0);
+		cr3.setEstado("ALTA");
 		cr3.setDiv(divEur);
 		em.persist(cr3);
 		
@@ -197,6 +200,7 @@ public class InicializaBBDD {
 		cr4.setIBAN("VG88HBIJ4257959912673134");
 		cr4.setNombreBanco("SANTANDER");
 		cr4.setSaldo(200.0);
+		cr4.setEstado("ALTA");
 		cr4.setDiv(divDol);
 		em.persist(cr4);
 		
@@ -204,12 +208,13 @@ public class InicializaBBDD {
 		cr5.setIBAN("GB79BARC20040134265953");
 		cr5.setNombreBanco("LA CAIXA");
 		cr5.setSaldo(134.0);
+		cr5.setEstado("ALTA");
 		cr5.setDiv(divLib);
 		em.persist(cr5);
 				
 		Pooled_Account pooA = new Pooled_Account();
 		pooA.setIBAN("ES8400817251647192321264");
-		pooA.setEstado("ACTIVA");
+		pooA.setEstado("ALTA");
 		pooA.setFecha_apertura(new Date());
 		pooA.setCl(ind);
 		em.persist(pooA);
@@ -258,6 +263,7 @@ public class InicializaBBDD {
 		trans.setOrigen(se);
 		trans.setDestino(pooA);
 		trans.setTipo("pago");
+		trans.setTipo("DEBITO");
 		trans.setFechaInstruccion(new Date());
 		em.persist(trans);
 		

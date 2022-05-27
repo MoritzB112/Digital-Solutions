@@ -12,7 +12,7 @@
 	<title>Información del Cliente</title>
 </h:head>
 
-<body>
+<h:body onload="#{infoSesion.refreshAll()}">
 	<h:form>
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
@@ -57,6 +57,6 @@
 			</c:when>
 		</c:choose>
 	</h:form>
-</body>
+</h:body>
 
 </html>

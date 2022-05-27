@@ -1,0 +1,3 @@
+[submodule "DigitalSolutions/docker-sii-v2"]
+	path = DigitalSolutions/docker-sii-v2
+	url = https://github.com/TheBytles/docker-sii-v2

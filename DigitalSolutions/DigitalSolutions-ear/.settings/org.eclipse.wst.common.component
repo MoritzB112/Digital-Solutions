@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+        
     <wb-module deploy-name="DigitalSolutions-ear-1.0.0-SNAPSHOT">
+                
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/ear-resources"/>
+                
         <wb-resource deploy-path="/" source-path="/src/main/application" tag="defaultRootSource"/>
         <dependent-module archiveName="DigitalSolutions-ejb-1.0.0-SNAPSHOT.jar" deploy-path="/" handle="module:/resource/DigitalSolutions-ejb/DigitalSolutions-ejb">
             <dependency-type>uses</dependency-type>
@@ -32,5 +35,7 @@
         <dependent-module archiveName="commons-csv-1.9.0.jar" deploy-path="/lib" handle="module:/classpath/var/M2_REPO/org/apache/commons/commons-csv/1.9.0/commons-csv-1.9.0.jar">
             <dependency-type>uses</dependency-type>
         </dependent-module>
+            
     </wb-module>
+    
 </project-modules>

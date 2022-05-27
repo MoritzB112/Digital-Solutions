@@ -9,9 +9,14 @@
 
 <h:head>
 	<title>Información del la Cuenta</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
-<body>
+<h:body onload="#{infoSesion.refreshAll()}">
 	<h:form id="infoCuentaForm">
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
@@ -52,6 +57,7 @@
 						<f:convertDateTime pattern="dd/MM/yyyy" />
 					</h:outputText>
 				</h:panelGrid>
+				<h:button value="Transacciones" outcome="infoTransacciones.xhtml" />
 				<c:choose>
 
 					<c:when test="#{infoCuentas.esSegregada(infoSesion.cf)}">
@@ -67,7 +73,7 @@
 						<h:dataTable value="#{infoCuentas.sacarDeps()}" var="deps">
 							<h:column>
 								<f:facet id="infoCuentaF7PaT" name="header">Saldo</f:facet>
-								<h:outputText id="infoCuentaF7PaD" value="#{deps.saldo}" />
+								<h:outputText id="infoCuentaF7PaD" value="#{infoCuentas.formatSaldo(deps.saldo)}" />
 							</h:column>
 							<h:column>
 								<f:facet id="infoCuentaF8PaT" name="header">Divisa</f:facet>
@@ -76,38 +82,44 @@
 							</h:column>
 							<h:column>
 								<f:facet id="infoCuentaF9PaT" name="header">IBAN Cuenta Referencia</f:facet>
-								<h:outputText id="infoCuentaF9PaD"
-									value="#{deps.cr.IBAN}" />
+								<h:outputText id="infoCuentaF9PaD" value="#{deps.cr.IBAN}" />
 							</h:column>
 						</h:dataTable>
 
-						<h:form id="infoCuentaPACDF">
-							<h:panelGrid columns="2">
-								<h:outputText value="Elige la cartera de origen" />
-								<h:selectOneMenu id="infoCuentaCDDE1"
-									value="#{infoCuentas.depOr}" required="true">
-									<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de1" itemLabel="#{de1.saldo} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"  itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
-								</h:selectOneMenu>
-								<h:outputText value="Elige la cartera de destino" />
-								<h:selectOneMenu id="infoCuentaCDDE2"
-									value="#{infoCuentas.depDest}" required="true">
-									<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de2" itemLabel="#{de2.saldo} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}" itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
-								</h:selectOneMenu>
-								<h:outputText id="infoCuentaCDCT" value="Cantidad a Cambiar" />
-								<h:inputText id="infoCuentaCDCD"
-									value="#{infoCuentas.tr.cantidad}" required="true" />
-								<h:commandButton id="infoCuentaCDB" value="Enviar"
-									action="#{infoCuentas.cambiarDivisa()}" />
-							</h:panelGrid>
-							<h:messages/>
-						</h:form>
+						<h:panelGrid columns="2">
+							<h:outputText value="Elige la cartera de origen" />
+							<h:selectOneMenu id="infoCuentaCDDE1"
+								value="#{infoCuentas.depOr}" required="true">
+								<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de1"
+									itemLabel="#{infoCuentas.formatSaldo(de1.saldo)} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"
+									itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
+							</h:selectOneMenu>
+							<h:outputText value="Elige la cartera de destino" />
+							<h:selectOneMenu id="infoCuentaCDDE2"
+								value="#{infoCuentas.depDest}" required="true">
+								<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de2"
+									itemLabel="#{infoCuentas.formatSaldo(de2.saldo)} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}"
+									itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
+							</h:selectOneMenu>
+						</h:panelGrid>
+						<div class="input-group mb-3 w-25">
+							<span class="input-group-text">$</span>
+							<h:inputText id="infoCuentaCDCD2" class="form-control"
+								value="#{infoCuentas.tr.cantidad}" required="true" />
+
+						</div>
+						<h:commandButton value="Cambiar divisa" action="#{infoCuentas.cambiarDivisa()}"/>
+
+
+						<h:messages />
 					</c:when>
 				</c:choose>
-				<h:button value="Volver" outcome="clientView.xhtml"/>
-				<h:commandButton value="Logout" action="#{infoSesion.invalidarSesion()}"/>
+				<h:button value="Volver" outcome="clientView.xhtml" />
+				<h:commandButton value="Logout"
+					action="#{infoSesion.invalidarSesion()}" />
 			</c:otherwise>
 		</c:choose>
 	</h:form>
-</body>
+</h:body>
 
 </html>

@@ -19,7 +19,7 @@ public class Transaccion {
 	private Long ID_unico;
 	
 	@Column(nullable=false)
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date fechaInstruccion;
 	
 	@Column(nullable=false)

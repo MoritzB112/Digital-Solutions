@@ -6,22 +6,28 @@
 
 package es.uma.proyecto.war;
 
+import java.io.File;
+import java.io.IOException;
 import java.io.Serializable;
-import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.util.Faces;
+
+import es.uma.proyecto.ejb.GestionGenerarReportes;
+import es.uma.proyecto.ejb.GestionRefresh;
 import es.uma.proyecto.ejb.GestionUsuarios;
-import es.uma.proyecto.jpa.Cliente;
+import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
+import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
+import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
-import es.uma.proyecto.jpa.Pooled_Account;
-import es.uma.proyecto.jpa.Segregada;
 import es.uma.proyecto.jpa.Usuario;
 
 /**
@@ -34,6 +40,13 @@ public class InfoSesion implements Serializable {
 
 	@Inject
 	private GestionUsuarios cuenta;
+
+	@Inject
+	private GestionRefresh refresh;
+	
+	@Inject
+	private GestionGenerarReportes reporte;
+
 	private Usuario usuario;
 	private Individual id;
 	private Empresa em;
@@ -53,37 +66,36 @@ public class InfoSesion implements Serializable {
 	public synchronized Usuario getUsuario() {
 		return usuario;
 	}
-	
 
-	public Individual getId() {
+	public synchronized Individual getId() {
 		return id;
 	}
 
-	public void setId(Individual id) {
+	public synchronized void setId(Individual id) {
 		this.id = id;
 	}
 
-	public Empresa getEm() {
+	public synchronized Empresa getEm() {
 		return em;
 	}
 
-	public void setEm(Empresa em) {
+	public synchronized void setEm(Empresa em) {
 		this.em = em;
 	}
 
-	public Persona_Autorizada getPa() {
+	public synchronized Persona_Autorizada getPa() {
 		return pa;
 	}
 
-	public void setPa(Persona_Autorizada pa) {
+	public synchronized void setPa(Persona_Autorizada pa) {
 		this.pa = pa;
 	}
 
-	public Cuenta_Fintech getCf() {
+	public synchronized Cuenta_Fintech getCf() {
 		return cf;
 	}
 
-	public void setCf(Cuenta_Fintech cf) {
+	public synchronized void setCf(Cuenta_Fintech cf) {
 		this.cf = cf;
 	}
 
@@ -94,43 +106,76 @@ public class InfoSesion implements Serializable {
 			em = null;
 			pa = null;
 			cf = null;
-			
+
 			FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		}
 		return "index.xhtml";
 	}
-	
+
 	public synchronized boolean esPa() {
-		return pa!=null;
-	}
-	
-	public synchronized boolean esId() {
-		return id!=null;
-	}
-	
-	public synchronized boolean esEm() {
-		return em!=null;
-	}
-	
-	public synchronized List<Cuenta_Fintech> getCuentas() {
-//		if() {
-//			return 
-//		}
-		return null;
+		return pa != null;
 	}
 
-//    public synchronized void refrescarUsuario()
-//    {
-//        try {
-//        if (usuario != null)
-//        {
-//            usuario = cuenta.refrescarUsuario(usuario);
-//            System.out.println(usuario.getContactos().size());
-//        } 
-//        }
-//        catch (AgendaException e) {
-//            // TODO
-//        }
-//    }
+	public synchronized boolean esId() {
+		return id != null;
+	}
+
+	public synchronized boolean esEm() {
+		return em != null;
+	}
+
+	public synchronized void refreshAll() {
+		if (usuario != null) {
+			try {
+				usuario = refresh.refUsu(usuario);
+			} catch (UsuarioNoEncontradoException e) {
+
+			}
+		}
+		if (id != null) {
+			try {
+				id = refresh.refInd(id);
+			} catch (ClienteNoExisteException e) {
+				
+			}
+		}
+		if(em!=null) {
+			try {
+				em = refresh.refEmp(em);
+			} catch (ClienteNoExisteException e) {
+				
+			}
+		}
+		if(pa!=null) {
+			try {
+				pa = refresh.refPa(pa);
+			} catch (Persona_AutorizadaNoEncontradaException e) {
+				
+			}
+		}
+		if(cf!=null) {
+			try {
+				cf = refresh.refCf(cf);
+			} catch (CuentaNoExisteException e) {
+				
+			}
+		}
+	}
+	
+	public String aux() {
+		return "</tr><tr>";
+	}
+	
+	public void download() {
+		File file;
+		try {
+			file = new File(reporte.generarReportePrimero());
+			  Faces.sendFile(file, true);
+			  
+		} catch (IOException e) {
+			
+		}
+	  
+	}
 
 }

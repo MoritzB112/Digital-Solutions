@@ -13,7 +13,7 @@
 </h:head>
 
 
-<h:body>
+<h:body onload="#{infoSesion.refreshAll()}">
 	<h:form>
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">

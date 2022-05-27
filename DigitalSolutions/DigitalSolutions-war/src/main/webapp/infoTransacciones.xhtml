@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+<h:head>
+	<title>Login de usuario</title>
+</h:head>
+<h:body onload="#{infoSesion.refreshAll()}">
+	<h:form id="login">
+		<c:choose>
+			<c:when test="#{empty infoSesion.usuario}">
+				<p>
+					Registrate antes:
+					<h:link outcome="index.xhtml">login</h:link>
+					.
+				</p>
+			</c:when>
+			<c:when test="#{empty infoSesion.cf}">
+				<p>
+					Selecciona cuenta antes:
+					<h:link outcome="clientView.xhtml">login</h:link>
+					.
+				</p>
+			</c:when>
+			<c:otherwise>
+				<h1>Transacciones</h1>
+				<h:dataTable value="#{infoCuentas.sacarTr()}" var="tr">
+					<h:column>
+						<f:facet id="infoTransF1T" name="header">Fecha</f:facet>
+						<h:outputText id="infoTransF1D" value="#{tr.fechaInstruccion}" > 
+							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
+						</h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet id="infoTransF2T" name="header">Cantidad</f:facet>
+						<h:outputText id="infoTransF2D1" rendered="#{infoCuentas.esIngreso(tr)==true}"
+							value="#{tr.cantidad} #{tr.divEm.abreviatura}" />
+						<h:outputText id="infoTransF2D2" rendered="#{infoCuentas.esIngreso(tr)==false}"
+							value="- #{tr.cantidad} #{tr.divRec.abreviatura}" />
+					</h:column>
+					<h:column>
+						<f:facet id="infoTransF3T" name="header">Tipo</f:facet>
+						<h:outputText id="infoTransF3D" value="#{tr.tipo}" />
+					</h:column>
+				</h:dataTable>
+				<h:button value="Volver" outcome="infoCuentas.xhtml" />
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>
+
