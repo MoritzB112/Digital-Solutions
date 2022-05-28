@@ -1,0 +1,64 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Cambio de divisas</title>
+	<f:metadata>
+		<f:viewParam name="iban" value="#{modificaciones.ibanc}"></f:viewParam>
+	</f:metadata>
+</h:head>
+
+<h:body>
+
+	<h:form id="form_modificar_cambioDivisas">
+
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+				<h:panelGrid columns="2">
+					<h:outputText id="cambioDivisasOT"
+						value="Elige la cartera de origen" />
+					<h:selectOneMenu id="cambioDivisasO" required="true"
+						value="#{modificaciones.depOr}" >
+						<f:selectItems value="#{modificaciones.pa.deps}" var="de1"
+							itemLabel="#{infoCuentas.formatSaldo(de1.saldo)} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"
+							itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
+					</h:selectOneMenu>
+					<h:outputText id="cambioDivisasDT"
+						value="Elige la cartera de destino" />
+					<h:selectOneMenu id="cambioDivisasD" required="true"
+						value="#{modificaciones.depDest}" >
+						<f:selectItems value="#{modificaciones.pa.deps}" var="de2"
+							itemLabel="#{infoCuentas.formatSaldo(de2.saldo)} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}"
+							itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
+					</h:selectOneMenu>
+				</h:panelGrid>
+				
+					<h:inputText id="cambioDivisasTT" required="true"
+						value="#{modificaciones.tr.cantidad}" />
+
+			
+				<h:commandButton id="cambioDivisas_terminar" value="Cambiar divisa"
+					action="#{modificaciones.cambiarDivisa()}" />
+
+				<h:message for="e_cambioDivisas" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

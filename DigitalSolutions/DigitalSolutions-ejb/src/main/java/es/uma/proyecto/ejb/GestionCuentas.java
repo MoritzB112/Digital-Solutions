@@ -52,4 +52,6 @@ public interface GestionCuentas {
 	public Segregada gtSegregada(Long id);
 	
 	public Pooled_Account gtPooled(Long id);
+	
+	public void modificarCuenta(Cuenta_Fintech c) throws CuentaNoExisteException, CuentaNoSuporteadaException;
 }

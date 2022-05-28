@@ -6,16 +6,12 @@
 
 package es.uma.proyecto.war;
 
-import java.io.File;
-import java.io.IOException;
 import java.io.Serializable;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
-
-import org.omnifaces.util.Faces;
 
 import es.uma.proyecto.ejb.GestionGenerarReportes;
 import es.uma.proyecto.ejb.GestionRefresh;
@@ -39,13 +35,8 @@ import es.uma.proyecto.jpa.Usuario;
 public class InfoSesion implements Serializable {
 
 	@Inject
-	private GestionUsuarios cuenta;
-
-	@Inject
 	private GestionRefresh refresh;
-	
-	@Inject
-	private GestionGenerarReportes reporte;
+
 
 	private Usuario usuario;
 	private Individual id;
@@ -166,16 +157,6 @@ public class InfoSesion implements Serializable {
 		return "</tr><tr>";
 	}
 	
-	public void download() {
-		File file;
-		try {
-			file = new File(reporte.generarReportePrimero());
-			  Faces.sendFile(file, true);
-			  
-		} catch (IOException e) {
-			
-		}
-	  
-	}
+
 
 }

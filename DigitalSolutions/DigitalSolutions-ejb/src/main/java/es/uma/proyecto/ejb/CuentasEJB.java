@@ -278,5 +278,28 @@ public class CuentasEJB implements GestionCuentas {
 		return em.find(Pooled_Account.class,id);
 		}
 	
+	public void modificarCuenta(Cuenta_Fintech c) throws CuentaNoExisteException, CuentaNoSuporteadaException {
+		if(c instanceof Segregada) {
+			Segregada seg=(Segregada) c;
+			
+			if(seg.getIBAN()==null || em.find(Segregada.class, seg.getIBAN())==null) {
+				throw new CuentaNoExisteException();
+			}
+			
+			em.merge(seg);
+			
+		}else if(c instanceof Pooled_Account) {
+			Pooled_Account pa=(Pooled_Account) c;
+			
+			if(pa.getIBAN()==null || em.find(Pooled_Account.class, pa.getIBAN())==null) {
+				throw new CuentaNoExisteException();
+			}
+			em.merge(pa);
+			
+		}else {
+			throw new CuentaNoSuporteadaException();
+		}
+	}
+	
 	
 }

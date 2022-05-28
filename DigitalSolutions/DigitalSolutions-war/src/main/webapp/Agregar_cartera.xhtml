@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Agregar cartera</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="form_agregar_cartera">
+
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+
+				<h:outputText id="seleccionarPooled_agregarCartera"
+					value="Selecciona la cuenta pooled:" />
+				<h:selectOneMenu id="seleccionarPooled_agregarCarteraT"
+					value="#{administrativo.iban}" required="true">
+					<f:selectItems value="#{administrativo.gtPooled_alta_bloq()}"
+						var="pool" itemLabel="#{pool.IBAN}"
+						itemValue="#{pool.IBAN}"></f:selectItems>
+				</h:selectOneMenu>
+
+
+				<h:outputText id="seleccionarCR_agregarCartera"
+					value="Selecciona la cuenta de referencia:" />
+				<h:selectOneMenu id="seleccionarCR_agregarCarteraT"
+					value="#{administrativo.iban2}" required="true">
+					<f:selectItems value="#{administrativo.gtCuentaReferencia_alta()}"
+						var="ref" itemLabel="#{ref.IBAN}" itemValue="#{ref.IBAN}"></f:selectItems>
+				</h:selectOneMenu>
+
+
+				<h:commandButton id="AgregarCartera_terminar"
+					value="Crear autorización"
+					action="#{administrativo.agregarCartera()}" />
+					
+					<h:message for="e_agregarCartera" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

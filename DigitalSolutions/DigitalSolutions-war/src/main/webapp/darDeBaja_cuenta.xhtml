@@ -28,7 +28,7 @@
 
 				<h1>Lista de cuentas segregadas</h1>
 				<h:dataTable id="ListaSegregada_darBaja"
-					value="#{administrativo.gtSegregada_alta_bloq}" var="dato">
+					value="#{administrativo.gtSegregada_alta_bloq()}" var="dato">
 					<h:column>
 						<f:facet name="header">
 							<h:outputText id="IBANSegregada_darBaja" value="IBAN" />
@@ -47,7 +47,7 @@
 						<f:facet name="header">
 						</f:facet>
 						<h:commandButton id="SeleccionarSegregada_darBaja"
-							action="#{administrativo.darDeBajaSeg(dato}" value="Seleccionar" />
+							action="#{administrativo.darDeBajaSeg(dato)}" value="Seleccionar" />
 					</h:column>
 
 				</h:dataTable>
@@ -56,17 +56,17 @@
 
 				<h1>Lista de cuentas pooled</h1>
 				<h:dataTable id="ListaPooled_darBaja"
-					value="#{administrativo.gtPooled_alta_bloq}" var="dato">
+					value="#{administrativo.gtPooled_alta_bloq()}" var="dato">
 					<h:column>
 						<f:facet name="header">
-							<h:outputText id="SWIFTPooled_darBaja" value="SWIFT" />
+							<h:outputText id="SWIFTPooled_darBaja" value="IBAN" />
 						</f:facet>
 #{dato.IBAN}
 </h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText id="IBANPooled_darBaja" value="IBAN" />
+							<h:outputText id="IBANPooled_darBaja" value="SWIFT" />
 						</f:facet>
 #{dato.SWIFT}
 </h:column>
@@ -75,8 +75,8 @@
 					<h:column>
 						<f:facet name="header">
 						</f:facet>
-						<h:button id="SeleccionarPooled_darBaja"
-							action="#{administrativo.darDeBajaPool(dato}" value="Seleccionar" />
+						<h:commandButton id="SeleccionarPooled_darBaja"
+							action="#{administrativo.darDeBajaPool(dato)}" value="Seleccionar" />
 					</h:column>
 
 				</h:dataTable>

@@ -1,6 +1,7 @@
 package es.uma.proyecto.war;
 
-
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -9,12 +10,17 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import org.omnifaces.util.Faces;
+
 import es.uma.proyecto.ejb.GestionClientes;
 import es.uma.proyecto.ejb.GestionCuentas;
+import es.uma.proyecto.ejb.GestionGenerarReportes;
 import es.uma.proyecto.ejb.GestionPersonas_Autorizadas;
+import es.uma.proyecto.ejb.GestionTransacciones;
 import es.uma.proyecto.ejb.GestionUsuarios;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.ClienteExistenteException;
@@ -24,22 +30,29 @@ import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
+import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.PasswordException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoNoVacioException;
 import es.uma.proyecto.ejb.Excepciones.TieneCuentaAsociadoException;
+import es.uma.proyecto.ejb.Excepciones.TransaccionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.UsuarioExistenteException;
 import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
 import es.uma.proyecto.jpa.Autorizacion;
 import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Cuenta_Referencia;
+import es.uma.proyecto.jpa.Depositado_en;
+import es.uma.proyecto.jpa.Depositado_en_PK;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
 import es.uma.proyecto.jpa.Pooled_Account;
 import es.uma.proyecto.jpa.Segregada;
+import es.uma.proyecto.jpa.Transaccion;
 import es.uma.proyecto.jpa.Usuario;
 
 
@@ -59,6 +72,9 @@ public class Admin {
     @Inject
     private GestionPersonas_Autorizadas gpaut;
     
+    @Inject
+    private GestionGenerarReportes greportes;
+    
 
     private Segregada seg;
     private Persona_Autorizada paut;
@@ -72,8 +88,7 @@ public class Admin {
 	private String iban;
 	private Long id2;
 	private String iban2;
-	//private Cuenta_Referencia cre;
-
+	
 	private String tipo;
 	
 	public Admin() {
@@ -89,6 +104,7 @@ public class Admin {
 		id2=null;
 		iban=null;
 		iban2=null;
+	
 	
 		
 		tipo=null;
@@ -201,6 +217,8 @@ public class Admin {
 	public void setIban2(String iban2) {
 		this.iban2 = iban2;
 	}
+	
+
 	
 //---------------------------------------------------------------------
 //Usuario y cliente
@@ -446,8 +464,16 @@ public class Admin {
 	}
 	
 	public List<Cliente> sacarCli(){
-		return gcli.sacarClientes();
-	}
+		List<Cliente> i=new ArrayList<>();
+		List<Cliente> l=gcli.sacarClientes();
+		for(Cliente ind:l) {
+			if(ind.getEstado().equalsIgnoreCase("alta") || ind.getEstado().equalsIgnoreCase("bloqueado")) {
+				i.add(ind);
+			}
+		}
+		return i;
+		}
+
 	
 //---------------------------------------------------------------------------------
 //Cuentas
@@ -535,7 +561,7 @@ public class Admin {
 		List<Segregada> i=new ArrayList<>();
 		List<Segregada> l=gc.sacarSegregadas();
 		for(Segregada ind:l) {
-			if(ind.getEstado().equalsIgnoreCase("alta")) {
+			if(ind.getEstado().equalsIgnoreCase("alta") || ind.getEstado().equalsIgnoreCase("bloqueado")) {
 				i.add(ind);
 			}
 		}
@@ -552,6 +578,20 @@ public class Admin {
 		}
 		return i;
 		}
+	
+	public List<Cuenta_Referencia> gtCuentaReferencia_alta() {
+		List<Cuenta_Referencia> i=new ArrayList<>();
+		List<Cuenta_Referencia> l=gc.sacarCuentaReferencia();
+		for(Cuenta_Referencia ind:l) {
+			if(ind.getEstado().equalsIgnoreCase("alta")) {
+				i.add(ind);
+			}
+		}
+		return i;
+		}
+	
+	
+	
 	
 	public Segregada sacarSegr(Long id) {
 		return gc.gtSegregada(id);
@@ -606,6 +646,24 @@ public class Admin {
 			
 		}
 		
+		return null;
+	}
+	
+	
+	public String agregarCartera() {
+		
+		try {
+			Pooled_Account p=new Pooled_Account();
+			p.setIBAN(iban);
+			
+			Cuenta_Referencia cr=new Cuenta_Referencia();
+			cr.setIBAN(iban2);
+			gc.añadirCartera(p, cr);
+			return "administrativo.xhtml";
+		} catch (CuentaNoExisteException e) {
+			FacesMessage fm = new FacesMessage("Cuenta no suporteada");
+			FacesContext.getCurrentInstance().addMessage("form_agregar_cartera:e_agregarCartera", fm);
+		}
 		return null;
 	}
 	
@@ -703,38 +761,73 @@ public class Admin {
 		gpaut.desbloquearAutorizado(p);
 		
 		}catch(Persona_AutorizadaNoEncontradaException ne) {
-			
+			FacesMessage fm = new FacesMessage("Persona autorizada no encontrada");
+			FacesContext.getCurrentInstance().addMessage("formulario_desbloquear_usuarios:e_desbloquear_usuario", fm);	
 		}
 	}
 	
 	public  void bloquearPAut(Persona_Autorizada p) {
 		try {
-		gpaut.desbloquearAutorizado(p);
+		gpaut.bloquearAutorizado(p);
 		
 		}catch(Persona_AutorizadaNoEncontradaException ne) {
-			
+			FacesMessage fm = new FacesMessage("Persona autorizada no encontrada");
+			FacesContext.getCurrentInstance().addMessage("formulario_bloquear_usuario:e_bloquearUsuario", fm);	
 		}
 	}
 	
 	public String añadirAutorizacionA() {
 		
 		try{
+			
+			Empresa p=new Empresa();
+			p.setId(id);
+			Persona_Autorizada autorizado=new Persona_Autorizada();
+			autorizado.setID(id2);
 		
-		gpaut.darAutorizacion(em, a, paut);
+		gpaut.darAutorizacion(p, a, autorizado);
+		return "administrativo.xhtml";
 		
 		}catch(AutorizacionYaExisteException aye) {
+			FacesMessage fm = new FacesMessage("Autorización ya existe");
+			FacesContext.getCurrentInstance().addMessage("form_modificar_lista_cuentas:e_anadirAutorizacion", fm);	
 			
 		}catch(CuentaNoExisteException cne) {
+			FacesMessage fm = new FacesMessage("Esta cuenta no existe");
+			FacesContext.getCurrentInstance().addMessage("form_modificar_lista_cuentas:e_anadirAutorizacion", fm);	
 			
 		}catch(Persona_AutorizadaYaExisteException pae) {
+			FacesMessage fm = new FacesMessage("Esta persona autorizada ya existe");
+			FacesContext.getCurrentInstance().addMessage("form_modificar_lista_cuentas:e_anadirAutorizacion", fm);	
 			
 		}
 		
-		return "administrativo.xhtml";
+		return null;
 	}
 	
+	public void download() {
+		File file;
+		try {
+			file = new File(greportes.generarReportePrimero());
+			  Faces.sendFile(file, true);
+			  
+		} catch (IOException e) {
+			
+		}
+	  
+	}
 	
-	
+	public void download2() {
+		File file;
+		try {
+			file = new File(greportes.generarReporteSegundo());
+			  Faces.sendFile(file, true);
+			  
+		} catch (IOException e) {
+			
+		}
+	  
+	}
 		
 
 
