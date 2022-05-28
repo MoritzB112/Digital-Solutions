@@ -102,7 +102,12 @@
 			
 		<h:outputText id="CambiarDivisasAdminT"
 			value="Cambio entre divisas de una misma cuenta." />
-		<h:button id="CambiarDivisasAdmin" outcome="darDeBaja.xhtml" value="Cambio de divisa" />
+		<h:button id="CambiarDivisasAdmin" outcome="lista_Pooled_Account.xhtml" value="Cambio de divisa" />
+		
+		<h:outputText id="AgregarCarteraAdminT"
+			value="Añadir una cartera a una cuenta pooled." />
+		<h:button id="AgregarCarteraAdmin" outcome="Agregar_cartera.xhtml" value="Agregar cartera" />
+		
 </h:panelGrid>
 
 	<hr></hr>
@@ -121,7 +126,23 @@
 			value="Dar una autorización de la empresa a una persona autorizada." />
 		<h:button id="AutorizacionPAAdmin" outcome="anadirAutorizacion.xhtml"
 			value="Añadir autorización" />
+			
 	</h:panelGrid>
+	
+	<hr></hr>
+
+		<h1 id="AdminPanel4">
+			Panel de reportes
+		</h1>
+		
+		<h:outputText id="AdminTexto4"
+			value="En esta sección puedes descargar cualquier tipo de reporte disponible:" />
+			
+			<h:commandButton id="DescargarReporteAdmin" value="Descarga reporte 1" action="#{administrativo.download()}"></h:commandButton>
+			
+			<h:commandButton id="DescargarReporteAdminT" value="Descarga reporte 2" action="#{administrativo.download2()}"></h:commandButton>
+			
+		<br/>
 
 			</c:otherwise>
 		</c:choose>

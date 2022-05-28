@@ -1,39 +1,58 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
-      
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
 
-      
+
+
 <h:head>
-<title>Datos de la cuenta pooled</title>
+	<title>Datos de la cuenta pooled</title>
+	<f:metadata>
+		<f:viewParam name="iban" value="#{modificaciones.iban}"></f:viewParam>
+	</f:metadata>
 </h:head>
 
-<h:body>  
-<ui:param name="pooled" value="#{administrativo.sacarPoo(param['id'])}" />   
-<h:panelGrid columns=4>
+<h:body>
+	<h:form id="form_modificar_pooled">
 
-<h:inputHidden id="fechaAperturaPooled_modificar2" value="#{administrativo.pa.fecha_apertura}">#{pooled.fecha_apertura}</h:inputHidden>
-<h:inputHidden id="fechaCierrePooled_modificar2" value="#{administrativo.seg.fecha_cierre}">#{pooled.fecha_cierre}</h:inputHidden>
-<h:inputHidden id="IBANPooled_modificar2" value="#{administrativo.pa.IBAN}">#{pooled.IBAN}</h:inputHidden>
-<h:inputHidden id="estadoPooled_modificar2" value="#{administrativo.pa.estado}">#{pooled.estado}</h:inputHidden>
-<h:inputHidden id="clientePooled_modificar2" value="#{administrativo.pa.cl}">#{pooled.cl}</h:inputHidden>
-<h:inputHidden id="DepEnPooled_modificar2" value="#{administrativo.pa.deps}">#{pooled.deps}</h:inputHidden>
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+				<h:panelGrid columns="4">
 
 
 
-<h:outputText id="SWIFTPooled_modificar2" value="SWIFT:"/>
-<h:inputText id="SWIFTPooled_modificar2T"  value="#{administrativo.pa.SWIFT}"/>
+					<h:outputText id="SWIFTPooled_modificar2" value="SWIFT:" />
+					<h:inputText id="SWIFTPooled_modificar2T"
+						value="#{modificaciones.pa.SWIFT}" />
 
-<h:outputText id="clasificacionPooled_modificar2" value="Clasificación:"/>
-<h:inputText id="clasificacionPooled_modificar2T" value="#{administrativo.pa.clasificacion}"/>
+					<h:outputText id="clasificacionPooled_modificar2"
+						value="Clasificación:" />
+					<h:inputText id="clasificacionPooled_modificar2T"
+						value="#{modificaciones.pa.clasificacion}" />
 
-            
-</h:panelGrid>
 
-<h:button id="TerminarPooled_modificar" outcome="administrativo.xhtml" value="Terminar"/>
+				</h:panelGrid>
+				
+					<h:commandButton id="TerminarPooled_modificar"
+					value="Terminar" action="#{modificaciones.actualizarPooled()}" />
+					
+					<h:message for="e_modificarPooled"/>
+					
+			</c:otherwise>
+		</c:choose>
+	</h:form>
 </h:body>
 </html>

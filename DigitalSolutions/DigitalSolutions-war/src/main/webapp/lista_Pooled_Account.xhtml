@@ -6,7 +6,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
-	<title>Lista de cuentas</title>
+	<title>Lista_carteras</title>
 </h:head>
 
 <h:body>
@@ -26,47 +26,20 @@
 			</c:when>
 			<c:otherwise>
 
-				<h1>Lista de cuentas segregadas</h1>
-				<h:dataTable id="ListaSegregada_modificar"
-					value="#{administrativo.gtSegregada_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="IBANSegregada_modificar" value="IBAN" />
-						</f:facet>
-#{dato.IBAN}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="SWIFTSegregada_modificar" value="SWIFT" />
-						</f:facet>
-#{dato.SWIFT}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:button id="SeleccionarSegregada_modificar"
-							outcome="modificar_segregada?iban=#{dato.IBAN}" value="Seleccionar" />
-					</h:column>
-
-				</h:dataTable>
-
-
 
 				<h1>Lista de cuentas pooled</h1>
-				<h:dataTable id="ListaPooled_modificar"
+				<h:dataTable id="ListaPooled_cambioDiv"
 					value="#{administrativo.gtPooled_alta_bloq()}" var="dato">
 					<h:column>
 						<f:facet name="header">
-							<h:outputText id="SWIFTPooled_modificar" value="IBAN" />
+							<h:outputText id="IBANPooled_cambioDiv" value="IBAN" />
 						</f:facet>
 #{dato.IBAN}
 </h:column>
 
 					<h:column>
 						<f:facet name="header">
-							<h:outputText id="IBANPooled_modificar" value="SWIFT" />
+							<h:outputText id="SWIFTPooledcambioDiv" value="SWIFT" />
 						</f:facet>
 #{dato.SWIFT}
 </h:column>
@@ -75,8 +48,8 @@
 					<h:column>
 						<f:facet name="header">
 						</f:facet>
-						<h:button id="SeleccionarPooled_modificar"
-							outcome="modificar_pooled?iban=#{dato.IBAN}" value="Seleccionar" />
+						<h:button id="SeleccionarPooled_cambioDiv"
+							outcome="cambioDivisas.xhtml?iban=#{dato.IBAN}" value="Seleccionar" />
 					</h:column>
 
 				</h:dataTable>

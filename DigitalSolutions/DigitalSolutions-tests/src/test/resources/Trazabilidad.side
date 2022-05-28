@@ -1,0 +1,79 @@
+{
+  "id": "87710a62-9ae9-45ca-8d3b-57a392a49ba7",
+  "version": "2.0",
+  "name": "Trazabilidad",
+  "url": "http://localhost:8080/DigitalSolutions-war/",
+  "tests": [{
+    "id": "33d8496d-ec89-43ab-bfc2-2b86287ae217",
+    "name": "trazabilidadIT",
+    "commands": [{
+      "id": "19154dcc-bec6-4420-b820-eb38ca3f96be",
+      "comment": "",
+      "command": "open",
+      "target": "http://localhost:8080/DigitalSolutions-war/",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "c10c6d71-1157-45df-9907-06b310d614e7",
+      "comment": "",
+      "command": "setWindowSize",
+      "target": "1280x524",
+      "targets": [],
+      "value": ""
+    }, {
+      "id": "3c61a8a0-bf31-430a-91aa-8ea4d3d02f0c",
+      "comment": "",
+      "command": "click",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "11912e87-a0fc-401f-a725-1dbd315ffe98",
+      "comment": "",
+      "command": "click",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "912dbde7-94b7-4d61-983f-ae8e8158ef83",
+      "comment": "",
+      "command": "doubleClick",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": ""
+    }, {
+      "id": "e26f1993-5251-4f44-a6dc-bf4c73ad6495",
+      "comment": "",
+      "command": "assertText",
+      "target": "css=h1",
+      "targets": [
+        ["css=h1", "css:finder"],
+        ["xpath=//h1", "xpath:position"],
+        ["xpath=//h1[contains(.,'Hola mundo')]", "xpath:innerText"]
+      ],
+      "value": "Hola mundo"
+    }]
+  }],
+  "suites": [{
+    "id": "d6615810-4df8-4c58-95ad-eb6a383da3a4",
+    "name": "Default Suite",
+    "persistSession": false,
+    "parallel": false,
+    "timeout": 300,
+    "tests": []
+  }],
+  "urls": [],
+  "plugins": []
+}
