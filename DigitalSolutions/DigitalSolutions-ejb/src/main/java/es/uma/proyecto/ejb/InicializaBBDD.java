@@ -70,12 +70,12 @@ public class InicializaBBDD {
 		ind.setFecha_nacimiento(new Date());
 		ind.setEstado("ALTA");
 		ind.setFecha_alta(new Date());
-		ind.setTipo_cliente("FÍSICA");
+		ind.setTipo_cliente("FISICA");
 		em.persist(ind);
 		
 		Empresa emp = new Empresa(); //1L
 		emp.setIdentificacion("P3310693A");
-		emp.setTipo_cliente("JURÍDICA");
+		emp.setTipo_cliente("JURIDICA");
 		emp.setEstado("ALTA");
 		emp.setFecha_alta(new Date());
 		emp.setDireccion("Avenida del Cid");

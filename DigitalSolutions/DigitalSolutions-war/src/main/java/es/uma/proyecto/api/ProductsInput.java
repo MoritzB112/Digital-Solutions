@@ -1,16 +1,17 @@
 package es.uma.proyecto.api;
 
+import java.util.Date;
 import java.util.Objects;
 
-public class ClientInput {
-	
-	private Client searchParameters;
+public class ProductsInput {
 
-	public Client getSearchParameters() {
+	private Product searchParameters;
+
+	public Product getSearchParameters() {
 		return searchParameters;
 	}
 
-	public void setSearchParameters(Client searchParameters) {
+	public void setSearchParameters(Product searchParameters) {
 		this.searchParameters = searchParameters;
 	}
 
@@ -27,7 +28,7 @@ public class ClientInput {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		ClientInput other = (ClientInput) obj;
+		ProductsInput other = (ProductsInput) obj;
 		return Objects.equals(searchParameters, other.searchParameters);
 	}
 
@@ -36,4 +37,6 @@ public class ClientInput {
 		return "ClientInput [searchParameters=" + searchParameters + "]";
 	}
 	
+	
+
 }

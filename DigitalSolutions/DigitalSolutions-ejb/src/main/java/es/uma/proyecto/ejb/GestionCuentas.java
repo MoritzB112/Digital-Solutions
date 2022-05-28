@@ -47,7 +47,7 @@ public interface GestionCuentas {
 	
 	public List<Transaccion> sacarTransacciones(Cuenta c) throws CuentaNoExisteException;
 	
-	public List<Cuenta_Fintech> sacarInformacionCuenta(String iban, String estado);
+	public List<Cuenta_Fintech> sacarCuentasAPI(String cond);
 
 	public Segregada gtSegregada(Long id);
 	

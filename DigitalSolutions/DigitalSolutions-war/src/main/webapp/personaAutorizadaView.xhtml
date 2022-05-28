@@ -50,7 +50,7 @@
 							data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
 					<div class="offcanvas-body">
-						<h:button class="btn btn-info" id="paAInfo" value="Info"
+						<h:button class="btn btn-info" id="paAInfo" value="Info personal"
 							outcome="infoPA.xhtml" />
 						<p></p>
 						<h:commandButton class="btn btn-danger" value="Logout"
@@ -68,7 +68,7 @@
 							<ui:repeat var="au" value="#{infoCuentas.sacarAutorizaciones()}"
 								varStatus="status">
 								<td>
-									<div class="card" style="width: 18rem;">
+									<div class="card mx-3" style="width: 18rem;">
 
 										<div class="card-header bg-primary text-white text-center">
 											<h:outputText id="paViewC2T" value="#{au.em.razon_social}" />

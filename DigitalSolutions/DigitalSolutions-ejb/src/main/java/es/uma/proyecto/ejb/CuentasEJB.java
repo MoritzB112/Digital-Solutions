@@ -237,22 +237,8 @@ public class CuentasEJB implements GestionCuentas {
 	}
 	
 	@Override
-	public List<Cuenta_Fintech> sacarInformacionCuenta(String iban, String estado) {
-		List<Cuenta_Fintech> result;
-		String consulta = "SELECT c FROM Cuenta_Fintech c";
-		String s_iban;
-		String s_estado;
-		
-		if (iban != null) {
-			s_iban = "";
-			
-		} else if (estado == null) {
-			s_estado = "";
-			
-		} else {
-			
-		}
-		return null;
+	public List<Cuenta_Fintech> sacarCuentasAPI(String cond) {
+		return em.createQuery("SELECT cf FROM Cuenta_Fintech cf WHERE "+cond, Cuenta_Fintech.class).getResultList();
 	}
 
 	@Override

@@ -9,6 +9,10 @@ package es.uma.proyecto.war;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -170,6 +174,18 @@ public class InfoSesion implements Serializable {
 		File file;
 		try {
 			file = new File(reporte.generarReportePrimero());
+			  Faces.sendFile(file, true);
+			  
+		} catch (IOException e) {
+			
+		}
+	  
+	}
+	
+	public void download2() {
+		File file;
+		try {
+			file = new File(reporte.generarReporteSegundo());
 			  Faces.sendFile(file, true);
 			  
 		} catch (IOException e) {

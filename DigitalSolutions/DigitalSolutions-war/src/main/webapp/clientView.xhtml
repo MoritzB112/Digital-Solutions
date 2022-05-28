@@ -34,7 +34,7 @@
 				</p>
 			</c:when>
 			<c:when test="#{infoSesion.esPa()}">
-			<button class="btn" style="background-color: transparent"
+				<button class="btn" style="background-color: transparent"
 					type="button" data-bs-toggle="offcanvas"
 					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
 					<span class="fa fa-bars"></span>
@@ -49,14 +49,17 @@
 							data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
 					<div class="offcanvas-body">
-						<h:button class="btn btn-info" id="paAInfo" value="Info"
-						outcome="infoCliente.xhtml" />
-						<p> </p>
-						<h:button class="btn btn-secondary" value="Volver"
-					outcome="personaAutorizadaView.xhtml" />
-					<p> </p>
-				<h:commandButton class="btn btn-danger" value="Logout"
-					action="#{infoSesion.invalidarSesion()}" />
+						<h:button class="btn btn-info" id="PACcueAInfo"
+							value="Info Personal" outcome="infoPA.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="PACcueAEMInfo"
+							value="Info Empresa" outcome="infoCliente.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="PACcueAEmp"
+							value="Empresas" outcome="personaAutorizadaView.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
 					</div>
 				</div>
 				<br />
@@ -70,7 +73,7 @@
 								value="#{infoCuentas.sacarCuentas(infoSesion.em)}"
 								varStatus="status">
 								<td>
-									<div class="card" style="width: 18rem;">
+									<div class="card mx-3" style="width: 18rem;">
 
 										<div class="card-header bg-primary text-white text-center">
 											<h:outputText value="#{var.IBAN}"></h:outputText>
@@ -123,11 +126,11 @@
 							data-bs-dismiss="offcanvas" aria-label="Close"></button>
 					</div>
 					<div class="offcanvas-body">
-						<h:button class="btn btn-info" id="paAInfo" value="Info"
-						outcome="infoCliente.xhtml" />
-						<p> </p>
+						<h:button class="btn btn-info" id="indAInfo" value="Info personal"
+							outcome="infoCliente.xhtml" />
+						<p></p>
 						<h:commandButton class="btn btn-danger" value="Logout"
-					action="#{infoSesion.invalidarSesion()}" />
+							action="#{infoSesion.invalidarSesion()}" />
 					</div>
 				</div>
 				<br />
@@ -141,7 +144,7 @@
 								value="#{infoCuentas.sacarCuentas(infoSesion.id)}"
 								varStatus="status">
 								<td>
-									<div class="card" style="width: 18rem;">
+									<div class="card mx-3" style="width: 18rem;">
 
 										<div class="card-header bg-primary text-white text-center">
 											<h:outputText value="#{var.IBAN}"></h:outputText>
@@ -177,7 +180,7 @@
 						</tr>
 					</table>
 				</div>
-				
+
 			</c:otherwise>
 		</c:choose>
 	</h:form>

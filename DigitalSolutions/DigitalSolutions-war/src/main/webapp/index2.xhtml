@@ -19,16 +19,10 @@
 	<h:form>
 		<h:commandButton value="Download" action="#{infoSesion.download()}"></h:commandButton>
 	</h:form>
-	<div class="input-group flex-grow-1">
-		<span class="input-group-text">$</span>
-		<div class="form-floating flex-grow-1">
-			<h:inputText type="text" class="form-control"
-				pt:placeholder="Username" aria-label="Username"
-				aria-describedby="basic-addon1" id="floatingInput" required="true"
-				value="#{login.userName}" />
-			<label for="floatingInput">Email address</label>
-		</div>
-	</div>
+	<h:form>
+		<h:commandButton value="Download2" action="#{infoSesion.download2()}"></h:commandButton>
+	</h:form>
+	
 
 
 </h:body>
