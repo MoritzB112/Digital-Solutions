@@ -22,6 +22,7 @@ import es.uma.proyecto.ejb.GestionGenerarReportes;
 import es.uma.proyecto.ejb.GestionPersonas_Autorizadas;
 import es.uma.proyecto.ejb.GestionTransacciones;
 import es.uma.proyecto.ejb.GestionUsuarios;
+import es.uma.proyecto.ejb.Excepciones.AutorizacionNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.ClienteExistenteException;
 import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
@@ -31,6 +32,7 @@ import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
+import es.uma.proyecto.ejb.Excepciones.Depositado_enNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.PasswordException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
@@ -667,6 +669,29 @@ public class Admin {
 		return null;
 	}
 	
+	public List<Depositado_en> gtCarteras() {
+		List<Depositado_en> i=new ArrayList<>();
+		List<Depositado_en> l=gc.sacarCarteras();
+		for(Depositado_en ind:l) {
+			if(!ind.getPa().getEstado().equalsIgnoreCase("baja")) {
+				i.add(ind);
+			}
+		}
+		return i;
+		}
+	
+	public String eliminarCartera(Depositado_en de) {
+		try {
+			gc.eliminarCartera(de);
+			return "administrativo.xhtml";
+			
+		} catch (Depositado_enNoExisteException e) {
+			FacesMessage fm = new FacesMessage("Esta cartera no existe");
+			FacesContext.getCurrentInstance().addMessage("form_eliminar_cartera:e_eliminarCartera", fm);
+		}
+		return null;
+	}
+	
 //---------------------------------------
 //autorizadas
 	
@@ -804,6 +829,28 @@ public class Admin {
 		
 		return null;
 	}
+	
+	public List<Autorizacion> gtAutorizaciones() {
+		List<Autorizacion> l=gpaut.sacarAutorizaciones();
+		return l;
+	}
+	
+	public String eliminarAutorizacion(Autorizacion au) {
+		try {
+			gpaut.eliminarAutorizacion(au);
+			return "administrativo.xhtml";
+		} catch (AutorizacionNoExisteException e) {
+			FacesMessage fm = new FacesMessage("Esta autorización no existe");
+			FacesContext.getCurrentInstance().addMessage("form_eliminar_autorizacion:e_eliminarAutorizacion", fm);	
+		}
+		
+		return null;
+	}
+	
+	
+	
+//---------------------------------------
+//Informes
 	
 	public void download() {
 		File file;

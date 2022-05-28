@@ -9,12 +9,14 @@ import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.Depositado_enNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.DivisaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoNoVacioException;
 import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Cuenta_Referencia;
+import es.uma.proyecto.jpa.Depositado_en;
 import es.uma.proyecto.jpa.Divisa;
 import es.uma.proyecto.jpa.Pooled_Account;
 import es.uma.proyecto.jpa.Segregada;
@@ -54,4 +56,8 @@ public interface GestionCuentas {
 	public Pooled_Account gtPooled(Long id);
 	
 	public void modificarCuenta(Cuenta_Fintech c) throws CuentaNoExisteException, CuentaNoSuporteadaException;
+	
+	public List<Depositado_en> sacarCarteras();
+	
+	public void eliminarCartera(Depositado_en de) throws Depositado_enNoExisteException;
 }

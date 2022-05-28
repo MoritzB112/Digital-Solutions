@@ -6,6 +6,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
+import es.uma.proyecto.ejb.Excepciones.AutorizacionNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
@@ -119,4 +120,13 @@ public class Personas_AutorizadasEJB implements GestionPersonas_Autorizadas {
 	public Persona_Autorizada gtPautorizada(Long id) {
 		return em.find(Persona_Autorizada.class,id);
 		}
+	
+	public void eliminarAutorizacion(Autorizacion a) throws AutorizacionNoExisteException {
+		Autorizacion areal=em.find(Autorizacion.class, a.getId());
+		
+		if(areal==null) {
+			throw new AutorizacionNoExisteException();
+		}
+		em.remove(areal);
+	}
 }

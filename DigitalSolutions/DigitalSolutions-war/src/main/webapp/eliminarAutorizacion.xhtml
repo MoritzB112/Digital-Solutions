@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Eliminar autorización</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="form_eliminar_autorizacion">
+
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+
+				<h1>Lista de autorizaciones</h1>
+				<h:dataTable id="ListaAuto_eliminarAuto"
+					value="#{administrativo.gtAutorizaciones()}" var="dato">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="identificacionEmpresa_eliminarAuto" value="NIF Empresa" />
+						</f:facet>
+#{dato.em.identificacion}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="identificacionPA_eliminarAuto" value="DNI Persona autorizada" />
+						</f:facet>
+#{dato.pa.identificacion}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="tipoAuto_eliminarAuto" value="Tipo" />
+						</f:facet>
+#{dato.tipo}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+						<h:commandButton id="eliminarAuto_seleccionar" value="Seleccionar"
+							action="#{administrativo. eliminarAutorizacion(dato)}" />
+					</h:column>
+
+				</h:dataTable>
+					
+					<h:messages for="e_eliminarAutorizacion" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

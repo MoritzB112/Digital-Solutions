@@ -10,139 +10,153 @@
 </h:head>
 <h:body>
 	<h:form id="form_administrativo_inicio">
-	<c:choose>
-	<c:when test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+				<h:panelGrid columns="4">
+
+					<h:outputText id="UsuarioAdminT" value="Usuario: " />
+					<h:outputText id="UsuarioAdmin"
+						value="#{infoSesion.usuario.usuario}" />
+
+					<h:outputText id="CorreoAdminT" value="Correo: " />
+					<h:outputText id="CorreoAdmin" value="#{infoSesion.usuario.correo}" />
+
+					<h:commandButton id="logoutBotonAdmin" value="Cerrar sesión"
+						action="#{infoSesion.invalidarSesion()}" />
+
+				</h:panelGrid>
+
+				<hr></hr>
+
+				<h1 id="AdminPanel1">Panel de administración de clientes</h1>
+
+
+				<h:outputText id="AdminTexto1"
+					value="Las acciones que usted puede realizar como administrativo del sistema sobre los clientes almacenados en la base de datos son las siguientes:" />
+				<br />
+
+				<h:panelGrid columns="2">
+
+					<h:outputText id="AnadirClienteAdminT"
+						value="Añadir un nuevo cliente a la base de datos." />
+					<h:button id="AnadirClienteAdmin" outcome="darDeAlta.xhtml"
+						value="Registro de usuarios" />
+
+					<h:outputText id="ModificarClienteAdminT"
+						value="Modificar los datos de un cliente existente." />
+					<h:button id="ModificarClienteAdmin"
+						outcome="modificar_listaUsuarios.xhtml"
+						value="Actualizar usuarios" />
+
+					<h:outputText id="DarBajaAdminT"
+						value="Quitar permisos de operación." />
+					<h:button id="DarBajaAdmin" outcome="darDeBaja.xhtml"
+						value="Dar de baja" />
+
+					<h:outputText id="BloquearClienteAdminT"
+						value="Bloquear de manera temporal a un usuario." />
+					<h:button id="BloquearClienteAdmin" outcome="bloquear.xhtml"
+						value="Bloquear temporalmente" />
+
+					<h:outputText id="DesbloquearClienteAdminT"
+						value="Desbloquear a un usuario temporalmente bloqueado." />
+					<h:button id="DesbloquearClienteAdmin" outcome="desbloquear.xhtml"
+						value="Desbloquear usuario" />
+
+				</h:panelGrid>
+
+				<hr></hr>
+
+				<h1 id="AdminPanel2">Panel de administración de cuentas</h1>
+
+				<h:outputText id="AdminTexto2"
+					value="Las acciones que usted puede realizar como administrativo del sistema sobre las cuentas almacenados en la base de datos son las siguientes:" />
+				<br />
+
+				<h:panelGrid columns="2">
+
+					<h:outputText id="AnadirCuentaAdminT"
+						value="Anadir una nueva cuenta a los datos del cliente." />
+					<h:button id="AñadirCuentaAdmin" outcome="abrirCuenta.xhtml"
+						value="Apertura de cuentas" />
+
+					<h:outputText id="AlterarCuentaAdminT"
+						value="Alteración de las características de la cuenta." />
+					<h:button id="AlterarCuentaAdmin"
+						outcome="modificar_listaCuentas.xhtml"
+						value="Modificar datos cuenta" />
+
+					<h:outputText id="DarBajaCuentaAdminT"
+						value="Quitar permisos de operación a una cuenta." />
+					<h:button id="DarBajaCuentaAdmin" outcome="darDeBaja_cuenta.xhtml"
+						value="Dar cuenta de baja" />
+
+					<h:outputText id="CambiarDivisasAdminT"
+						value="Cambio entre divisas de una misma cuenta." />
+					<h:button id="CambiarDivisasAdmin"
+						outcome="lista_Pooled_Account.xhtml" value="Cambio de divisa" />
+
+					<h:outputText id="AgregarCarteraAdminT"
+						value="Añadir una cartera a una cuenta pooled." />
+					<h:button id="AgregarCarteraAdmin" outcome="agregar_cartera.xhtml"
+						value="Agregar cartera" />
+						
+								<h:outputText id="EliminarCarteraAdminT"
+						value="Eliminar una cartera de una cuenta pooled." />
+					<h:button id="EliminarCarteraAdmin" outcome="eliminarCartera.xhtml"
+						value="Eliminar cartera" />
+
+				</h:panelGrid>
+
+				<hr></hr>
+
+				<h1 id="AdminPanel3">Panel de administración de personas
+					autorizadas</h1>
+
+				<h:outputText id="AdminTexto3"
+					value="Las acciones que usted puede realizar como administrativo del sistema sobre las personas autorizadas en la base de datos son las siguientes:" />
+				<br />
+
+				<h:panelGrid columns="2">
+
+					<h:outputText id="AutorizacionPAAdminT"
+						value="Dar una autorización de la empresa a una persona autorizada." />
+					<h:button id="AutorizacionPAAdmin"
+						outcome="anadirAutorizacion.xhtml" value="Añadir autorización" />
+
+					<h:outputText id="ElimAutorizacionPAAdminT"
+						value="Eliminar autorización de la empresa a una persona autorizada." />
+					<h:button id="ElimAutorizacionPAAdmin"
+						outcome="eliminarAutorizacion.xhtml" value="Eliminar autorización"/>
+			
 	
-    <p>Debe loguearse como administrativo: <h:link action="admin.xhtml">log in</h:link></p>
-                
-	
-	</c:when>
-	<c:otherwise>
-	
-<h:panelGrid columns="4">
-	
-		<h:outputText id= "UsuarioAdminT" value="Usuario: "/>
-		<h:outputText id="UsuarioAdmin"
-			value="#{infoSesion.usuario.usuario}" />
-			
-			<h:outputText id= "CorreoAdminT" value="Correo: "/>
-		<h:outputText id="CorreoAdmin"
-			value="#{infoSesion.usuario.correo}" />
-			
-		<h:commandButton id="logoutBotonAdmin" value="Cerrar sesión"
-			action="#{infoSesion.invalidarSesion()}" />
+				</h:panelGrid>
 
-</h:panelGrid>	
+				<hr></hr>
 
-		<hr></hr>
+				<h1 id="AdminPanel4">Panel de reportes</h1>
 
-		<h1 id="AdminPanel1">
-			Panel de administración de clientes
-			</h1>
-			
-		
-		<h:outputText id="AdminTexto1"
-			value="Las acciones que usted puede realizar como administrativo del sistema sobre los clientes almacenados en la base de datos son las siguientes:"/>
-		<br/>
+				<h:outputText id="AdminTexto4"
+					value="En esta sección puedes descargar cualquier tipo de reporte disponible:" />
 
-<h:panelGrid columns="2">
+				<h:commandButton id="DescargarReporteAdmin"
+					value="Descarga reporte 1" action="#{administrativo.download()}"></h:commandButton>
 
-		<h:outputText id="AnadirClienteAdminT"
-			value="Añadir un nuevo cliente a la base de datos." />
-		<h:button id="AnadirClienteAdmin" outcome="darDeAlta.xhtml"
-			value="Registro de usuarios" />
-			
-		<h:outputText id="ModificarClienteAdminT"
-			value="Modificar los datos de un cliente existente." />
-		<h:button id="ModificarClienteAdmin"
-			outcome="modificar_listaUsuarios.xhtml" value="Actualizar usuarios" />
-			
-		<h:outputText id="DarBajaAdminT" value="Quitar permisos de operación." />
-		<h:button id="DarBajaAdmin" outcome="darDeBaja.xhtml"
-			value="Dar de baja" />
-			
-		<h:outputText id="BloquearClienteAdminT"
-			value="Bloquear de manera temporal a un usuario." />
-		<h:button id="BloquearClienteAdmin" outcome="bloquear.xhtml"
-			value="Bloquear temporalmente" />
-			
-		<h:outputText id="DesbloquearClienteAdminT"
-			value="Desbloquear a un usuario temporalmente bloqueado." />
-		<h:button id="DesbloquearClienteAdmin" outcome="desbloquear.xhtml"
-			value="Desbloquear usuario" />
+				<h:commandButton id="DescargarReporteAdminT"
+					value="Descarga reporte 2" action="#{administrativo.download2()}"></h:commandButton>
 
-</h:panelGrid >	
-
-		<hr></hr>
-
-		<h1 id="AdminPanel2">
-			Panel de administración de cuentas
-		</h1>	
-		
-		<h:outputText id="AdminTexto2"
-			value="Las acciones que usted puede realizar como administrativo del sistema sobre las cuentas almacenados en la base de datos son las siguientes:" />
-		<br/>
-
-<h:panelGrid columns="2">
-
-		<h:outputText id="AnadirCuentaAdminT"
-			value="Anadir una nueva cuenta a los datos del cliente." />
-		<h:button id="AñadirCuentaAdmin" outcome="abrirCuenta.xhtml"
-			value="Apertura de cuentas" />
-			
-		<h:outputText id="AlterarCuentaAdminT"
-			value="Alteración de las características de la cuenta." />
-		<h:button id="AlterarCuentaAdmin"
-			outcome="modificar_listaCuentas.xhtml" value="Modificar datos cuenta" />
-			
-		<h:outputText id="DarBajaCuentaAdminT"
-			value="Quitar permisos de operación a una cuenta." />
-		<h:button id="DarBajaCuentaAdmin" outcome="darDeBaja_cuenta.xhtml"
-			value="Dar cuenta de baja" />
-			
-		<h:outputText id="CambiarDivisasAdminT"
-			value="Cambio entre divisas de una misma cuenta." />
-		<h:button id="CambiarDivisasAdmin" outcome="lista_Pooled_Account.xhtml" value="Cambio de divisa" />
-		
-		<h:outputText id="AgregarCarteraAdminT"
-			value="Añadir una cartera a una cuenta pooled." />
-		<h:button id="AgregarCarteraAdmin" outcome="Agregar_cartera.xhtml" value="Agregar cartera" />
-		
-</h:panelGrid>
-
-	<hr></hr>
-
-		<h1 id="AdminPanel3">
-			Panel de administración de personas autorizadas
-		</h1>
-		
-		<h:outputText id="AdminTexto3"
-			value="Las acciones que usted puede realizar como administrativo del sistema sobre las personas autorizadas en la base de datos son las siguientes:" />
-		<br/>
-	
-	<h:panelGrid columns="2">
-
-		<h:outputText id="AutorizacionPAAdminT"
-			value="Dar una autorización de la empresa a una persona autorizada." />
-		<h:button id="AutorizacionPAAdmin" outcome="anadirAutorizacion.xhtml"
-			value="Añadir autorización" />
-			
-	</h:panelGrid>
-	
-	<hr></hr>
-
-		<h1 id="AdminPanel4">
-			Panel de reportes
-		</h1>
-		
-		<h:outputText id="AdminTexto4"
-			value="En esta sección puedes descargar cualquier tipo de reporte disponible:" />
-			
-			<h:commandButton id="DescargarReporteAdmin" value="Descarga reporte 1" action="#{administrativo.download()}"></h:commandButton>
-			
-			<h:commandButton id="DescargarReporteAdminT" value="Descarga reporte 2" action="#{administrativo.download2()}"></h:commandButton>
-			
-		<br/>
+				<br />
 
 			</c:otherwise>
 		</c:choose>

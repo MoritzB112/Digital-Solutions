@@ -26,7 +26,7 @@
 			</c:when>
 			<c:otherwise>
 
-
+				<h1>Lista de carteras</h1>
 				<h:outputText id="seleccionarPooled_agregarCartera"
 					value="Selecciona la cuenta pooled:" />
 				<h:selectOneMenu id="seleccionarPooled_agregarCarteraT"
@@ -42,7 +42,7 @@
 				<h:selectOneMenu id="seleccionarCR_agregarCarteraT"
 					value="#{administrativo.iban2}" required="true">
 					<f:selectItems value="#{administrativo.gtCuentaReferencia_alta()}"
-						var="ref" itemLabel="#{ref.IBAN}" itemValue="#{ref.IBAN}"></f:selectItems>
+						var="ref" itemLabel="#{ref.IBAN}(#{infoCuentas.sacarMoneda(ref)})" itemValue="#{ref.IBAN}"></f:selectItems>
 				</h:selectOneMenu>
 
 

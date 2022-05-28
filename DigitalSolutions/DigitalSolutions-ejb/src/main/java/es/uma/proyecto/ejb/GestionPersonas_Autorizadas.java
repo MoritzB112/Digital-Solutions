@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.ejb.Local;
 
+import es.uma.proyecto.ejb.Excepciones.AutorizacionNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
@@ -35,4 +36,6 @@ public interface GestionPersonas_Autorizadas {
 	public List<Autorizacion> sacarAutorizaciones();
 	
 	public Persona_Autorizada gtPautorizada(Long id);
+	
+	public void eliminarAutorizacion(Autorizacion a) throws AutorizacionNoExisteException;
 }

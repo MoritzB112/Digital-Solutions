@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<title>Eliminar cartera</title>
+</h:head>
+
+<h:body>
+
+	<h:form id="form_eliminar_cartera">
+
+		<c:choose>
+			<c:when
+				test="#{empty infoSesion.usuario or not infoSesion.usuario.esAdministrativo}">
+
+				<p>
+					Debe loguearse como administrativo:
+					<h:link action="admin.xhtml">log in</h:link>
+				</p>
+
+
+			</c:when>
+			<c:otherwise>
+
+
+				<h1>Lista de carteras</h1>
+				<h:dataTable id="ListaCarteras_eliminarCartera"
+					value="#{administrativo.gtCarteras()}" var="dato">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="ibanPooled_eliminarCartera"
+								value="IBAN cuenta pooled" />
+						</f:facet>
+#{dato.pa.IBAN}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="identificacionCliente_eliminarCartera"
+								value="Identificación cliente" />
+						</f:facet>
+#{dato.pa.cl.identificacion}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="ibanCR_eliminarCartera" value="Cuenta referencia" />
+						</f:facet>
+#{dato.cr.IBAN}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+							<h:outputText id="divisa_eliminarCartera"
+								value="Divisa" />
+						</f:facet>
+#{infoCuentas.sacarMoneda(dato.cr)}
+</h:column>
+
+					<h:column>
+						<f:facet name="header">
+						</f:facet>
+						<h:commandButton id="eliminarCartera_seleccionar" value="Seleccionar"
+							action="#{administrativo. eliminarCartera(dato)}" />
+					</h:column>
+
+				</h:dataTable>
+
+				<h:messages for="e_eliminarCartera" />
+
+			</c:otherwise>
+		</c:choose>
+	</h:form>
+</h:body>
+</html>

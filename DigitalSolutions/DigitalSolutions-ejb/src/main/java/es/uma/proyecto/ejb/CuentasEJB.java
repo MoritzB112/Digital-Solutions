@@ -8,14 +8,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
+import es.uma.proyecto.ejb.Excepciones.AutorizacionNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.ClienteNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.ClienteNoSuporteadoException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaYaExisteException;
+import es.uma.proyecto.ejb.Excepciones.Depositado_enNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.DivisaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoNoVacioException;
+import es.uma.proyecto.jpa.Autorizacion;
 import es.uma.proyecto.jpa.Cliente;
 import es.uma.proyecto.jpa.Cuenta;
 import es.uma.proyecto.jpa.Cuenta_Fintech;
@@ -285,6 +288,19 @@ public class CuentasEJB implements GestionCuentas {
 		}else {
 			throw new CuentaNoSuporteadaException();
 		}
+	}
+	
+	public List<Depositado_en> sacarCarteras() {
+		return em.createQuery("SELECT de FROM Depositado_en de", Depositado_en.class).getResultList();
+	}
+	
+	public void eliminarCartera(Depositado_en de) throws Depositado_enNoExisteException {
+		Depositado_en dereal=em.find(Depositado_en.class, de.getId());
+		
+		if(dereal==null) {
+			throw new Depositado_enNoExisteException();
+		}
+		em.remove(dereal);
 	}
 	
 	

@@ -160,5 +160,4 @@ public class InfoSesion implements Serializable {
 	public String aux() {
 		return "</tr><tr>";
 	}
-	s
 }
