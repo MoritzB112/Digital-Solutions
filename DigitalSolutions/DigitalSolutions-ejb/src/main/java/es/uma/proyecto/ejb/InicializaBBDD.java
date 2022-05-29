@@ -274,6 +274,26 @@ public class InicializaBBDD {
 		admin.setEsAdministrativo(true);
 		em.persist(admin);
 		
+		Individual iTest=new Individual();
+		iTest.setIdentificacion("TESTDNI");
+		iTest.setTipo_cliente("FISICA");
+		iTest.setEstado("ALTA");
+		iTest.setFecha_alta(new Date());
+		iTest.setDireccion("t");
+		iTest.setCiudad("t");
+		iTest.setCodigoPostal(2);
+		iTest.setPais("t");
+		iTest.setNombre("nombreTest");
+		iTest.setApellido("apellidoTest");
+		em.persist(iTest);
+		
+		Pooled_Account paTest=new Pooled_Account();
+		paTest.setIBAN("TESTPADEL");
+		paTest.setEstado("ALTA");
+		paTest.setFecha_apertura(new Date());
+		paTest.setCl(emp);
+		em.persist(paTest);
+		
 	}
 
 	private byte[] hashPassword(byte[] salt, byte[] password) {

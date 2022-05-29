@@ -113,7 +113,7 @@
 					</div>
 				</div>
 				<br />
-				<h1>Lista de Individuales</h1>
+				<h1 id="h1DBIND">Lista de Individuales</h1>
 
 				<p:dataTable id="ListaInd_darBaja" emptyMessage="No hay individual"
 					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato"
@@ -215,7 +215,7 @@
 
 				</p:dataTable>
 
-				<h:messages />
+				<h:messages id="messDarBAjaCli"/>
 			</c:otherwise>
 		</c:choose>
 	</h:form>
