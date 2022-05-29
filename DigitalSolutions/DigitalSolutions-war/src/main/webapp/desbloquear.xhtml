@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista de usuarios</title>
@@ -26,99 +27,108 @@
 			<c:otherwise>
 
 				<h1>Lista de Individuales</h1>
-				<h:dataTable id="ListaInd_desbloquear"
-					value="#{administrativo.gtIndividualBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniInd_desbloquear" value="DNI" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombreInd_desbloquear" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
+				<p:dataTable id="ListaInd_desbloquear" emptyMessage="No hay individual"
+					value="#{administrativo.gtIndividualBloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoInd_desbloquear" value="Apellido" />
-						</f:facet>
-#{dato.apellido}
-</h:column>
+						<h:outputText id="DNIInd_desbloquear" value="#{dato.identificacion}" />
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="desbloquearInd_seleccionar"
-							value="Seleccionar" action="#{administrativo.desbloquear(dato)}" />
-					</h:column>
+					</p:column>
 
-				</h:dataTable>
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombreInd_desbloquear" value="#{dato.nombre}" />
+
+					</p:column>
+
+					<p:column headerText="Apellidos" filterBy="#{dato.apellido}"
+						filterMatchMode="contains">
+
+						<h:outputText id="ApellidoInd_desbloquear" value="#{dato.apellido}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarInd_desbloquear"
+							action="#{administrativo.desbloquear(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
 
 				<h1>Lista de Empresas</h1>
-				<h:dataTable id="ListaEmp_desbloquear"
-					value="#{administrativo.gtEmpresaBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nifEmp_desbloquear" value="NIF" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="RSEmpresa_desbloquear" value="Razón social" />
-						</f:facet>
-#{dato.razon_social}
-</h:column>
+				<p:dataTable id="ListaEmp_desbloquear" emptyMessage="No hay empresa"
+					value="#{administrativo.gtEmpresaBloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+
+					<p:column headerText="NIF" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NIFEmp_desbloquear" value="#{dato.identificacion}" />
+
+					</p:column>
+
+					<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
+						filterMatchMode="contains">
+
+						<h:outputText id="RSEmp_desbloquear" value="#{dato.razon_social}" />
+
+					</p:column>
 
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="desbloquearEmp_seleccionar"
-							value="Seleccionar" action="#{administrativo.desbloquear(dato)}" />
-					</h:column>
+					<p:column>
+						<p:commandButton id="SeleccionarEmp_desbloquear"
+							action="#{administrativo.desbloquear(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
 
-				</h:dataTable>
+				</p:dataTable>
+
 
 				<h1>Lista de Personas autorizadas</h1>
-				<h:dataTable id="ListaPA_desbloquear"
-					value="#{administrativo.gtPAutBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniPA_desbloquear" value="Identificación" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombrePA_desbloquear" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
+				<p:dataTable id="ListaPAut_desbloquear"
+					emptyMessage="No hay persona autorizada"
+					value="#{administrativo.gtPAutBloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoPA_desbloquear" value="Apellido" />
-						</f:facet>
-#{dato.apellidos}
-</h:column>
+						<h:outputText id="DNIPAut_desbloquear" value="#{dato.identificacion}" />
 
-					<h:column>
-						<f:facet name="header">
+					</p:column>
 
-						</f:facet>
-						<h:commandButton id="desbloquearPA_seleccionar"
-							value="Seleccionar" action="#{administrativo.desbloquearPAut(dato)}" />
-					</h:column>
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
 
-				</h:dataTable>
-				<h:message for="e_desbloquear_usuario" />
+						<h:outputText id="NombrePAut_desbloquear" value="#{dato.nombre}" />
+
+					</p:column>
+
+					<p:column headerText="Apellidos" filterBy="#{dato.apellidos}"
+						filterMatchMode="contains">
+
+						<h:outputText id="ApellidosPAut_desbloquear"
+							value="#{dato.apellidos}" />
+
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton id="SeleccionarPAut_desbloquear"
+							action="#{administrativo.desbloquearPAut(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
+				<h:message for="e_desbloquearUsuario" />
 			</c:otherwise>
 		</c:choose>
 	</h:form>

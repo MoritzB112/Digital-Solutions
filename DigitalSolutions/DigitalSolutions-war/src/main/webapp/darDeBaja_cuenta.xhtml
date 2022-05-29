@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista de cuentas</title>
@@ -27,62 +28,62 @@
 			<c:otherwise>
 
 				<h1>Lista de cuentas segregadas</h1>
-				<h:dataTable id="ListaSegregada_darBaja"
-					value="#{administrativo.gtSegregada_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="IBANSegregada_darBaja" value="IBAN" />
-						</f:facet>
-#{dato.IBAN}
-</h:column>
+				
+				<p:dataTable id="ListaSegregada_darBaja" emptyMessage="No hay cuenta segregada"
+					value="#{administrativo.gtSegregada_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="IBAN" filterBy="#{dato.IBAN}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="SWIFTSegregada_darBaja" value="SWIFT" />
-						</f:facet>
-#{dato.SWIFT}
-</h:column>
+						<h:outputText id="IBANPooled_darBaja" value="#{dato.IBAN}" />
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="SeleccionarSegregada_darBaja"
-							action="#{administrativo.darDeBajaSeg(dato)}" value="Seleccionar" />
-					</h:column>
+					</p:column>
 
-				</h:dataTable>
+					<p:column headerText="SWIFT" filterBy="#{dato.SWIFT}"
+						filterMatchMode="contains">
 
-<h:message for="e_darDeBajaCuentaSegregada" />
+						<h:outputText id="SWIFTPooled_darBaja" value="#{dato.SWIFT}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarPooled_darBaja"
+							action="#{administrativo.darDeBajaSeg(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
+				<h:messages />
 
 				<h1>Lista de cuentas pooled</h1>
-				<h:dataTable id="ListaPooled_darBaja"
-					value="#{administrativo.gtPooled_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="SWIFTPooled_darBaja" value="IBAN" />
-						</f:facet>
-#{dato.IBAN}
-</h:column>
+				
+				<p:dataTable id="ListaPooled_darBaja" emptyMessage="No hay cuenta pooled"
+					value="#{administrativo.gtPooled_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="IBAN" filterBy="#{dato.IBAN}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="IBANPooled_darBaja" value="SWIFT" />
-						</f:facet>
-#{dato.SWIFT}
-</h:column>
+						<h:outputText id="IBANPooled_darBaja" value="#{dato.IBAN}" />
 
+					</p:column>
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="SeleccionarPooled_darBaja"
-							action="#{administrativo.darDeBajaPool(dato)}" value="Seleccionar" />
-					</h:column>
+					<p:column headerText="SWIFT" filterBy="#{dato.SWIFT}"
+						filterMatchMode="contains">
 
-				</h:dataTable>
-			
-			<h:message for="e_darDeBajaCuentaPooled" />	
-			
+						<h:outputText id="SWIFTPooled_darBaja" value="#{dato.SWIFT}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarPooled_darBaja"
+							action="#{administrativo.darDeBajaPool(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+				
+
+				<h:message for="e_darDeBajaCuentaPooled" />
+
 			</c:otherwise>
 		</c:choose>
 	</h:form>
