@@ -8,6 +8,11 @@
 
 <h:head>
 	<title>Lista de cuentas</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
 <h:body>
@@ -25,13 +30,95 @@
 
 			</c:when>
 			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
 
+				<div style="width: 15em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="canPP" value="Pagina principal"
+							outcome="administrativo.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dar usuario de alta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="darAltaIndividual.xhtml">Individual</a></li>
+								<li><a class="dropdown-item" href="darAltaEmpresa.xhtml">Empresa</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaPersona_Autorizada.xhtml">Persona_Autorizada</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaAdministrativo.xhtml">Administrativo</a></li>
+
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canMmodUsu"
+							value="Modificar Usuario" outcome="modificar_listaUsuarios.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBUsu"
+							value="Dar usuario de baja" outcome="darDeBaja.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canBloqUsu"
+							value="Bloquear Usuario" outcome="bloquear.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDesbloqUsu"
+							value="Desbloquear Usuario" outcome="desbloquear.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown"
+								aria-expanded="false">Abrir Cuenta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item"
+									href="abrirCuentaSegregada.xhtml">Segeragada</a></li>
+								<li><a class="dropdown-item" href="abrirCuentaPooled.xhtml">Pooled</a></li>
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canModCuent"
+							value="Modificar Cuenta" outcome="modificar_listaCuentas.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBCuent"
+							value="Dar cuenta de baja" outcome="darDeBaja_cuenta.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canCamDiv"
+							value="Cambio de Divisa" outcome="lista_Pooled_Account.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAddCart"
+							value="Agregar Cartera" outcome="agregar_cartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemCart"
+							value="Eliminar Cartera" outcome="eliminarCartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAnAut"
+							value="Aañadir Autorizacion" outcome="anadirAutorizacion.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemAut"
+							value="Eliminar Autorizacion"
+							outcome="eliminarAutorizacion.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
 				<h1>Lista de Individuales</h1>
 
 				<p:dataTable id="ListaInd_darBaja" emptyMessage="No hay individual"
 					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato"
 					paginator="true" paginatorPosition="bottom" rows="3">
-					
+
 					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
 						filterMatchMode="contains">
 
@@ -68,7 +155,7 @@
 				<p:dataTable id="ListaEmp_darBaja" emptyMessage="No hay empresa"
 					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato"
 					paginator="true" paginatorPosition="bottom" rows="3">
-					
+
 					<p:column headerText="NIF" filterBy="#{dato.identificacion}"
 						filterMatchMode="contains">
 
@@ -76,7 +163,7 @@
 
 					</p:column>
 
-						<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
+					<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
 						filterMatchMode="contains">
 
 						<h:outputText id="RSEmp_darBaja" value="#{dato.razon_social}" />
@@ -90,12 +177,14 @@
 					</p:column>
 
 				</p:dataTable>
-				
+
 
 				<h1>Lista de Personas autorizadas</h1>
-				
-				<p:dataTable id="ListaPAut_darBaja" emptyMessage="No hay persona autorizada"
-					value="#{administrativo.gtPaut_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+
+				<p:dataTable id="ListaPAut_darBaja"
+					emptyMessage="No hay persona autorizada"
+					value="#{administrativo.gtPaut_alta_bloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
 					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
 						filterMatchMode="contains">
 
@@ -109,9 +198,9 @@
 						<h:outputText id="NombrePAut_darBaja" value="#{dato.nombre}" />
 
 					</p:column>
-					
+
 					<p:column headerText="Apellidos" filterBy="#{dato.apellidos}"
-						filterMatchMode="contains" >
+						filterMatchMode="contains">
 
 						<h:outputText id="ApellidosPAut_darBaja" value="#{dato.apellidos}" />
 
@@ -125,8 +214,8 @@
 					</p:column>
 
 				</p:dataTable>
-				
-				<h:messages/>
+
+				<h:messages />
 			</c:otherwise>
 		</c:choose>
 	</h:form>
