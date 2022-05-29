@@ -1,6 +1,7 @@
 package es.uma.proyecto.war;
 
 import java.io.Serializable;
+import java.security.MessageDigest;
 import java.util.Date;
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class Modificaciones implements Serializable{
 	
 	private Long id;
 	private String iban;
+	private String password;
 	private Empresa em;
 	private Individual ind;
 	private Persona_Autorizada paut;
@@ -76,14 +78,22 @@ public class Modificaciones implements Serializable{
 		ibanc=null;
 		depOr=new String();
 		depDest=new String();
+		password=new String();
 	}
 	
-	
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 
 	public String getIban() {
 		return iban;
 	}
-
 
 
 	public void setIban(String iban) {
@@ -228,6 +238,9 @@ public class Modificaciones implements Serializable{
 	public String actualizarInd() {
 		try {
 			
+			if(password!=null && !password.equals("")) {
+				usInd.setPassword(parseString(hashPassword(parseByte(usInd.getSalt()), password.getBytes())));
+			}
 			us.actualizarUsuario(usInd);
 			gcli.modificarCliente(ind);
 			return "administrativo.xhtml";
@@ -264,6 +277,10 @@ public class Modificaciones implements Serializable{
 	
 	public String actualizarPAut() {
 		try {
+			
+			if(password!=null && !password.equals("")) {
+				usPaut.setPassword(parseString(hashPassword(parseByte(usPaut.getSalt()), password.getBytes())));
+			}
 			
 			us.actualizarUsuario(usPaut);
 			gpaut.modificarDatosAutorizado(paut);
@@ -384,6 +401,50 @@ public class Modificaciones implements Serializable{
 			}
 			
 			return null;
+		}
+		
+		private static byte[] hashPassword(byte[] salt, byte[] password) {
+			try {
+				MessageDigest digest = MessageDigest.getInstance("SHA-256");
+				digest.update(salt);
+				return digest.digest(password);
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return null;
+		}
+		
+		private static boolean comprobarPw(Usuario u, String pw) {
+			try {
+				MessageDigest digest = MessageDigest.getInstance("SHA-256");
+				digest.update(parseByte(u.getSalt()));
+				return MessageDigest.isEqual(parseByte(u.getPassword()), digest.digest(pw.getBytes()));
+
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+			return false;
+		}
+
+		private static String parseString(byte[] ba) {
+			StringBuilder sb = new StringBuilder();
+			for (int i = 0; i < ba.length; i++) {
+				sb.append(Integer.toString((ba[i] & 0xff) + 0x100, 16).substring(1));
+			}
+
+			return sb.toString();
+		}
+
+		private static byte[] parseByte(String str) {
+			byte[] ans = new byte[str.length() / 2];
+			for (int i = 0; i < ans.length; i++) {
+				int index = i * 2;
+				int val = Integer.parseInt(str.substring(index, index + 2), 16);
+				ans[i] = (byte) val;
+			}
+
+			return ans;
 		}
 	
 	
