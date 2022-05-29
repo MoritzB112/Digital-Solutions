@@ -14,6 +14,11 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{modificaciones.id}"></f:viewParam>
 	</f:metadata>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
 <h:body>
@@ -27,58 +32,143 @@
 				</p>
 			</c:when>
 			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
 
+				<div style="width: 15em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="canPP" value="Pagina principal"
+							outcome="administrativo.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dar usuario de alta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="darAltaIndividual.xhtml">Individual</a></li>
+								<li><a class="dropdown-item" href="darAltaEmpresa.xhtml">Empresa</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaPersona_Autorizada.xhtml">Persona_Autorizada</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaAdministrativo.xhtml">Administrativo</a></li>
 
-				<h:panelGrid columns="4">
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canMmodUsu"
+							value="Modificar Usuario" outcome="modificar_listaUsuarios.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBUsu"
+							value="Dar usuario de baja" outcome="darDeBaja.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canBloqUsu"
+							value="Bloquear Usuario" outcome="bloquear.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDesbloqUsu"
+							value="Desbloquear Usuario" outcome="desbloquear.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown"
+								aria-expanded="false">Abrir Cuenta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item"
+									href="abrirCuentaSegregada.xhtml">Segeragada</a></li>
+								<li><a class="dropdown-item" href="abrirCuentaPooled.xhtml">Pooled</a></li>
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canModCuent"
+							value="Modificar Cuenta" outcome="modificar_listaCuentas.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBCuent"
+							value="Dar cuenta de baja" outcome="darDeBaja_cuenta.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canCamDiv"
+							value="Cambio de Divisa" outcome="lista_Pooled_Account.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAddCart"
+							value="Agregar Cartera" outcome="agregar_cartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemCart"
+							value="Eleminar Cartera" outcome="eliminarCartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAnAut"
+							value="Aañadir Autorizacion" outcome="anadirAutorizacion.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemAut"
+							value="Eleminar Autorizacion"
+							outcome="eliminarAutorizacion.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Datos del Individual</h1>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h:panelGrid columns="2" columnClasses="px-3">
 
-					<h:outputText id="IdentInd_modificar2T" value="DNI:" />
-					<h:inputText id="IdentInd_modificar2"
-						value="#{modificaciones.ind.identificacion}" />
+						<h:outputText id="IdentInd_modificar2T" value="DNI:" />
+						<h:inputText class="form-control" id="IdentInd_modificar2"
+							value="#{modificaciones.ind.identificacion}" />
 
-					<h:outputText id="CorreoInd_modificar2T" value="Correo:" />
-					<h:inputText id="CorreoInd_modificar2"
-						value="#{modificaciones.usInd.correo}" />
+						<h:outputText id="CorreoInd_modificar2T" value="Correo:" />
+						<h:inputText class="form-control" id="CorreoInd_modificar2"
+							value="#{modificaciones.usInd.correo}" />
 
-					<h:outputText id="DireccionInd_modificar2T" value="Dirección:" />
-					<h:inputText id="DireccionInd_modificar2"
-						value="#{modificaciones.ind.direccion}" />
+						<h:outputText id="DireccionInd_modificar2T" value="Dirección:" />
+						<h:inputText class="form-control" id="DireccionInd_modificar2"
+							value="#{modificaciones.ind.direccion}" />
 
-					<h:outputText id="CiudadInd_modificar2T" value="Ciudad:" />
-					<h:inputText id="CiudadInd_modificar2"
-						value="#{modificaciones.ind.ciudad}" />
+						<h:outputText id="CiudadInd_modificar2T" value="Ciudad:" />
+						<h:inputText class="form-control" id="CiudadInd_modificar2"
+							value="#{modificaciones.ind.ciudad}" />
 
-					<h:outputText id="codigoPostalInd_modificar2T"
-						value="Código postal:" />
-					<h:inputText id="codigoPostalInd_modificar2"
-						value="#{modificaciones.ind.codigoPostal}" />
+						<h:outputText id="codigoPostalInd_modificar2T"
+							value="Código postal:" />
+						<h:inputText class="form-control" id="codigoPostalInd_modificar2"
+							value="#{modificaciones.ind.codigoPostal}" />
 
-					<h:outputText id="PaisDarInd_modificar2T" value="País:" />
-					<h:inputText id="PaisDarInd_modificar2"
-						value="#{modificaciones.ind.pais}" />
+						<h:outputText id="PaisDarInd_modificar2T" value="País:" />
+						<h:inputText class="form-control" id="PaisDarInd_modificar2"
+							value="#{modificaciones.ind.pais}" />
 
-					<h:outputText id="NombreIInd_modificar2T" value="Nombre:" />
-					<h:inputText id="NombreIInd_modificar2"
-						value="#{modificaciones.ind.nombre}" />
+						<h:outputText id="NombreIInd_modificar2T" value="Nombre:" />
+						<h:inputText class="form-control" id="NombreIInd_modificar2"
+							value="#{modificaciones.ind.nombre}" />
 
-					<h:outputText id="ApellidoIInd_modificar2T" value="Apellido:" />
-					<h:inputText id="ApellidoIInd_modificar2"
-						value="#{modificaciones.ind.apellido}" />
+						<h:outputText id="ApellidoIInd_modificar2T" value="Apellido:" />
+						<h:inputText class="form-control" id="ApellidoIInd_modificar2"
+							value="#{modificaciones.ind.apellido}" />
 
-					<h:outputText id="FechaNacInd_modificar2T"
-						value="Fecha de nacimiento:" />
-					<h:inputText id="FechaNacInd_modificar2"
-						value="#{modificaciones.ind.fecha_nacimiento}">
-						<f:convertDateTime pattern="dd-MM-yyyy" />
-					</h:inputText>
+						<h:outputText id="FechaNacInd_modificar2T"
+							value="Fecha de nacimiento:" />
+						<h:inputText class="form-control" id="FechaNacInd_modificar2"
+							value="#{modificaciones.ind.fecha_nacimiento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:inputText>
 
-				</h:panelGrid>
-
-
-				<h:commandButton id="TerminarInd_modificar" value="Siguiente"
-					action="#{modificaciones.actualizarInd()}" />
-					
-					<h:message for="e_modificarIndividual" />
-
+					</h:panelGrid>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h:commandButton class="btn btn-primary" id="TerminarInd_modificar"
+						value="Siguiente" action="#{modificaciones.actualizarInd()}" />
+					<h:messages />
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

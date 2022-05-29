@@ -3,10 +3,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 	<title>Crear cuenta de persona autorizada</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 <h:body>
 	<h:form id="formularioPA_darDeAlta">
@@ -21,84 +27,169 @@
 
 			</c:when>
 			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
 
-				<h1>Datos del usuario:</h1>
+				<div style="width: 15em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="canPP" value="Pagina principal"
+							outcome="administrativo.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dar usuario de alta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="darAltaIndividual.xhtml">Individual</a></li>
+								<li><a class="dropdown-item" href="darAltaEmpresa.xhtml">Empresa</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaPersona_Autorizada.xhtml">Persona_Autorizada</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaAdministrativo.xhtml">Administrativo</a></li>
 
-				<h:panelGrid columns="4">
-					<h:outputText id="UsuarioPA_DarAlta" value="Usuario:" />
-					<h:inputText id="UsuarioPA_DarAltaT"
-						value="#{administrativo.usuario.usuario}" required="true" />
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canMmodUsu"
+							value="Modificar Usuario" outcome="modificar_listaUsuarios.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBUsu"
+							value="Dar usuario de baja" outcome="darDeBaja.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canBloqUsu"
+							value="Bloquear Usuario" outcome="bloquear.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDesbloqUsu"
+							value="Desbloquear Usuario" outcome="desbloquear.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown"
+								aria-expanded="false">Abrir Cuenta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item"
+									href="abrirCuentaSegregada.xhtml">Segeragada</a></li>
+								<li><a class="dropdown-item" href="abrirCuentaPooled.xhtml">Pooled</a></li>
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canModCuent"
+							value="Modificar Cuenta" outcome="modificar_listaCuentas.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBCuent"
+							value="Dar cuenta de baja" outcome="darDeBaja_cuenta.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canCamDiv"
+							value="Cambio de Divisa" outcome="lista_Pooled_Account.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAddCart"
+							value="Agregar Cartera" outcome="agregar_cartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemCart"
+							value="Eleminar Cartera" outcome="eliminarCartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAnAut"
+							value="Aañadir Autorizacion" outcome="anadirAutorizacion.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemAut"
+							value="Eleminar Autorizacion"
+							outcome="eliminarAutorizacion.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Datos del usuario</h1>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h:panelGrid columns="2" columnClasses="px-3">
 
-					<h:outputText id="CorreoPA_DarAlta" value="Correo:" />
-					<h:inputText id="CorreoPA_DarAltaT"
-						value="#{administrativo.usuario.correo}" />
+						<h:outputText id="UsuarioPA_DarAlta" value="Usuario:" />
+						<h:inputText class="form-control" id="UsuarioPA_DarAltaT"
+							value="#{administrativo.usuario.usuario}" required="true" />
 
-					<h:outputText id="ContrasenaPA_DarAlta" value="Contraseña:"
-						required="true" />
-					<h:inputSecret id="ContrasenaPA_DarAltaT"
-						value="#{administrativo.usuario.password}" />
+						<h:outputText id="CorreoPA_DarAlta" value="Correo:" />
+						<h:inputText class="form-control" id="CorreoPA_DarAltaT"
+							value="#{administrativo.usuario.correo}" />
 
-				</h:panelGrid>
+						<h:outputText id="ContrasenaPA_DarAlta" value="Contraseña:"
+							required="true" />
+						<h:inputSecret class="form-control" id="ContrasenaPA_DarAltaT"
+							value="#{administrativo.usuario.password}" />
 
-				<h:message for="e_darAltaPersona_Autorizada" />
+					</h:panelGrid>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Datos de la persona autorizada</h1>
+				</div>
 
+				<div class="d-flex justify-content-center">
 
-				<h1>Datos de la persona autorizada:</h1>
+					<h:panelGrid columns="2" columnClasses="px-3">
 
+						<h:outputText id="EstadoPA_DarAlta" value="Estado:" />
+						<p:selectOneMenu id="EstadoPA_DarAltaT"
+							value="#{administrativo.paut.estado}" required="true">
+							<f:selectItem itemLabel="Alta" itemValue="Alta" />
+							<f:selectItem itemLabel="Baja" itemValue="Baja" />
+							<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
+						</p:selectOneMenu>
 
-				<h:outputText id="EstadoPA_DarAlta" value="Estado:" />
-				<h:selectOneMenu id="EstadoPA_DarAltaT"
-					value="#{administrativo.paut.estado}" required="true">
-					<f:selectItem itemLabel="Baja" itemValue="Baja" />
-					<f:selectItem itemLabel="Alta" itemValue="Alta" />
-					<f:selectItem itemLabel="Bloqueado" itemValue="Bloqueado" />
-				</h:selectOneMenu>
+						<h:outputText id="IdentificacionPA_DarAlta" value="DNI:" />
+						<h:inputText class="form-control" id="IdentificacionPA_DarAltaT"
+							value="#{administrativo.paut.identificacion}" required="true" />
 
-				<h:panelGrid columns="4">
+						<h:outputText id="DireccionPA_DarAlta" value="Dirección:" />
+						<h:inputText class="form-control" id="DireccionPA_DarAltaT"
+							value="#{administrativo.paut.direccion}" required="true" />
 
+						<h:outputText id="CiudadPA_DarAlta" value="Ciudad:" />
+						<h:inputText class="form-control" id="CiudadPA_DarAltaT"
+							value="#{administrativo.paut.ciudad}" required="true" />
 
+						<h:outputText id="codigoPostalPA_DarAlta" value="Código postal:" />
+						<h:inputText class="form-control" id="codigoPostalPA_DarAltaT"
+							value="#{administrativo.paut.codigoPostal}" required="true" />
 
-					<h:outputText id="IdentificacionPA_DarAlta" value="DNI:" />
-					<h:inputText id="IdentificacionPA_DarAltaT"
-						value="#{administrativo.paut.identificacion}" required="true" />
+						<h:outputText id="PaisPA_DarAlta" value="País:" />
+						<h:inputText class="form-control" id="PaisPA_DarAltaT"
+							value="#{administrativo.paut.pais}" required="true" />
 
-					<h:outputText id="DireccionPA_DarAlta" value="Dirección:" />
-					<h:inputText id="DireccionPA_DarAltaT"
-						value="#{administrativo.paut.direccion}" required="true" />
+						<h:outputText id="NombreIPA_DarAlta" value="Nombre:" />
+						<h:inputText class="form-control" id="NombreIPA_DarAltaT"
+							value="#{administrativo.paut.nombre}" required="true" />
 
-					<h:outputText id="CiudadPA_DarAlta" value="Ciudad:" />
-					<h:inputText id="CiudadPA_DarAltaT"
-						value="#{administrativo.paut.ciudad}" required="true" />
+						<h:outputText id="ApellidoIPA_DarAlta" value="Apellido:" />
+						<h:inputText class="form-control" id="ApellidoIPA_DarAltaT"
+							value="#{administrativo.paut.apellidos}" required="true" />
 
-					<h:outputText id="codigoPostalPA_DarAlta" value="Código postal:" />
-					<h:inputText id="codigoPostalPA_DarAltaT"
-						value="#{administrativo.paut.codigoPostal}" required="true" />
+						<h:outputText id="FechaNacPA_DarAlta" value="Fecha de nacimiento:" />
+						<h:inputText class="form-control" id="FechaNacPA_DarAltaT"
+							value="#{administrativo.paut.fecha_nacimiento}">
+							<f:convertDateTime pattern="dd-MM-yyyy" />
+						</h:inputText>
 
-					<h:outputText id="PaisPA_DarAlta" value="País:" />
-					<h:inputText id="PaisPA_DarAltaT"
-						value="#{administrativo.paut.pais}" required="true" />
-
-					<h:outputText id="NombreIPA_DarAlta" value="Nombre:" />
-					<h:inputText id="NombreIPA_DarAltaT"
-						value="#{administrativo.paut.nombre}" required="true" />
-
-					<h:outputText id="ApellidoIPA_DarAlta" value="Apellido:" />
-					<h:inputText id="ApellidoIPA_DarAltaT"
-						value="#{administrativo.paut.apellidos}" required="true" />
-
-					<h:outputText id="FechaNacPA_DarAlta" value="Fecha de nacimiento:" />
-					<h:inputText id="FechaNacPA_DarAltaT"
-						value="#{administrativo.paut.fecha_nacimiento}">
-						<f:convertDateTime pattern="dd-MM-yyyy" />
-					</h:inputText>
-
-				</h:panelGrid>
-
-				<h:commandButton id="EnviarPA_DarAlta" value="Enviar"
-					action="#{administrativo.crearPAut()}" />
-
-				<h:message for="e2_darAltaPersona_Autorizada" />
-
+					</h:panelGrid>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h:commandButton class="btn btn-primary" id="EnviarPA_DarAlta"
+						value="Enviar" action="#{administrativo.crearPAut()}" />
+					<h:messages />
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

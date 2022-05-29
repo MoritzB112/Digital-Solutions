@@ -10,6 +10,11 @@
 	<f:metadata>
 		<f:viewParam name="id" value="#{modificaciones.id}"></f:viewParam>
 	</f:metadata>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 <h:body>
 	<h:form id="formulario_modificar_empresa">
@@ -24,41 +29,128 @@
 
 			</c:when>
 			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
 
-				<h:panelGrid columns="4">
+				<div style="width: 15em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="canPP" value="Pagina principal"
+							outcome="administrativo.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dar usuario de alta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="darAltaIndividual.xhtml">Individual</a></li>
+								<li><a class="dropdown-item" href="darAltaEmpresa.xhtml">Empresa</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaPersona_Autorizada.xhtml">Persona_Autorizada</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaAdministrativo.xhtml">Administrativo</a></li>
 
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canMmodUsu"
+							value="Modificar Usuario" outcome="modificar_listaUsuarios.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBUsu"
+							value="Dar usuario de baja" outcome="darDeBaja.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canBloqUsu"
+							value="Bloquear Usuario" outcome="bloquear.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDesbloqUsu"
+							value="Desbloquear Usuario" outcome="desbloquear.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown"
+								aria-expanded="false">Abrir Cuenta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item"
+									href="abrirCuentaSegregada.xhtml">Segeragada</a></li>
+								<li><a class="dropdown-item" href="abrirCuentaPooled.xhtml">Pooled</a></li>
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canModCuent"
+							value="Modificar Cuenta" outcome="modificar_listaCuentas.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBCuent"
+							value="Dar cuenta de baja" outcome="darDeBaja_cuenta.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canCamDiv"
+							value="Cambio de Divisa" outcome="lista_Pooled_Account.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAddCart"
+							value="Agregar Cartera" outcome="agregar_cartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemCart"
+							value="Eleminar Cartera" outcome="eliminarCartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAnAut"
+							value="Aañadir Autorizacion" outcome="anadirAutorizacion.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemAut"
+							value="Eleminar Autorizacion"
+							outcome="eliminarAutorizacion.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Datos de la empresa</h1>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h:panelGrid columns="2" columnClasses="px-3">
 
+						<h:outputText id="IdentInd_modificar2T" value="NIF:" />
+						<h:inputText class="form-control" id="IdentEmp_modificar2"
+							value="#{modificaciones.em.identificacion}" />
 
-					<h:outputText id="IdentInd_modificar2T" value="NIF:" />
-					<h:inputText id="IdentEmp_modificar2"
-						value="#{modificaciones.em.identificacion}" />
+						<h:outputText id="DireccionEmp_modificar2" value="Dirección:" />
+						<h:inputText class="form-control" id="DireccionEmp_modificar2T"
+							value="#{modificaciones.em.direccion}" />
 
-					<h:outputText id="DireccionEmp_modificar2" value="Dirección:" />
-					<h:inputText id="DireccionEmp_modificar2T"
-						value="#{modificaciones.em.direccion}" />
+						<h:outputText id="CiudadEmp_modificar2" value="Ciudad:" />
+						<h:inputText class="form-control" id="CiudadEmp_modificar2T"
+							value="#{modificaciones.em.ciudad}" />
 
-					<h:outputText id="CiudadEmp_modificar2" value="Ciudad:" />
-					<h:inputText id="CiudadEmp_modificar2T"
-						value="#{modificaciones.em.ciudad}" />
+						<h:outputText id="codigoPostaEmp_modificar2"
+							value="Código postal:" />
+						<h:inputText class="form-control" id="codigoPostaEmp_modificar2T"
+							value="#{modificaciones.em.codigoPostal}" />
 
-					<h:outputText id="codigoPostaEmp_modificar2" value="Código postal:" />
-					<h:inputText id="codigoPostaEmp_modificar2T"
-						value="#{modificaciones.em.codigoPostal}" />
+						<h:outputText id="PaisEmp_modificar2" value="País:" />
+						<h:inputText class="form-control" id="PaisEmp_modificar2T"
+							value="#{modificaciones.em.pais}" />
 
-					<h:outputText id="PaisEmp_modificar2" value="País:" />
-					<h:inputText id="PaisEmp_modificar2T"
-						value="#{modificaciones.em.pais}" />
+						<h:outputText id="RSEmp_modificar2" value="Razón social:" />
+						<h:inputText class="form-control" id="RSEmp_modificar2T"
+							value="#{modificaciones.em.razon_social}" />
 
-					<h:outputText id="RSEmp_modificar2" value="Razón social:" />
-					<h:inputText id="RSEmp_modificar2T"
-						value="#{modificaciones.em.razon_social}" />
-				</h:panelGrid>
-
-				<h:commandButton id="TerminarEmp_modificar" value="Siguiente"
-					action="#{modificaciones.actualizarEmpresa()}" />
-
-				<h:message for="e_modificarEmpresa" />
-
+					</h:panelGrid>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h:commandButton class="btn btn-primary" id="TerminarEmp_modificar" value="Siguiente"
+						action="#{modificaciones.actualizarEmpresa()}" />
+					<h:messages />
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

@@ -324,10 +324,10 @@ public class Admin {
 		}
 	
 	
-	public String darDeBajaInd(Individual i) {
+	public String darDeBajaInd(Individual in) {
 		try {
-			gcli.darDeBajaIndividual(i);
-			return "administrativo.xhtml";
+			gcli.darDeBajaIndividual(in);
+			return "administrativo.xhtml?faces-redirect=true";
 		}catch(ClienteNoExisteException e) {
 			
 			FacesMessage fm = new FacesMessage("Cliente no existe");
@@ -346,7 +346,7 @@ public class Admin {
 		try {
 			
 			gcli.darDeBajaEmpresa(e);
-			return "administrativo.xhtml";
+			return "administrativo.xhtml?faces-redirect=true";
 		}catch(ClienteNoExisteException ce) {
 			
 			FacesMessage fm = new FacesMessage("Cliente no existe");
@@ -598,7 +598,7 @@ public class Admin {
 			
 			gc.cerrarCuenta(e);
 			
-			return "administrativo.xhtml";
+			return "administrativo.xhtml?faces-redirect=true";
 			
 		}catch(CuentaNoExisteException ce) {
 			FacesMessage fm = new FacesMessage("Esta cuenta no existe");
@@ -622,7 +622,7 @@ public class Admin {
 			
 			gc.cerrarCuenta(e);
 			
-			return "administrativo.xhtml";
+			return "administrativo.xhtml?faces-redirect=true";
 			
 		}catch(CuentaNoExisteException ce) {
 			FacesMessage fm = new FacesMessage("Este cliente ya existe");
@@ -728,13 +728,14 @@ public class Admin {
 		try {
 			
 			gpaut.eliminarAutorizadoCuenta(e);
+			return "administrativo.xhtml?faces-redirect=true";
 			
 		}catch(Persona_AutorizadaNoEncontradaException pn) {
 			
 			FacesMessage fm = new FacesMessage("Persona autorizada no encontrada");
 			FacesContext.getCurrentInstance().addMessage("formularioUsuario_darDeBaja:e_darDeBajaPAut", fm);	
 		}
-		return "administrativo.xhtml";
+		return null;
 	}
 	
 	public List<Persona_Autorizada> gtPaut_alta_bloq() {
@@ -828,7 +829,7 @@ public class Admin {
 	public String eliminarAutorizacion(Autorizacion au) {
 		try {
 			gpaut.eliminarAutorizacion(au);
-			return "administrativo.xhtml";
+			return "administrativo.xhtml?faces-redirect=true";
 		} catch (AutorizacionNoExisteException e) {
 			FacesMessage fm = new FacesMessage("Esta autorización no existe");
 			FacesContext.getCurrentInstance().addMessage("form_eliminar_autorizacion:e_eliminarAutorizacion", fm);	
@@ -866,10 +867,22 @@ public class Admin {
 	  
 	}
 	
-	
+//-----------------------------------------------------------------
 	
 	public String sacarEmpr(Long id) {
 		return gcli.gtEmpresa(id).getIdentificacion();
+	}
+	
+	public String sacarCli(Long id) {
+		Empresa em=gcli.gtEmpresa(id);
+		if(em!=null) {
+			return em.getIdentificacion();
+		}
+		Individual ind=gcli.gtIndividual(id);
+		if(ind!=null) {
+			return ind.getIdentificacion();
+		}
+		return null;
 	}
 	
 	public String sacarPerAut(Long id) {
@@ -881,5 +894,33 @@ public class Admin {
 		return cr.getIBAN()+"("+cr.getDiv().getAbreviatura()+")";
 	}
 
+//-------------------------------
+//datatables
+	
+	public String listaInd(Long id) {
+		return "modificar_individual.xhtml?faces-redirect=trueid="+id;
+	}
+	
+	public String listaEmp(Long id) {
+		return "modificar_empresa.xhtml?faces-redirect=trueid="+id;
+	}
+	
+	public String listaPAut(Long id) {
+		return "modificar_Persona_Autorizada.xhtml?faces-redirect=trueid="+id;
+	}
+	
+	public String listaSeg(String id) {
+		return "modificar_segregada.xhtml?faces-redirect=trueiban="+id;
+	}
+	
+	public String listaPool(String id) {
+		return "modificar_pooled.xhtml?faces-redirect=trueiban="+id;
+	}
+	
+	public String listaDiv(String id) {
+		return "cambioDivisas.xhtml?faces-redirect=trueiban="+id;
+	}
+
+		
 
 }

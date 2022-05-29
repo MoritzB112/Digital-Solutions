@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Eliminar cartera</title>
@@ -28,48 +29,46 @@
 
 
 				<h1>Lista de carteras</h1>
-				<h:dataTable id="ListaCarteras_eliminarCartera"
-					value="#{administrativo.gtCarteras()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="ibanPooled_eliminarCartera"
-								value="IBAN cuenta pooled" />
-						</f:facet>
-#{dato.pa.IBAN}
-</h:column>
+				
+				<p:dataTable id="ListaCarteras_eliminarCartera" emptyMessage="No hay cartera"
+					value="#{administrativo.gtCarteras()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="IBAN cuenta pooled" filterBy="#{dato.pa.IBAN}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="identificacionCliente_eliminarCartera"
-								value="Identificación cliente" />
-						</f:facet>
-#{dato.pa.cl.identificacion}
-</h:column>
+						<h:outputText id="ibanPooled_eliminarCartera" value="#{dato.pa.IBAN}" />
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="ibanCR_eliminarCartera" value="Cuenta referencia" />
-						</f:facet>
-#{dato.cr.IBAN}
-</h:column>
+					</p:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="divisa_eliminarCartera"
-								value="Divisa" />
-						</f:facet>
-#{infoCuentas.sacarMoneda(dato.cr)}
-</h:column>
+					<p:column headerText="Identificación cliente" filterBy="#{dato.pa.cl.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="eliminarCartera_seleccionar" value="Seleccionar"
-							action="#{administrativo. eliminarCartera(dato)}" />
-					</h:column>
+						<h:outputText id="identificacionCliente_eliminarCartera" value="#{dato.pa.cl.identificacion}" />
 
-				</h:dataTable>
+					</p:column>
+					
+					<p:column headerText="Cuenta referencia" filterBy="#{dato.cr.IBAN}"
+						filterMatchMode="contains">
 
+						<h:outputText id="ibanCR_eliminarCartera" value="#{dato.cr.IBAN}" />
+
+					</p:column>
+					
+					<p:column headerText="Divisa" filterBy="#{infoCuentas.sacarMoneda(dato.cr)}"
+						filterMatchMode="contains">
+
+						<h:outputText id="divisa_eliminarCartera" value="#{infoCuentas.sacarMoneda(dato.cr)}" />
+
+					</p:column>
+					
+
+					<p:column>
+						<p:commandButton id="eliminarCartera_seleccionar"
+							action="#{administrativo.eliminarCartera(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+				
 				<h:messages for="e_eliminarCartera" />
 
 			</c:otherwise>

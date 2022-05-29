@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista de cuentas</title>
@@ -18,7 +19,7 @@
 
 				<p>
 					Debe loguearse como administrativo:
-					<h:link outcome="admin.xhtml">log in</h:link>
+					<h:link action="admin.xhtml">log in</h:link>
 				</p>
 
 
@@ -26,102 +27,109 @@
 			<c:otherwise>
 
 				<h1>Lista de Individuales</h1>
-				<h:dataTable id="ListaInd_darBaja"
-					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="dniInd_darBaja" value="DNI" />
-					</f:facet>
-#{dato.identificacion}
-</h:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="nombreInd_darBaja" value="Nombre" />
-					</f:facet>
-#{dato.nombre}
-</h:column>
+				<p:dataTable id="ListaInd_darBaja" emptyMessage="No hay individual"
+					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+					
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="apellidoInd_darBaja" value="Apellido" />
-					</f:facet>
-#{dato.apellido}
-</h:column>
+						<h:outputText id="DNIInd_darBaja" value="#{dato.identificacion}" />
 
-				<h:column>
-					<f:facet name="header">
-					</f:facet>
-					<h:commandButton id="darBajaInd_seleccionar" value="Seleccionar"
-						action="#{administrativo.darDeBajaInd(dato)}" />
-				</h:column>
+					</p:column>
 
-				</h:dataTable>
-				
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombreInd_modificar" value="#{dato.nombre}" />
+
+					</p:column>
+
+					<p:column headerText="Apellidos" filterBy="#{dato.apellido}"
+						filterMatchMode="contains">
+
+						<h:outputText id="ApellidoInd_modificar" value="#{dato.apellido}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarInd_darBaja"
+							action="#{administrativo.darDeBajaInd(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
+
 				<h:message for="e_darDeBajaInd" />
 
 				<h1>Lista de Empresas</h1>
-				<h:dataTable id="ListaEmp_darBaja"
-					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="nifEmp_darBaja" value="NIF" />
-					</f:facet>
-#{dato.identificacion}
-</h:column>
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="RSEmpresa_darBaja" value="Razón social" />
-					</f:facet>
-#{dato.razon_social}
-</h:column>
+				<p:dataTable id="ListaEmp_darBaja" emptyMessage="No hay empresa"
+					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+					
+					<p:column headerText="NIF" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
+						<h:outputText id="NIFEmp_darBaja" value="#{dato.identificacion}" />
 
-				<h:column>
-					<f:facet name="header">
-					</f:facet>
-					<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar"
-						action="#{administrativo.darDeBajaEmp(dato)}" />
-				</h:column>
+					</p:column>
 
-				</h:dataTable>
+						<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
+						filterMatchMode="contains">
 
-<h:message for="e_darDeBajaEmp" />
+						<h:outputText id="RSEmp_darBaja" value="#{dato.razon_social}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarEmp_darBaja"
+							action="#{administrativo.darDeBajaEmp(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+				
+
+				<h:message for="e_darDeBajaEmp" />
 
 				<h1>Lista de Personas autorizadas</h1>
-				<h:dataTable id="ListaPA_darBaja"
-					value="#{administrativo.gtPaut_alta_bloq()}" var="dato">
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="dniPA_darBaja" value="Identificación" />
-					</f:facet>
-#{dato.identificacion}
-</h:column>
+				
+				<p:dataTable id="ListaPAut_darBaja" emptyMessage="No hay persona autorizada"
+					value="#{administrativo.gtPaut_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="nombrePA_darBaja" value="Nombre" />
-					</f:facet>
-#{dato.nombre}
-</h:column>
+						<h:outputText id="DNIPAut_darBaja" value="#{dato.identificacion}" />
 
-				<h:column>
-					<f:facet name="header">
-						<h:outputText id="apellidoPA_darBaja" value="Apellido" />
-					</f:facet>
-#{dato.apellidos}
-</h:column>
+					</p:column>
 
-				<h:column>
-					<f:facet name="header">
-					</f:facet>
-					<h:commandButton id="darBajaEmp_seleccionar" value="Seleccionar"
-						action="#{administrativo.darDeBajaEmp(dato)}" />
-				</h:column>
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
 
-				</h:dataTable>
-<h:message for="e_darDeBajaPAut" />
+						<h:outputText id="NombrePAut_darBaja" value="#{dato.nombre}" />
+
+					</p:column>
+					
+					<p:column headerText="Apellidos" filterBy="#{dato.apellidos}"
+						filterMatchMode="contains" >
+
+						<h:outputText id="ApellidosPAut_darBaja" value="#{dato.apellidos}" />
+
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton id="SeleccionarPAut_darBaja"
+							action="#{administrativo.darDeBajaPA(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+				
+				<h:message for="e_darDeBajaPAut" />
 			</c:otherwise>
 		</c:choose>
 	</h:form>

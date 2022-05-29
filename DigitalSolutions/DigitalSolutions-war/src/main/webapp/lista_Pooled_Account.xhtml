@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista_carteras</title>
@@ -28,31 +29,31 @@
 
 
 				<h1>Lista de cuentas pooled</h1>
-				<h:dataTable id="ListaPooled_cambioDiv"
-					value="#{administrativo.gtPooled_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="IBANPooled_cambioDiv" value="IBAN" />
-						</f:facet>
-#{dato.IBAN}
-</h:column>
+				
+				<p:dataTable id="ListaPooled_cambioDiv" emptyMessage="No hay cuenta pooled"
+					value="#{administrativo.gtPooled_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="IBAN" filterBy="#{dato.IBAN}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="SWIFTPooledcambioDiv" value="SWIFT" />
-						</f:facet>
-#{dato.SWIFT}
-</h:column>
+						<h:outputText id="IBANPooled_cambioDiv" value="#{dato.IBAN}" />
 
+					</p:column>
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:button id="SeleccionarPooled_cambioDiv"
-							outcome="cambioDivisas.xhtml?iban=#{dato.IBAN}" value="Seleccionar" />
-					</h:column>
+					<p:column headerText="SWIFT" filterBy="#{dato.SWIFT}"
+						filterMatchMode="contains">
 
-				</h:dataTable>
+						<h:outputText id="SWIFTPooled_cambioDiv" value="#{dato.SWIFT}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarPooled_cambioDiv"
+							action="#{administrativo.listaDiv(dato.IBAN)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
 			</c:otherwise>
 		</c:choose>
 	</h:form>

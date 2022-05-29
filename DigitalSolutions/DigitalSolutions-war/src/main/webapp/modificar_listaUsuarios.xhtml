@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista de usuarios</title>
@@ -26,99 +27,98 @@
 			<c:otherwise>
 
 				<h1>Lista de Individuales</h1>
-				<h:dataTable id="ListaInd_modificar"
-					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniInd_modificar" value="DNI" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombreInd_modificar" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
+				<p:dataTable id="ListaInd_modificar" emptyMessage="No hay individual"
+					value="#{administrativo.gtIndividual_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoInd_modificar" value="Apellido" />
-						</f:facet>
-#{dato.apellido}
-</h:column>
+						<h:outputText id="DNIInd_modificar" value="#{dato.identificacion}" />
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:button id="SeleccionarInd_modificar"
-							outcome="modificar_individual?id=#{dato.id}" value="Seleccionar" />
-					</h:column>
+					</p:column>
 
-				</h:dataTable>
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombreInd_modificar" value="#{dato.nombre}" />
+
+					</p:column>
+
+					<p:column headerText="Apellidos" filterBy="#{dato.apellido}"
+						filterMatchMode="contains">
+
+						<h:outputText id="ApellidoInd_modificar" value="#{dato.apellido}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarInd_modificar"
+							action="#{administrativo.listaInd(dato.id)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
 
 
 				<h1>Lista de Empresas</h1>
-				<h:dataTable id="ListaEmp_modificar"
-					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nifEmp_modificar" value="NIF" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
+				<p:dataTable id="ListaEmp_modificar" emptyMessage="No hay empresa"
+					value="#{administrativo.gtEmpresa_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					
+					<p:column headerText="NIF" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains" >
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="RSEmpresa_modificar" value="Razón social" />
-						</f:facet>
-#{dato.razon_social}
-</h:column>
+						<h:outputText id="NIFEmp_modificar" value="#{dato.identificacion}" />
+
+					</p:column>
+
+					<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
+						filterMatchMode="contains">
+
+						<h:outputText id="RSEmp_modificar" value="#{dato.razon_social}" />
+
+					</p:column>
 
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:button id="SeleccionarEmp_modificar"
-							outcome="modificar_empresa?id=#{dato.id}" value="Seleccionar" />
-					</h:column>
+					<p:column>
+						<p:commandButton id="SeleccionarEmp_modificar"
+							action="#{administrativo.listaEmp(dato.id)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
 
-				</h:dataTable>
+				</p:dataTable>
 
 				<h1>Lista de personas autorizadas</h1>
-				<h:dataTable id="ListaPA_modificar"
-					value="#{administrativo.gtPaut_alta_bloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniPA_modificar" value="Identificación" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
+				<p:dataTable id="ListaPAut_modificar" emptyMessage="No hay persona autorizada"
+					value="#{administrativo.gtPaut_alta_bloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombrePA_modificar" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
+						<h:outputText id="DNIPAut_modificar" value="#{dato.identificacion}" />
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoPA_modificar" value="Apellidos" />
-						</f:facet>
-#{dato.apellidos}
-</h:column>
+					</p:column>
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:button id="SeleccionarPA_modificar"
-							outcome="modificar_Persona_Autorizada?id=#{dato.ID}"
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombrePAut_modificar" value="#{dato.nombre}" />
+
+					</p:column>
+					
+					<p:column headerText="Apellidos" filterBy="#{dato.apellidos}"
+						filterMatchMode="contains" >
+
+						<h:outputText id="ApellidosPAut_modificar" value="#{dato.apellidos}" />
+
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton id="SeleccionarPAut_modificar"
+							action="#{administrativo.listaPAut(dato.ID)}" ajax="false"
 							value="Seleccionar" />
-					</h:column>
+					</p:column>
 
-				</h:dataTable>
+				</p:dataTable>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

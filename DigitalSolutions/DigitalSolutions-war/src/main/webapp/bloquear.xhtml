@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Lista de usuarios</title>
@@ -26,104 +27,107 @@
 			<c:otherwise>
 
 				<h1>Lista de Individuales</h1>
-				<h:dataTable id="ListaInd_bloquear"
-					value="#{administrativo.gtIndividualNoBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniInd_bloquear" value="DNI" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombreInd_bloquear" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
+				<p:dataTable id="ListaInd_bloquear" emptyMessage="No hay individual"
+					value="#{administrativo.gtIndividualNoBloq()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoInd_bloquear" value="Apellido" />
-						</f:facet>
-#{dato.apellido}
-</h:column>
+						<h:outputText id="DNIInd_bloquear" value="#{dato.identificacion}" />
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="bloquearInd_seleccionar" value="Seleccionar"
-							action="#{administrativo.bloquear(dato)}" />
-					</h:column>
+					</p:column>
 
-				</h:dataTable>
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombreInd_bloquear" value="#{dato.nombre}" />
+
+					</p:column>
+
+					<p:column headerText="Apellidos" filterBy="#{dato.apellido}"
+						filterMatchMode="contains">
+
+						<h:outputText id="ApellidoInd_bloquear" value="#{dato.apellido}" />
+
+					</p:column>
+
+					<p:column>
+						<p:commandButton id="SeleccionarInd_bloquear"
+							action="#{administrativo.bloquear(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
 
 
 				<h1>Lista de Empresas</h1>
-				<h:dataTable id="ListaEmp_bloquear"
-					value="#{administrativo.gtEmpresaNoBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nifEmp_bloquear" value="NIF" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
+				
+				<p:dataTable id="ListaEmp_bloquear" emptyMessage="No hay empresa"
+					value="#{administrativo.gtEmpresaNoBloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					
+					<p:column headerText="NIF" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains" >
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="RSEmpresa_bloquear" value="Razón social" />
-						</f:facet>
-#{dato.razon_social}
-</h:column>
+						<h:outputText id="NIFEmp_bloquear" value="#{dato.identificacion}" />
+
+					</p:column>
+
+					<p:column headerText="Razón social" filterBy="#{dato.razon_social}"
+						filterMatchMode="contains">
+
+						<h:outputText id="RSEmp_bloquear" value="#{dato.razon_social}" />
+
+					</p:column>
 
 
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="bloquearEmp_seleccionar" value="Seleccionar"
-							action="#{administrativo.bloquear(dato)}" />
-					</h:column>
+					<p:column>
+						<p:commandButton id="SeleccionarEmp_bloquear"
+							action="#{administrativo.bloquear(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
 
-				</h:dataTable>
+				</p:dataTable>
 
 
 				<h1>Lista de Personas autorizadas</h1>
-				<h:dataTable id="ListaPA_bloquear"
-					value="#{administrativo.gtPautNoBloq()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="dniPA_bloquear" value="Identificación" />
-						</f:facet>
-#{dato.identificacion}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="nombrePA_bloquear" value="Nombre" />
-						</f:facet>
-#{dato.nombre}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="apellidoPA_bloquear" value="Apellido" />
-						</f:facet>
-#{dato.apellidos}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="bloquearPA_seleccionar" value="Seleccionar"
-							action="#{administrativo.bloquearPAut(dato)}" />
-					</h:column>
-
-				</h:dataTable>
 				
+				<p:dataTable id="ListaPAut_bloquear" emptyMessage="No hay persona autorizada"
+					value="#{administrativo.gtPautNoBloq()}" var="dato" paginator="true" paginatorPosition="bottom" rows="3">
+					<p:column headerText="DNI" filterBy="#{dato.identificacion}"
+						filterMatchMode="contains">
+
+						<h:outputText id="DNIPAut_bloquear" value="#{dato.identificacion}" />
+
+					</p:column>
+
+					<p:column headerText="Nombre" filterBy="#{dato.nombre}"
+						filterMatchMode="contains">
+
+						<h:outputText id="NombrePAut_bloquear" value="#{dato.nombre}" />
+
+					</p:column>
+					
+					<p:column headerText="Apellidos" filterBy="#{dato.apellidos}"
+						filterMatchMode="contains" >
+
+						<h:outputText id="ApellidosPAut_bloquear" value="#{dato.apellidos}" />
+
+					</p:column>
+
+
+					<p:column>
+						<p:commandButton id="SeleccionarPAut_bloquear"
+							action="#{administrativo.bloquearPAut(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
 				<h:message for="e_bloquearUsuario" />
-				
+
 			</c:otherwise>
 		</c:choose>
-		</h:form>
+	</h:form>
 </h:body>
 </html>

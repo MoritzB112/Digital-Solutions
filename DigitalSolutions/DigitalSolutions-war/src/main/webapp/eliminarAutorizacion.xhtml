@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-	xmlns:f="http://xmlns.jcp.org/jsf/core">
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head>
 	<title>Eliminar autorización</title>
@@ -28,39 +29,48 @@
 
 
 				<h1>Lista de autorizaciones</h1>
-				<h:dataTable id="ListaAuto_eliminarAuto"
-					value="#{administrativo.gtAutorizaciones()}" var="dato">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="identificacionEmpresa_eliminarAuto" value="NIF Empresa" />
-						</f:facet>
-#{dato.em.identificacion}
-</h:column>
 
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="identificacionPA_eliminarAuto" value="DNI Persona autorizada" />
-						</f:facet>
-#{dato.pa.identificacion}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-							<h:outputText id="tipoAuto_eliminarAuto" value="Tipo" />
-						</f:facet>
-#{dato.tipo}
-</h:column>
-
-					<h:column>
-						<f:facet name="header">
-						</f:facet>
-						<h:commandButton id="eliminarAuto_seleccionar" value="Seleccionar"
-							action="#{administrativo. eliminarAutorizacion(dato)}" />
-					</h:column>
-
-				</h:dataTable>
+				<p:dataTable id="ListaAuto_eliminarAuto"
+					emptyMessage="No hay autorización"
+					value="#{administrativo.gtAutorizaciones()}" var="dato"
+					paginator="true" paginatorPosition="bottom" rows="3">
 					
-					<h:messages for="e_eliminarAutorizacion" />
+					<p:column headerText="Identificación empresa"
+						filterBy="#{dato.em.identificacion}" filterMatchMode="contains">
+
+						<h:outputText id="identificacionEmpresa_eliminarAuto"
+							value="#{dato.em.identificacion}" />
+
+					</p:column>
+
+					<p:column headerText="DNI Persona autorizada"
+						filterBy="#{dato.pa.identificacion}" filterMatchMode="contains">
+
+						<h:outputText id="identificacionPA_eliminarAuto"
+							value="#{dato.pa.identificacion}" />
+
+					</p:column>
+
+
+					<p:column headerText="Tipo"
+						filterBy="#{dato.tipo}" filterMatchMode="contains">
+
+						<h:outputText id="tipoAuto_eliminarAuto"
+							value="#{dato.tipo}" />
+
+					</p:column>
+
+
+
+					<p:column>
+						<p:commandButton id="Seleccionar_eliminarAutorizacion"
+							action="#{administrativo.eliminarAutorizacion(dato)}" ajax="false"
+							value="Seleccionar" />
+					</p:column>
+
+				</p:dataTable>
+
+				<h:messages for="e_eliminarAutorizacion" />
 
 			</c:otherwise>
 		</c:choose>
