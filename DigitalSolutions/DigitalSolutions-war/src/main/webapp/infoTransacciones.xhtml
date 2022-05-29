@@ -6,6 +6,11 @@
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 <h:head>
 	<title>Login de usuario</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 <h:body onload="#{infoSesion.refreshAll()}">
 	<h:form id="login">
@@ -25,27 +30,78 @@
 				</p>
 			</c:when>
 			<c:otherwise>
-				<h1>Transacciones</h1>
-				<h:dataTable value="#{infoCuentas.sacarTr()}" var="tr">
-					<h:column>
-						<f:facet id="infoTransF1T" name="header">Fecha</f:facet>
-						<h:outputText id="infoTransF1D" value="#{tr.fechaInstruccion}" > 
-							<f:convertDateTime pattern="dd/MM/yyyy hh:mm:ss"/>
-						</h:outputText>
-					</h:column>
-					<h:column>
-						<f:facet id="infoTransF2T" name="header">Cantidad</f:facet>
-						<h:outputText id="infoTransF2D1" rendered="#{infoCuentas.esIngreso(tr)==true}"
-							value="#{tr.cantidad} #{tr.divEm.abreviatura}" />
-						<h:outputText id="infoTransF2D2" rendered="#{infoCuentas.esIngreso(tr)==false}"
-							value="- #{tr.cantidad} #{tr.divRec.abreviatura}" />
-					</h:column>
-					<h:column>
-						<f:facet id="infoTransF3T" name="header">Tipo</f:facet>
-						<h:outputText id="infoTransF3D" value="#{tr.tipo}" />
-					</h:column>
-				</h:dataTable>
-				<h:button value="Volver" outcome="infoCuentas.xhtml" />
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+				<div style="width: 10em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button id="traInfCU" class="btn btn-info" value="Info Cuneta"
+							outcome="infoCuentas.xhtml" />
+						<p></p>
+						<h:button id="traCU" class="btn btn-info" value="Cuentas"
+							outcome="clientView.xhtml" />
+						<p></p>
+						<c:choose>
+							<c:when test="#{infoSesion.esPa()}">
+								<h:button id="traInfEMPPA" class="btn btn-info"
+									value="Info Empresa" outcome="infoCliente.xhtml" />
+								<p></p>
+								<h:button class="btn btn-info" id="traEMPR" value="Empresas"
+									outcome="personaAutorizadaView.xhtml" />
+								<p></p>
+								<h:button class="btn btn-info" id="traInfPERSPA"
+									value="Info personal" outcome="infoPA.xhtml" />
+								<p></p>
+							</c:when>
+							<c:when test="#{infoSesion.esId()}">
+								<h:button class="btn btn-info" id="traInfPERSID"
+									value="Info Personal" outcome="infoCliente.xhtml" />
+								<p></p>
+							</c:when>
+						</c:choose>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<div class="d-flex justify-content-center">
+					<h1>Transacciones</h1>
+				</div>
+				<br />
+				<div class="row justify-content-center">
+					<div class="col-auto">
+						<h:dataTable class="table" value="#{infoCuentas.sacarTr()}"
+							var="tr">
+							<h:column>
+								<f:facet id="infoTransF1T" name="header">Fecha</f:facet>
+								<h:outputText id="infoTransF1D" value="#{tr.fechaInstruccion}">
+									<f:convertDateTime pattern="dd/MM/yyyy hh:mm" />
+								</h:outputText>
+							</h:column>
+							<h:column>
+								<f:facet id="infoTransF2T" name="header">Cantidad</f:facet>
+								<h:outputText id="infoTransF2D1"
+									rendered="#{infoCuentas.esIngreso(tr)==true}"
+									value="#{tr.cantidad} #{tr.divEm.abreviatura}" />
+								<h:outputText class="text-danger" id="infoTransF2D2"
+									rendered="#{infoCuentas.esIngreso(tr)==false}"
+									value="-#{tr.cantidad} #{tr.divRec.abreviatura}" />
+							</h:column>
+							<h:column>
+								<f:facet id="infoTransF3T" name="header">Tipo</f:facet>
+								<h:outputText id="infoTransF3D" value="#{tr.tipo}" />
+							</h:column>
+						</h:dataTable>
+					</div>
+				</div>
 			</c:otherwise>
 		</c:choose>
 	</h:form>

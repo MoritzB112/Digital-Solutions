@@ -53,6 +53,9 @@
 									data-bs-dismiss="offcanvas" aria-label="Close"></button>
 							</div>
 							<div class="offcanvas-body">
+								<h:button class="btn btn-info" value="Transacciones"
+									outcome="infoTransacciones.xhtml" />
+								<p></p>
 								<h:button class="btn btn-info" id="PACScueAInfo"
 									value="Info Personal" outcome="infoPA.xhtml" />
 								<p></p>
@@ -86,6 +89,9 @@
 									data-bs-dismiss="offcanvas" aria-label="Close"></button>
 							</div>
 							<div class="offcanvas-body">
+								<h:button class="btn btn-info" value="Transacciones"
+									outcome="infoTransacciones.xhtml" />
+								<p></p>
 								<h:button class="btn btn-info" id="indCUAInfo"
 									value="Info personal" outcome="infoCliente.xhtml" />
 								<p></p>
@@ -99,88 +105,145 @@
 					</c:when>
 				</c:choose>
 			</h:form>
-
-			<h1>Informacion de la cuenta</h1>
+			<div class="d-flex justify-content-center">
+				<h1>Informacion de la cuenta</h1>
+			</div>
 			<br />
-			<h:panelGrid columns="2">
-				<h:outputText id="infoCuentaF1T" value="IBAN: " />
-				<h:outputText id="infoCuentaF1D" value="#{infoSesion.cf.IBAN}" />
-				<h:outputText id="infoCuentaF2T" value="SWIFT: " />
-				<h:outputText id="infoCuentaF2D" value="#{infoSesion.cf.SWIFT}" />
-				<h:outputText id="infoCuentaF3T" value="Estado: " />
-				<h:outputText id="infoCuentaF3D" value="#{infoSesion.cf.estado}" />
-				<h:outputText id="infoCuentaF4T" value="Clasificacion: " />
-				<h:outputText id="infoCuentaF4D"
-					value="#{infoSesion.cf.clasificacion}" />
-				<h:outputText id="infoCuentaF5T" value="Fecha de apertura: " />
-				<h:outputText id="infoCuentaF5D"
-					value="#{infoSesion.cf.fecha_apertura}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-				<h:outputText id="infoCuentaF6T" value="Fecha de cierre: " />
-				<h:outputText id="infoCuentaF6D"
-					value="#{infoSesion.cf.fecha_cierre}">
-					<f:convertDateTime pattern="dd/MM/yyyy" />
-				</h:outputText>
-			</h:panelGrid>
-			<h:button value="Transacciones" outcome="infoTransacciones.xhtml" />
+			<div class="row justify-content-center">
+				<div class="col-auto">
+					<table class="table">
+						<tr>
+							<td><h:outputText id="infoCuentaF1T" value="IBAN: " /></td>
+							<td><h:outputText id="infoCuentaF1D"
+									value="#{infoSesion.cf.IBAN}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="infoCuentaF2T" value="SWIFT: " /></td>
+							<td><h:outputText id="infoCuentaF2D"
+									value="#{infoSesion.cf.SWIFT}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="infoCuentaF3T" value="Estado: " /></td>
+							<td><h:outputText id="infoCuentaF3D"
+									value="#{infoSesion.cf.estado}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="infoCuentaF4T" value="Clasificacion: " /></td>
+							<td><h:outputText id="infoCuentaF4D"
+									value="#{infoSesion.cf.clasificacion}" /></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="infoCuentaF5T"
+									value="Fecha de apertura: " /></td>
+							<td><h:outputText id="infoCuentaF5D"
+									value="#{infoSesion.cf.fecha_apertura}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText></td>
+						</tr>
+						<tr>
+							<td><h:outputText id="infoCuentaF6T"
+									value="Fecha de cierre: " /></td>
+							<td><h:outputText id="infoCuentaF6D"
+									value="#{infoSesion.cf.fecha_cierre}">
+									<f:convertDateTime pattern="dd/MM/yyyy" />
+								</h:outputText></td>
+						</tr>
+						<c:choose>
+							<c:when test="#{infoCuentas.esSegregada(infoSesion.cf)}">
+								<tr>
+									<td><h:outputText id="infoCuentaF7SeT" value="Saldo: " /></td>
+									<td><h:outputText id="infoCuentaF7SeD"
+											value="#{infoCuentas.sacarSaldo(infoSesion.cf)}" /></td>
+								</tr>
+							</c:when>
+						</c:choose>
+					</table>
+				</div>
+			</div>
+			<br />
 			<c:choose>
-
-				<c:when test="#{infoCuentas.esSegregada(infoSesion.cf)}">
-					<h:panelGrid columns="2">
-						<h:outputText id="infoCuentaF7SeT" value="Saldo: " />
-						<h:outputText id="infoCuentaF7SeD"
-							value="#{infoCuentas.sacarSaldo(infoSesion.cf)}" />
-					</h:panelGrid>
-				</c:when>
 				<c:when test="#{infoCuentas.esPooled(infoSesion.cf)}">
 					<br />
-					<h2>Las carteras son:</h2>
-					<h:dataTable value="#{infoCuentas.sacarDeps()}" var="deps">
-						<h:column>
-							<f:facet id="infoCuentaF7PaT" name="header">Saldo</f:facet>
-							<h:outputText id="infoCuentaF7PaD"
-								value="#{infoCuentas.formatSaldo(deps.saldo)}" />
-						</h:column>
-						<h:column>
-							<f:facet id="infoCuentaF8PaT" name="header">Divisa</f:facet>
-							<h:outputText id="infoCuentaF8PaD"
-								value="#{infoCuentas.sacarMoneda(deps.cr)}" />
-						</h:column>
-						<h:column>
-							<f:facet id="infoCuentaF9PaT" name="header">IBAN Cuenta Referencia</f:facet>
-							<h:outputText id="infoCuentaF9PaD" value="#{deps.cr.IBAN}" />
-						</h:column>
-					</h:dataTable>
-					<h:form id="infoCuentaForm">
-
-						<h:panelGrid columns="2">
-							<h:outputText value="Elige la cartera de origen" />
-							<h:selectOneMenu id="infoCuentaCDDE1"
-								value="#{infoCuentas.depOr}" required="true">
-								<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de1"
-									itemLabel="#{infoCuentas.formatSaldo(de1.saldo)} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"
-									itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
-							</h:selectOneMenu>
-							<h:outputText value="Elige la cartera de destino" />
-							<h:selectOneMenu id="infoCuentaCDDE2"
-								value="#{infoCuentas.depDest}" required="true">
-								<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de2"
-									itemLabel="#{infoCuentas.formatSaldo(de2.saldo)} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}"
-									itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
-							</h:selectOneMenu>
-						</h:panelGrid>
-						<div class="input-group mb-3 w-25">
-							<span class="input-group-text">$</span>
-							<h:inputText id="infoCuentaCDCD2" class="form-control"
-								value="#{infoCuentas.tr.cantidad}" required="true" />
-
+					<br />
+					<div class="d-flex justify-content-center">
+						<h2>Las carteras son</h2>
+					</div>
+					<br />
+					<div class="row justify-content-center">
+						<div class="col-auto">
+							<h:dataTable class="table" value="#{infoCuentas.sacarDeps()}"
+								var="deps">
+								<h:column>
+									<f:facet id="infoCuentaF7PaT" name="header">Saldo</f:facet>
+									<h:outputText id="infoCuentaF7PaD"
+										value="#{infoCuentas.formatSaldo(deps.saldo)}" />
+								</h:column>
+								<h:column>
+									<f:facet id="infoCuentaF8PaT" name="header">Divisa</f:facet>
+									<h:outputText id="infoCuentaF8PaD"
+										value="#{infoCuentas.sacarMoneda(deps.cr)}" />
+								</h:column>
+								<h:column>
+									<f:facet id="infoCuentaF9PaT" name="header">IBAN Cuenta Referencia</f:facet>
+									<h:outputText id="infoCuentaF9PaD" value="#{deps.cr.IBAN}" />
+								</h:column>
+							</h:dataTable>
 						</div>
-						<h:commandButton value="Cambiar divisa"
-							action="#{infoCuentas.cambiarDivisa()}" />
+					</div>
+					<br />
+					<br />
+					<div class="d-flex justify-content-center">
+						<h2>Cambio de divisas</h2>
+					</div>
+					<br />
+					<h:form id="infoCuentaForm">
+						<div class="d-flex align-items-center justify-content-center">
+
+							<h:panelGrid>
+								<h:panelGroup>
+									<div class="input-group mb-3">
+										<lable class="input-group-text" id="cambioCuentaCO">Cartera
+										de origen</lable>
+										<h:selectOneMenu class="form-select" id="infoCuentaCDDE1"
+											value="#{infoCuentas.depOr}" required="true">
+											<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de1"
+												itemLabel="#{infoCuentas.formatSaldo(de1.saldo)} #{infoCuentas.sacarMoneda(de1.cr)} #{de1.cr.IBAN}"
+												itemValue="#{de1.pa.IBAN};#{de1.cr.IBAN}"></f:selectItems>
+										</h:selectOneMenu>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup>
+									<div class="input-group mb-3">
+										<lable class="input-group-text" id="cambioCuentaCO">Cartera
+										de destino</lable>
+										<h:selectOneMenu class="form-select" id="infoCuentaCDDE2"
+											value="#{infoCuentas.depDest}" required="true">
+											<f:selectItems value="#{infoCuentas.sacarDeps()}" var="de2"
+												itemLabel="#{infoCuentas.formatSaldo(de2.saldo)} #{infoCuentas.sacarMoneda(de2.cr)} #{de2.cr.IBAN}"
+												itemValue="#{de2.pa.IBAN};#{de2.cr.IBAN}"></f:selectItems>
+										</h:selectOneMenu>
+									</div>
+								</h:panelGroup>
+								<h:panelGroup>
+									<div class="d-flex align-items-center justify-content-center">
+										<div class="input-group mb-3 w-25">
+											<span class="input-group-text">$</span>
+											<h:inputText id="infoCuentaCDCD2" class="form-control"
+												value="#{infoCuentas.tr.cantidad}" required="true" />
+										</div>
+									</div>
+									<br />
+									<div class="d-flex align-items-center justify-content-center">
+										<div class="input-group-append">
+											<h:commandButton id="CambioDivisaBTNCU"
+												class="btn btn-primary" value="Cambiar divisa"
+												action="#{infoCuentas.cambiarDivisa()}" />
+										</div>
+									</div>
+								</h:panelGroup>
+							</h:panelGrid>
+						</div>
 					</h:form>
-
-
 					<h:messages />
 				</c:when>
 			</c:choose>

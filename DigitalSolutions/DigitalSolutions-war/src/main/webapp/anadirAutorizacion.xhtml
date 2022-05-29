@@ -3,10 +3,17 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+	xmlns:p="http://primefaces.org/ui"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
 <h:head>
 	<title>Crear autorización</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 </h:head>
 
 <h:body>
@@ -19,45 +26,151 @@
 
 				<p>
 					Debe loguearse como administrativo:
-					<h:link action="admin.xhtml">log in</h:link>
+					<h:link outcome="admin.xhtml">log in</h:link>
 				</p>
 
 
 			</c:when>
 			<c:otherwise>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div style="width: 15em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="canPP" value="Pagina principal"
+							outcome="administrativo.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton1" data-bs-toggle="dropdown"
+								aria-expanded="false">Dar usuario de alta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item" href="darAltaIndividual.xhtml">Individual</a></li>
+								<li><a class="dropdown-item" href="darAltaEmpresa.xhtml">Empresa</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaPersona_Autorizada.xhtml">Persona_Autorizada</a></li>
+								<li><a class="dropdown-item"
+									href="darAltaAdministrativo.xhtml">Administrativo</a></li>
+
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canMmodUsu"
+							value="Modificar Usuario" outcome="modificar_listaUsuarios.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBUsu"
+							value="Dar usuario de baja" outcome="darDeBaja.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canBloqUsu"
+							value="Bloquear Usuario" outcome="bloquear.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDesbloqUsu"
+							value="Desbloquear Usuario" outcome="desbloquear.xhtml" />
+						<p></p>
+						<div class="dropdown mt-3">
+							<button class="btn btn-info dropdown-toggle" type="button"
+								id="dropdownMenuButton2" data-bs-toggle="dropdown"
+								aria-expanded="false">Abrir Cuenta</button>
+							<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<li><a class="dropdown-item"
+									href="abrirCuentaSegregada.xhtml">Segeragada</a></li>
+								<li><a class="dropdown-item" href="abrirCuentaPooled.xhtml">Pooled</a></li>
+							</ul>
+						</div>
+						<p></p>
+						<h:button class="btn btn-info" id="canModCuent"
+							value="Modificar Cuenta" outcome="modificar_listaCuentas.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canDBCuent"
+							value="Dar cuenta de baja" outcome="darDeBaja_cuenta.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canCamDiv"
+							value="Cambio de Divisa" outcome="lista_Pooled_Account.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAddCart"
+							value="Agregar Cartera" outcome="agregar_cartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemCart"
+							value="Eleminar Cartera" outcome="eliminarCartera.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canAnAut"
+							value="Aañadir Autorizacion" outcome="anadirAutorizacion.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="canElemAut"
+							value="Eleminar Autorizacion"
+							outcome="eliminarAutorizacion.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h3 id="agrAutH">Seleciona los datos de la autorizacion</h3>
+				</div>
+				<div class="d-flex justify-content-center">
+
+					<h:panelGrid columns="2" columnClasses="px-2">
+
+						<h:outputText id="seleccionarEmp_añadirAut"
+							value="Selecciona la empresa:" />
+						<p:selectOneMenu id="seleccionarEmp_añadirAutS" value="#{administrativo.id}"
+							panelStyle="width:180px" effect="fade" var="c" filter="true"
+							filterMatchMode="startsWith" rendered="true">
+
+							<f:selectItems value="#{administrativo.gtEmpresa_alta_bloq()}"
+								var="em" itemLabel="#{em.identificacion}" itemValue="#{em.id}" />
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="NIF" />
+								</f:facet>
+								<h:outputText value="#{administrativo.sacarEmpr(c)}" />
+							</p:column>
+
+						</p:selectOneMenu>
+
+						<h:outputText id="seleccionarPa_añadirPaut"
+							value="Selecciona la persona autorizada:" />
+						<p:selectOneMenu id="seleccionarPa_añadirPautS" value="#{administrativo.id2}"
+							panelStyle="width:180px" effect="fade" var="c" filter="true"
+							filterMatchMode="startsWith" rendered="true">
+
+							<f:selectItems value="#{administrativo.gtPaut_alta_bloq()}"
+								var="pa" itemLabel="#{pa.identificacion}" itemValue="#{pa.ID}" />
+
+							<p:column>
+								<f:facet name="header">
+									<h:outputText value="DNI" />
+								</f:facet>
+								<h:outputText value="#{administrativo.sacarPerAut(c)}" />
+							</p:column>
+
+						</p:selectOneMenu>
+						
+						<h:outputText id="SeleccionarTipoPa_añadirPaut"
+							value="Introduzca el tipo de autorización:" required="true" />
+						<h:inputText class="form-control"
+							id="SeleccionarTipoPa_añadirPautT"
+							value="#{administrativo.a.tipo}" />
 
 
-				<h:outputText id="seleccionarEmp_añadirAut"
-					value="Selecciona la empresa:" />
-				<h:selectOneMenu id="seleccionarEmp_añadirAutT"
-					value="#{administrativo.id}" required="true">
-					<f:selectItems value="#{administrativo.gtEmpresa_alta_bloq()}"
-						var="empr" itemLabel="#{empr.identificacion}"
-						itemValue="#{empr.id}"></f:selectItems>
-				</h:selectOneMenu>
-
-
-				<h:outputText id="seleccionarPa_añadirPaut"
-					value="Selecciona la persona autorizada:" />
-				<h:selectOneMenu id="seleccionarPa_añadirAutT"
-					value="#{administrativo.id2}" required="true">
-					<f:selectItems value="#{administrativo.gtPaut_alta_bloq()}"
-						var="aut" itemLabel="#{aut.identificacion}" itemValue="#{aut.ID}"></f:selectItems>
-				</h:selectOneMenu>
-
-
-				<h:outputText id="SeleccionarTipoPa_añadirPaut"
-					value="Introduzca el tipo de autorización:" required="true" />
-				<h:inputText id="SeleccionarTipoPa_añadirPautT"
-					value="#{administrativo.a.tipo}" />
-
-
-				<h:commandButton id="CrearAutorizacion_añadirAut"
-					value="Crear autorización"
-					action="#{administrativo.añadirAutorizacionA()}" />
-					
-					<h:messages for="e_anadirAutorizacion" />
-
+						<h:commandButton class="btn btn-primary btn-sm" id="CrearAutorizacion_añadirAut"
+							value="Crear autorización"
+							action="#{administrativo.añadirAutorizacionA()}" />
+					</h:panelGrid>
+				</div>
+				<h:messages />
 			</c:otherwise>
 		</c:choose>
 	</h:form>

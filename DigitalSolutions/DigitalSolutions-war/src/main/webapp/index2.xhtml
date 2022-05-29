@@ -10,21 +10,55 @@
 <h:head>
 	<title>Login de usuario</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
-	<h:outputScript library="js" name="bootstrap.min.js" />
+	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
 </h:head>
 <h:body>
 	<h:form>
-		<h:commandButton value="Download" action="#{infoSesion.download()}"></h:commandButton>
-	</h:form>
-	<h:form>
-		<h:commandButton value="Download2" action="#{infoSesion.download2()}"></h:commandButton>
-	</h:form>
-	
+
+		<p:selectOneMenu id="advanced" value="#{administrativo.paut}"
+			panelStyle="width:180px" effect="fade" var="c" filter="true"
+			filterMatchMode="startsWith">
+
+			<f:selectItems value="#{administrativo.gtPaut_alta_bloq()}" var="pa"
+				itemLabel="#{pa.identificacion}" itemValue="#{pa}" />
+
+			<p:column>
+				<f:facet name="header">
+					<h:outputText value="DNI" />
+				</f:facet>
+				<h:outputText value="#{pa.identificacion}" />
+			</p:column>
+
+		</p:selectOneMenu>
+
+		<h:button outcome="index2.xhtml" />
+
+		<h:outputText value="#{administrativo.paut}"></h:outputText>
+
+		<h:selectOneMenu id="seleccionarEmp_añadirAutT"
+			value="#{administrativo.id}" required="true">
+			<f:selectItems value="#{administrativo.gtEmpresa_alta_bloq()}"
+				var="empr" itemLabel="#{empr.identificacion}" itemValue="#{empr.id}"></f:selectItems>
+		</h:selectOneMenu>
+		<h:selectOneMenu id="seleccionarPooled_agregarCarteraT"
+			value="#{administrativo.iban}" required="true">
+			<f:selectItems value="#{administrativo.gtPooled_alta_bloq()}"
+				var="pool" itemLabel="#{pool.IBAN}" itemValue="#{pool.IBAN}"></f:selectItems>
+		</h:selectOneMenu>
+		<h:selectOneMenu id="seleccionarCR_agregarCarteraT"
+							value="#{administrativo.iban2}" required="true">
+							<f:selectItems
+								value="#{administrativo.gtCuentaReferencia_alta()}" var="ref"
+								itemLabel="#{ref.IBAN}(#{infoCuentas.sacarMoneda(ref)})"
+								itemValue="#{ref.IBAN}"></f:selectItems>
+						</h:selectOneMenu>
 
 
+	</h:form>
 </h:body>
 </html>
 

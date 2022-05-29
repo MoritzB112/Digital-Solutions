@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -20,7 +18,6 @@ import es.uma.proyecto.ejb.GestionClientes;
 import es.uma.proyecto.ejb.GestionCuentas;
 import es.uma.proyecto.ejb.GestionGenerarReportes;
 import es.uma.proyecto.ejb.GestionPersonas_Autorizadas;
-import es.uma.proyecto.ejb.GestionTransacciones;
 import es.uma.proyecto.ejb.GestionUsuarios;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.AutorizacionYaExisteException;
@@ -31,30 +28,23 @@ import es.uma.proyecto.ejb.Excepciones.CuentaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaNoSuporteadaException;
 import es.uma.proyecto.ejb.Excepciones.CuentaReferenciaNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.CuentaYaExisteException;
-import es.uma.proyecto.ejb.Excepciones.CuentasNoIgualesException;
 import es.uma.proyecto.ejb.Excepciones.Depositado_enNoExisteException;
-import es.uma.proyecto.ejb.Excepciones.DepositoNoExisteException;
 import es.uma.proyecto.ejb.Excepciones.PasswordException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaNoEncontradaException;
 import es.uma.proyecto.ejb.Excepciones.Persona_AutorizadaYaExisteException;
-import es.uma.proyecto.ejb.Excepciones.SaldoInsuficianteException;
 import es.uma.proyecto.ejb.Excepciones.SaldoNoVacioException;
 import es.uma.proyecto.ejb.Excepciones.TieneCuentaAsociadoException;
-import es.uma.proyecto.ejb.Excepciones.TransaccionYaExisteException;
 import es.uma.proyecto.ejb.Excepciones.UsuarioExistenteException;
 import es.uma.proyecto.ejb.Excepciones.UsuarioNoEncontradoException;
 import es.uma.proyecto.jpa.Autorizacion;
 import es.uma.proyecto.jpa.Cliente;
-import es.uma.proyecto.jpa.Cuenta_Fintech;
 import es.uma.proyecto.jpa.Cuenta_Referencia;
 import es.uma.proyecto.jpa.Depositado_en;
-import es.uma.proyecto.jpa.Depositado_en_PK;
 import es.uma.proyecto.jpa.Empresa;
 import es.uma.proyecto.jpa.Individual;
 import es.uma.proyecto.jpa.Persona_Autorizada;
 import es.uma.proyecto.jpa.Pooled_Account;
 import es.uma.proyecto.jpa.Segregada;
-import es.uma.proyecto.jpa.Transaccion;
 import es.uma.proyecto.jpa.Usuario;
 
 
@@ -595,11 +585,11 @@ public class Admin {
 	
 	
 	
-	public Segregada sacarSegr(Long id) {
+	public Segregada sacarSegr(String id) {
 		return gc.gtSegregada(id);
 			}
 	
-	public Pooled_Account sacarPoo(Long id) {
+	public Pooled_Account sacarPoo(String id) {
 		return gc.gtPooled(id);
 			}
 	
@@ -875,7 +865,21 @@ public class Admin {
 		}
 	  
 	}
-		
+	
+	
+	
+	public String sacarEmpr(Long id) {
+		return gcli.gtEmpresa(id).getIdentificacion();
+	}
+	
+	public String sacarPerAut(Long id) {
+		return gpaut.gtPautorizada(id).getIdentificacion();
+	}
+	
+	public String sacarCr(String iban) {
+		Cuenta_Referencia cr=gc.gtRef(iban);
+		return cr.getIBAN()+"("+cr.getDiv().getAbreviatura()+")";
+	}
 
 
 }

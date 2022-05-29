@@ -51,9 +51,11 @@ public interface GestionCuentas {
 	
 	public List<Cuenta_Fintech> sacarCuentasAPI(String cond);
 
-	public Segregada gtSegregada(Long id);
+	public Segregada gtSegregada(String id);
 	
-	public Pooled_Account gtPooled(Long id);
+	public Cuenta_Referencia gtRef(String id);
+	
+	public Pooled_Account gtPooled(String id);
 	
 	public void modificarCuenta(Cuenta_Fintech c) throws CuentaNoExisteException, CuentaNoSuporteadaException;
 	

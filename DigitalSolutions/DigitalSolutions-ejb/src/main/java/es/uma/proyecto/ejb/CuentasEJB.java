@@ -259,11 +259,15 @@ public class CuentasEJB implements GestionCuentas {
 		return em.createQuery("SELECT pa FROM Pooled_Account pa", Pooled_Account.class).getResultList();
 	}
 	
-	public Segregada gtSegregada(Long id) {
+	public Segregada gtSegregada(String id) {
 		return em.find(Segregada.class,id);
-		}
+	}
 	
-	public Pooled_Account gtPooled(Long id) {
+	public Cuenta_Referencia gtRef(String id) {
+		return em.find(Cuenta_Referencia.class,id);
+	}
+	
+	public Pooled_Account gtPooled(String id) {
 		return em.find(Pooled_Account.class,id);
 		}
 	

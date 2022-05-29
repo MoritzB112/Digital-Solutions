@@ -10,6 +10,10 @@
 
 <h:head>
 	<title>Información del Cliente</title>
+	<h:outputStylesheet library="css" name="bootstrap.min.css" />
+	<h:outputScript library="js" name="bootstrap.min.js" />
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
 <h:body onload="#{infoSesion.refreshAll()}">
@@ -23,37 +27,128 @@
 			</c:when>
 
 			<c:when test="#{infoSesion.esId()}">
-				<h:panelGrid columns="2">
-				<h:outputText value="Nombre: "/>							
-				<h:outputText value="#{infoSesion.id.nombre}" />
-				<h:outputText value="Apellidos: "/>
-				<h:outputText value="#{infoSesion.id.apellido}" />
-				<h:outputText value="DNI: "/>
-				<h:outputText value="#{infoSesion.id.identificacion}" />
-				<h:outputText value="Dirección: "/>
-				<h:outputText
-					value="#{infoSesion.id.pais}, #{infoSesion.id.direccion}, #{infoSesion.id.ciudad}, #{infoSesion.id.codigoPostal}" />
-				<h:outputText value="Fecha de alta: "/>					
-				<h:outputText value="#{infoSesion.id.fecha_alta}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
-				<h:outputText value="Fecha de nacimiento: "/>
-				<h:outputText
-					value="#{infoSesion.id.fecha_nacimiento}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
-				<h:button value="volver" outcome="clientView.xhtml"/>
-				</h:panelGrid>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div style="width: 10em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="indAInfoCV" value="Cuentas"
+							outcome="clientView.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Informacion Personal</h1>
+				</div>
+				<br/>
+				<div class="row justify-content-center">
+					<div class="col-auto">
+						<table class="table">
+							<tr>
+								<td><h:outputText value="Nombre: " /></td>
+								<td><h:outputText value="#{infoSesion.id.nombre}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Apellidos: " /></td>
+								<td><h:outputText value="#{infoSesion.id.apellido}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="DNI: " /></td>
+								<td><h:outputText value="#{infoSesion.id.identificacion}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Dirección: " /></td>
+								<td><h:outputText
+										value="#{infoSesion.id.pais}, #{infoSesion.id.direccion}, #{infoSesion.id.ciudad}, #{infoSesion.id.codigoPostal}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Fecha de alta: " /></td>
+								<td><h:outputText value="#{infoSesion.id.fecha_alta}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Fecha de nacimiento: " /></td>
+								<td><h:outputText value="#{infoSesion.id.fecha_nacimiento}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</c:when>
 			<c:when test="#{infoSesion.esEm()}">
-				<h:panelGrid columns="2">
-				<h:outputText value="Razón Social: "/>
-				<h:outputText value="#{infoSesion.em.razon_social}" />
-				<h:outputText value="NIF: "/>				
-				<h:outputText value="#{infoSesion.em.identificacion}" />
-				<h:outputText value="Dirección: "/>				
-				<h:outputText
-					value="#{infoSesion.em.pais}, #{infoSesion.em.direccion}, #{infoSesion.em.ciudad}, #{infoSesion.em.codigoPostal}" />
-				<h:outputText value="Fecha alta: " />
-				<h:outputText value="#{infoSesion.em.fecha_alta}" > <f:convertDateTime pattern="dd/MM/yyyy"/> </h:outputText>
-				<h:button value="volver" outcome="clientView.xhtml"/>
-				</h:panelGrid>
+				<button class="btn" style="background-color: transparent"
+					type="button" data-bs-toggle="offcanvas"
+					data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+					<span class="fa fa-bars"></span>
+				</button>
+
+				<div style="width: 10em" class="offcanvas offcanvas-start"
+					tabindex="-1" id="offcanvasExample"
+					aria-labelledby="offcanvasExampleLabel">
+					<div class="offcanvas-header">
+						<h5 class="offcanvas-title" id="offcanvasExampleLabel">Menu</h5>
+						<button type="button" class="btn-close text-reset"
+							data-bs-dismiss="offcanvas" aria-label="Close"></button>
+					</div>
+					<div class="offcanvas-body">
+						<h:button class="btn btn-info" id="paAInfoCV" value="Info Personal"
+							outcome="infoPA.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="paAcueCV" value="Cuentas"
+							outcome="clientView.xhtml" />
+						<p></p>
+						<h:button class="btn btn-info" id="paAInfoEMCV" value="Empresas"
+							outcome="personaAutorizadaView.xhtml" />
+						<p></p>
+						<h:commandButton class="btn btn-danger" value="Logout"
+							action="#{infoSesion.invalidarSesion()}" />
+					</div>
+				</div>
+				<br />
+				<div class="d-flex justify-content-center">
+					<h1>Informacion de la Empresa</h1>
+				</div>
+				<br/>
+				<div class="row justify-content-center">
+					<div class="col-auto">
+						<table class="table">
+							<tr>
+								<td><h:outputText value="Razón Social: " /></td>
+								<td><h:outputText value="#{infoSesion.em.razon_social}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="NIF: " /></td>
+								<td><h:outputText value="#{infoSesion.em.identificacion}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Dirección: " /></td>
+								<td><h:outputText
+										value="#{infoSesion.em.pais}, #{infoSesion.em.direccion}, #{infoSesion.em.ciudad}, #{infoSesion.em.codigoPostal}" /></td>
+							</tr>
+							<tr>
+								<td><h:outputText value="Fecha alta: " /></td>
+								<td><h:outputText value="#{infoSesion.em.fecha_alta}">
+										<f:convertDateTime pattern="dd/MM/yyyy" />
+									</h:outputText></td>
+							</tr>
+						</table>
+					</div>
+				</div>
 			</c:when>
 		</c:choose>
 	</h:form>
