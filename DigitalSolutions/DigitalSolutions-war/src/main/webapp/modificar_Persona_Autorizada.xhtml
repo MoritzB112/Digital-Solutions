@@ -132,6 +132,11 @@
 						<h:inputText class="form-control" id="CorreoPA_modificar2T"
 							value="#{modificaciones.usPaut.correo}" />
 
+						<h:outputText id="ContrasenaPA_modificar2" value="Contraseña:" />
+						<h:inputText class="form-control" id="ContrasenaPA_modificar2T"
+							value="#{modificaciones.password}" />
+
+
 						<h:outputText id="DireccionPA_modificar2" value="Dirección:" />
 						<h:inputText class="form-control" id="DireccionPA_modificar2T"
 							value="#{modificaciones.paut.direccion}" />
@@ -166,10 +171,10 @@
 
 					</h:panelGrid>
 				</div>
-				<br/>
+				<br />
 				<div class="d-flex justify-content-center">
-					<h:commandButton class="btn btn-primary" id="TerminarPA_modificar" value="Siguiente"
-						action="#{modificaciones.actualizarPAut()}" />
+					<h:commandButton class="btn btn-primary" id="TerminarPA_modificar"
+						value="Siguiente" action="#{modificaciones.actualizarPAut()}" />
 					<h:messages />
 				</div>
 			</c:otherwise>
