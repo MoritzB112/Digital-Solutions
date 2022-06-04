@@ -43,35 +43,81 @@
 									id="basic-addon1"><span class="fa fa-user"></span></span>
 								<div class="form-floating flex-grow-1">
 									<h:inputText type="text" class="form-control"
-										pt:placeholder="Usuario" aria-label="Username" aria-describedby="basic-addon1"
-										id="loginUsername" required="true" value="#{login.userName}" />
+										pt:placeholder="Usuario" aria-label="Username"
+										aria-describedby="basic-addon1" id="loginUsername"
+										required="true" value="#{login.userName}" />
 									<label for="loginUsername">Usuario</label>
 								</div>
 							</div>
 						</h:panelGroup>
 						<h:panelGroup>
-						<div class="input-group flex-grow-1">
+							<div class="input-group flex-grow-1">
 								<span class="input-group-text bg-primary text-white"
 									id="basic-addon1"><span class="fa fa-lock"></span></span>
 								<div class="form-floating flex-grow-1">
 									<h:inputSecret type="text" class="form-control"
-									pt:placeholder="Contraseña" aria-label="Username"
-									aria-describedby="basic-addon1" id="loginPassword"
-									required="true" value="#{login.password}" />
+										pt:placeholder="Contraseña" aria-label="Username"
+										aria-describedby="basic-addon1" id="loginPassword"
+										required="true" value="#{login.password}" />
 									<label for="loginPassword">Contraseña</label>
 								</div>
 							</div>
-							
+
 						</h:panelGroup>
 					</h:panelGrid>
 				</div>
-				<br/>
+				<br />
 				<div class="d-flex align-items-center justify-content-center">
 
 					<h:commandButton class="btn btn-primary btn-lg" id="loginBoton"
 						value="Entrar" action="#{login.entrar()}" />
 
 					<h:messages />
+				</div>
+				<br />
+				<div class="d-flex align-items-center justify-content-center">
+					<div id="carouselExampleInterval" class="carousel slide w-25 h-25"
+						data-bs-ride="carousel">
+						<div class="carousel-inner">
+							<div class="carousel-item active" data-bs-interval="3000">
+								<img src="resources/DS.png" class="d-block w-100" alt="Test1" />
+							</div>
+							<div class="carousel-item" data-bs-interval="3000">
+								<img src="resources/MO.png" class="d-block w-100" alt="Test2" />
+								<div class="carousel-caption d-none d-md-block text-dark">
+									<p>Moritz Baader</p>
+								</div>
+							</div>
+							<div class="carousel-item" data-bs-interval="3000">
+								<img src="resources/AR.png" class="d-block w-100" alt="Test3" />
+								<div class="carousel-caption d-none d-md-block text-dark">
+									<p>Ariadna Medina Guerrero</p>
+								</div>
+							</div>
+							<div class="carousel-item" data-bs-interval="3000">
+								<img src="resources/MA.png" class="d-block w-100" alt="Test4" />
+								<div class="carousel-caption d-none d-md-block text-info">
+									<p>Marcos Hidalgo Baños</p>
+								</div>
+							</div>
+							<div class="carousel-item" data-bs-interval="3000">
+								<img src="resources/FR.png" class="d-block w-100" alt="Test5" />
+								<div class="carousel-caption d-none d-md-block text-dark">
+									<p>Francisco Velasco Romero</p>
+								</div>
+							</div>
+						</div>
+						<button class="carousel-control-prev" type="button"
+							data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+							<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Previous</span>
+						</button>
+						<button class="carousel-control-next" type="button"
+							data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+							<span class="carousel-control-next-icon" aria-hidden="true"></span>
+							<span class="visually-hidden">Next</span>
+						</button>
+					</div>
 				</div>
 			</c:otherwise>
 		</c:choose>
