@@ -9,12 +9,22 @@
 	<title>Perfil</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>function vF(v) {
+	
+	if(v!=null){
+		swal("",v,"success");
+		sessionStorage.removeItem("var");
+	}
+	
+}</script>
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </h:head>
-<h:body>
+<h:body onload="vF(sessionStorage.getItem('var'))">
 	<h:form id="form_administrativo_inicio">
 		<c:choose>
 			<c:when

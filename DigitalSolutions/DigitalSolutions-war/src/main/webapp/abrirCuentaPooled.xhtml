@@ -10,12 +10,14 @@
 	<title>Datos de la cuenta pooled</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
+
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </h:head>
-<h:body>
+<h:body onload="rm()">
 	<h:form id="formulario_abrirCuentaPooled">
 
 		<c:choose>
@@ -156,14 +158,16 @@
 
 						<h:outputText id="ClasificacionPooled_abrirCuenta"
 							value="Clasificación:" />
-						<h:inputText class="form-control" id="ClasificacionPooled_abrirCuentaT"
+						<h:inputText class="form-control"
+							id="ClasificacionPooled_abrirCuentaT"
 							value="#{administrativo.pa.clasificacion}" />
 
 					</h:panelGrid>
 				</div>
 				<br />
 				<div class="d-flex justify-content-center">
-					<h:commandButton class="btn btn-primary" id="SiguientePooled_abrirCuenta" value="Terminar"
+					<h:commandButton class="btn btn-primary"
+						id="SiguientePooled_abrirCuenta" value="Terminar" onclick="gV()"
 						action="#{administrativo.crearCuentaPooled()}" />
 					<h:messages />
 				</div>

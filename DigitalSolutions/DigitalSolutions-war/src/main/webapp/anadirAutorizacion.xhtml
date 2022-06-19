@@ -10,13 +10,14 @@
 	<title>Crear autorización</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </h:head>
 
-<h:body>
+<h:body onload="rm()">
 
 	<h:form id="form_modificar_lista_cuentas">
 
@@ -166,7 +167,7 @@
 
 
 						<h:commandButton class="btn btn-primary btn-sm" id="CrearAutorizacion_añadirAut"
-							value="Crear autorización"
+							value="Crear autorización" onclick="gV()"
 							action="#{administrativo.añadirAutorizacionA()}" />
 					</h:panelGrid>
 				</div>

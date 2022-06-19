@@ -9,12 +9,14 @@
 	<title>Crear cuenta de administrativo</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
+
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </h:head>
-<h:body>
+<h:body onload="rm()">
 	<h:form id="formularioAdministrativo_darDeAlta">
 
 		<c:choose>
@@ -119,23 +121,27 @@
 					<h:panelGrid columns="2" columnClasses="px-3">
 
 						<h:outputText id="UsuarioAdministrativo_DarAlta" value="Usuario:" />
-						<h:inputText class="form-control" id="UsuarioAdministrativo_DarAltaT"
+						<h:inputText class="form-control"
+							id="UsuarioAdministrativo_DarAltaT"
 							value="#{administrativo.usuario.usuario}" required="true" />
 
 						<h:outputText id="CorreoAdministrativo_DarAlta" value="Correo:" />
-						<h:inputText class="form-control" id="CorreoAdministrativo_DarAltaT"
+						<h:inputText class="form-control"
+							id="CorreoAdministrativo_DarAltaT"
 							value="#{administrativo.usuario.correo}" />
 
 						<h:outputText id="ContrasenaAdministrativo_DarAlta"
 							value="Contraseña:" required="true" />
-						<h:inputSecret class="form-control" id="ContrasenaAdministrativo_DarAltaT"
+						<h:inputSecret class="form-control"
+							id="ContrasenaAdministrativo_DarAltaT"
 							value="#{administrativo.usuario.password}" />
 
 					</h:panelGrid>
 				</div>
-				<br/>
+				<br />
 				<div class="d-flex justify-content-center">
-					<h:commandButton class="btn btn-primary" id="EnviarAdministrativo_DarAlta" value="Enviar"
+					<h:commandButton class="btn btn-primary"
+						id="EnviarAdministrativo_DarAlta" value="Enviar" onclick="gV()"
 						action="#{administrativo.crearAdministrativo()}" />
 					<h:messages />
 				</div>
