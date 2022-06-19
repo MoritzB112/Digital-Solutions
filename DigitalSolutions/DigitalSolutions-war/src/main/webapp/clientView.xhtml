@@ -13,15 +13,31 @@
 	<h:outputScript library="js" name="bootstrap.min.js" />
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+		
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+	<script>
+				function f(n, v){
+					
+					if(v==='true'){	
+						var x=sessionStorage.getItem("valorPA");
+					if(x===null){
+						swal({title:"¡Bienvenid@ "+n+"!", text:" ", buttons:false, timer:2000,});
+						sessionStorage.setItem("valorPA", "x");
+					}
+					}
+				}
+				
+			</script>
 
 </h:head>
 
-<h:body onload="#{infoSesion.refreshAll()}">
+<h:body onload="#{infoSesion.refreshAll()} f('#{infoSesion.usuario.usuario}', '#{infoSesion.esId()}')">
 	<h:form id="clientViewForm">
 		<c:choose>
 			<c:when test="#{empty infoSesion.usuario}">
 				<p id="clientViewNoSesion">
-					Inicia seccion y vuelve a esta pagina:
+					Inicia sesión y vuelve a esta pagina:
 					<h:link outcome="index.xhtml">inicio</h:link>
 					.
 				</p>
@@ -98,7 +114,7 @@
 									</div>
 								</td>
 								<h:outputText value="#{infoSesion.aux()}" escape="false"
-									rendered="#{(status.index + 1 ) mod 2 eq 0}"></h:outputText>
+									rendered="#{(status.index + 1 ) mod 3 eq 0}"></h:outputText>
 								<h:panelGroup rendered="#{status.last}">
 									<td><h:panelGroup>
 											<!--and there-->
@@ -169,7 +185,7 @@
 									</div>
 								</td>
 								<h:outputText value="#{infoSesion.aux()}" escape="false"
-									rendered="#{(status.index + 1 ) mod 2 eq 0}"></h:outputText>
+									rendered="#{(status.index + 1 ) mod 3 eq 0}"></h:outputText>
 								<h:panelGroup rendered="#{status.last}">
 									<td><h:panelGroup>
 											<!--and there-->

@@ -93,7 +93,7 @@ public class InfoCuentas implements Serializable {
 		if(esSegregada(cf)) {
 			return "Segregada";
 		}else if(esPooled(cf)) {
-			return "Pooled_Account";
+			return "Pooled";
 		}
 		return null;
 	}
@@ -111,7 +111,7 @@ public class InfoCuentas implements Serializable {
 			Cuenta_Referencia cr=((Segregada)cf).getCr();
 			return df.format(cr.getSaldo()).toString()+" "+cr.getDiv().getAbreviatura();
 		}
-		return "Saldo no disponible";
+		return "No disponible";
 	}
 	
 	public String seleccionarCuenta(Cuenta_Fintech cf) {

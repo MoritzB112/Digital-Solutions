@@ -11,9 +11,13 @@
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+		
+	<h:outputStylesheet library="css"
+		name="main.css"/>
+		
 </h:head>
-<h:body>
-
+<h:body onload="sessionStorage.clear();">
+	
 	<h:form id="login">
 
 		<c:choose>
@@ -31,6 +35,16 @@
 			</c:when>
 
 			<c:otherwise>
+			
+					<div class="social-bar">
+					<a href="https://www.ebury.es/" class="icon fa fa-share-alt-square" target="_blank"></a>
+					<a href="https://www.facebook.com/EburyFintech/" class="icon fa fa-facebook-square" target="_blank"></a>
+					<a href="https://www.instagram.com/ebury_careers/?hl=en" class="icon fa fa-instagram" target="_blank"></a>
+					<a href="https://twitter.com/EburyES" class="icon fa fa-twitter-square" target="_blank"></a>
+					<a href="https://www.linkedin.com/company/ebury/" class="icon fa fa-linkedin-square" target="_blank"></a>
+				</div>
+			
+			
 				<div class="d-flex align-items-center justify-content-center">
 					<h1 id="indexLITitle">Login para clientes</h1>
 				</div>
