@@ -10,12 +10,13 @@
 	<title>Lista de cuentas</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
-<h:body>
+<h:body onload="rm()">
 
 	<h:form id="formularioCuenta_darDeBaja">
 
@@ -136,7 +137,7 @@
 					</p:column>
 
 					<p:column>
-						<p:commandButton id="SeleccionarPooled_darBaja"
+						<p:commandButton id="SeleccionarPooled_darBaja" onclick="gV()"
 							action="#{administrativo.darDeBajaSeg(dato)}" ajax="false"
 							value="Seleccionar" />
 					</p:column>
@@ -165,7 +166,7 @@
 					</p:column>
 
 					<p:column>
-						<p:commandButton id="SeleccionarPooled_darBaja"
+						<p:commandButton id="SeleccionarPooled_darBaja" onclick="gV()"
 							action="#{administrativo.darDeBajaPool(dato)}" ajax="false"
 							value="Seleccionar" />
 					</p:column>

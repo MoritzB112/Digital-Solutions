@@ -10,11 +10,12 @@
 	<title>Crear cuenta de individual</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
-<h:body>
+<h:body onload="rm()">
 	<h:form id="formulario_darAltaIndividual">
 
 		<c:choose>
@@ -187,7 +188,7 @@
 				</div>
 				<br />
 				<div class="d-flex justify-content-center">
-					<h:commandButton class="btn btn-primary" id="EnviarInd_DarAlta"
+					<h:commandButton class="btn btn-primary" id="EnviarInd_DarAlta" onclick="gV()"
 						value="Enviar" action="#{administrativo.crearIndividual()}" />
 					<h:messages/>
 				</div>

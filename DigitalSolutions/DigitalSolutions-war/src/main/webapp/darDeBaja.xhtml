@@ -10,12 +10,14 @@
 	<title>Lista de cuentas</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
-<h:body>
+<h:body onload="rm()">
 	<h:form id="formularioUsuario_darDeBaja">
 
 		<c:choose>
@@ -141,7 +143,7 @@
 					</p:column>
 
 					<p:column>
-						<p:commandButton id="SeleccionarInd_darBaja"
+						<p:commandButton id="SeleccionarInd_darBaja" onclick="gV()"
 							action="#{administrativo.darDeBajaInd(dato)}" ajax="false"
 							value="Seleccionar" />
 					</p:column>
@@ -171,7 +173,7 @@
 					</p:column>
 
 					<p:column>
-						<p:commandButton id="SeleccionarEmp_darBaja"
+						<p:commandButton id="SeleccionarEmp_darBaja" onclick="gV()"
 							action="#{administrativo.darDeBajaEmp(dato)}" ajax="false"
 							value="Seleccionar" />
 					</p:column>
@@ -208,7 +210,7 @@
 
 
 					<p:column>
-						<p:commandButton id="SeleccionarPAut_darBaja"
+						<p:commandButton id="SeleccionarPAut_darBaja" onclick="gV()"
 							action="#{administrativo.darDeBajaPA(dato)}" ajax="false"
 							value="Seleccionar" />
 					</p:column>

@@ -10,13 +10,14 @@
 	<title>Agregar cartera</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
 </h:head>
 
-<h:body>
+<h:body onload="rm()">
 
 	<h:form id="form_agregar_cartera">
 
@@ -123,9 +124,10 @@
 
 						<h:outputText id="seleccionarPooled_agregarCartera"
 							value="Selecciona la cuenta pooled:" />
-						<p:selectOneMenu id="seleccionarPooled_agregarCarteraS" value="#{administrativo.iban}"
-							panelStyle="width:180px" effect="fade" var="c" filter="true"
-							filterMatchMode="startsWith" rendered="true">
+						<p:selectOneMenu id="seleccionarPooled_agregarCarteraS"
+							value="#{administrativo.iban}" panelStyle="width:180px"
+							effect="fade" var="c" filter="true" filterMatchMode="startsWith"
+							rendered="true">
 
 							<f:selectItems value="#{administrativo.gtPooled_alta_bloq()}"
 								var="pa" itemLabel="#{pa.IBAN}" itemValue="#{pa.IBAN}" />
@@ -142,12 +144,15 @@
 
 						<h:outputText id="seleccionarCR_agregarCartera"
 							value="Selecciona la cuenta de referencia:" />
-						<p:selectOneMenu id="seleccionarCR_agregarCarteraS" value="#{administrativo.iban2}"
-							panelStyle="width:180px" effect="fade" var="c" filter="true"
-							filterMatchMode="startsWith" rendered="true">
+						<p:selectOneMenu id="seleccionarCR_agregarCarteraS"
+							value="#{administrativo.iban2}" panelStyle="width:180px"
+							effect="fade" var="c" filter="true" filterMatchMode="startsWith"
+							rendered="true">
 
-							<f:selectItems value="#{administrativo.gtCuentaReferencia_alta()}"
-								var="cr" itemLabel="#{administrativo.sacarCr(cr.IBAN)}" itemValue="#{cr.IBAN}" />
+							<f:selectItems
+								value="#{administrativo.gtCuentaReferencia_alta()}" var="cr"
+								itemLabel="#{administrativo.sacarCr(cr.IBAN)}"
+								itemValue="#{cr.IBAN}" />
 
 							<p:column>
 								<f:facet name="header">
@@ -159,8 +164,8 @@
 						</p:selectOneMenu>
 
 
-						<h:commandButton class="btn btn-primary btn-sm" id="AgregarCartera_terminar"
-							value="Agregar Cartera"
+						<h:commandButton class="btn btn-primary btn-sm"
+							id="AgregarCartera_terminar" value="Agregar Cartera" onclick="gV()"
 							action="#{administrativo.agregarCartera()}" />
 					</h:panelGrid>
 				</div>

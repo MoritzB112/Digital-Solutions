@@ -10,12 +10,13 @@
 	<title>Eliminar autorización</title>
 	<h:outputStylesheet library="css" name="bootstrap.min.css" />
 	<h:outputScript library="js" name="bootstrap.bundle.min.js" />
+	<h:outputScript library="js" name="v.js" />
 
 	<link rel="stylesheet"
 		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 </h:head>
 
-<h:body>
+<h:body onload="rm()">
 
 	<h:form id="form_eliminar_autorizacion">
 
@@ -148,7 +149,7 @@
 
 
 					<p:column>
-						<p:commandButton id="Seleccionar_eliminarAutorizacion"
+						<p:commandButton id="Seleccionar_eliminarAutorizacion" onclick="gV()"
 							action="#{administrativo.eliminarAutorizacion(dato)}"
 							ajax="false" value="Seleccionar" />
 					</p:column>
