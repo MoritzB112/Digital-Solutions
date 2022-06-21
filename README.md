@@ -1,5 +1,6 @@
 # Bienvenido a Digital Solutions :computer: 
-En este repositorio podrás encontrar el proyecto final de la asignatura Sistemas de la Información para Internet de la Universidad de Málaga. Dicho proyecto consiste en la elaboración de una aplicación Web empresarial basada en Java EE.
+En este repositorio podrás encontrar nuestro proyecto finalista de la asignatura Sistemas de la Información para Internet de la Universidad de Málaga. Dicho proyecto consiste en la elaboración de una aplicación Web empresarial basada en Java EE siguiendo el modelo de finanzas tecnológicas 'Fintech' de la empresa Ebury.
+- Accede a la [presentación](https://github.com/MoritzB112/Digital-Solutions/blob/main/Presentation%20Slides/Slides%20Digital%20Solutions.pdf) para conocer de primera mano nuestro proyecto, la cual fue elaborada para su defensa ante el tribunal.
 
 ## 📌 Nuestro equipo
 - [Moritz Baader](https://github.com/MoritzB112)
